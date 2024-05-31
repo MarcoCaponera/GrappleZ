@@ -16,6 +16,8 @@ namespace GrappleZ_Player
         protected Collider playerPhysicsCollider;
         [SerializeField]
         protected Transform cameraPosition;
+        [SerializeField]
+        protected PlayerVisual playerVisual;
 
         #endregion
 
@@ -66,7 +68,7 @@ namespace GrappleZ_Player
             abilities = GetComponentsInChildren<PlayerAbilityBase>();
             foreach(var ability in abilities)
             {
-                ability.Init(this);
+                ability.Init(this, playerVisual);
                 ability.enabled = true;
             }
 #if DEBUG

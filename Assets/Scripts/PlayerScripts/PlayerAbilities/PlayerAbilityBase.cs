@@ -9,6 +9,7 @@ namespace GrappleZ_Player
         #region References
 
         protected PlayerController playerController;
+        protected PlayerVisual playerVisual;
 
         #endregion
 
@@ -33,9 +34,10 @@ namespace GrappleZ_Player
 
         #region VirtualMethods
 
-        public virtual void Init(PlayerController playerController)
+        public virtual void Init(PlayerController playerController, PlayerVisual playerVisual)
         {
             this.playerController = playerController;
+            this.playerVisual = playerVisual;
         }
 
         #endregion
