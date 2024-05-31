@@ -6,6 +6,17 @@ namespace GrappleZ_Player
 {
     public class Player : MonoBehaviour
     {
+        #region SerializeFields
+
+        #region References
+
+        [SerializeField]
+        private PlayerController playerController;
+
+        #endregion //References
+
+        #endregion //SerializeFields
+
         #region StaticMembers
         //player instance
         public static Player instance; 

@@ -6,7 +6,7 @@ namespace GrappleZ_Player
 {
     public class PlayerController : MonoBehaviour
     {
-        #region References
+        #region SerializeFields
 
         [SerializeField]
         protected Transform playerTransform;
@@ -47,17 +47,31 @@ namespace GrappleZ_Player
 
         #endregion
 
-        #region Abilities
+        #region PrivateAttributes
+
+        private PlayerAbilityBase[] abilities;
+
+        #endregion
+
+        #region AbilitiesParameters
 
         //to implement
 
-        #endregion 
+        #endregion
 
         #region Mono
 
         private void Awake()
         {
-            //abilites setup
+            abilities = GetComponentsInChildren<PlayerAbilityBase>();
+            foreach(var ability in abilities)
+            {
+                ability.Init(this);
+                ability.enabled = true;
+            }
+#if DEBUG
+            InitDebugEvents();
+#endif
         }
 
         #endregion
@@ -93,9 +107,35 @@ namespace GrappleZ_Player
 
         #endregion
 
+        #region PrivateMethods
+
+        private void DisableInput()
+        {
+            //disables input for all abilites
+            foreach (var ability in abilities)
+            {
+                ability.OnInputDisabled();
+            }
+        }
+
+        private void EnableInput()
+        {
+            //enables input for all abilites
+            foreach (var ability in abilities)
+            {
+                ability.OnInputEnabled();
+            }
+        }
+
+        #endregion
+
         #region DebugMethods
 
         //to implement
+        private void InitDebugEvents()
+        {
+            //to add
+        }
 
         #endregion
     }
