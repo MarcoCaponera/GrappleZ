@@ -1,0 +1,10 @@
+//Syntax rules
+
+-use regions
+-curly brackets: void Function_Name()
+		 {
+
+		 }
+-variable names: CamelCase (first letter is lowercase for private and local)
+-use namespaces
+-comment code wherever you can
