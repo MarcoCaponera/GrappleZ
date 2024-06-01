@@ -66,6 +66,12 @@ namespace GrappleZ_Player
             set; 
         }
 
+        public Vector3 GroundImpactNormal
+        {
+            get;
+            set;
+        }
+
         public Collider LastGroundCollider
         {
             get;
@@ -74,6 +80,19 @@ namespace GrappleZ_Player
 
         public Action OnGroundLanded;
         public Action OnGroundReleased;
+
+        #endregion
+
+        #region PlayerMovement
+
+        public Vector2 MovementDirection
+        {
+            get;
+            set;
+        }
+
+        public Action OnWalkStarted;
+        public Action OnWalkEnded;
 
         #endregion
 
@@ -100,7 +119,7 @@ namespace GrappleZ_Player
 
         //used to centralize rigidbody usage around the project
 
-        public Vector2 GetVelocity()
+        public Vector3 GetVelocity()
         {
             return playerRigidBody.velocity;
         }
@@ -156,6 +175,8 @@ namespace GrappleZ_Player
         {
             OnGroundLanded += () => { Debug.Log("OnGroundLanded"); };
             OnGroundReleased += () => { Debug.Log("OnGroundReleased"); };
+            OnWalkStarted += () => { Debug.Log("OnWalkStarted"); };
+            OnWalkEnded += () => { Debug.Log("OnWalkEnded"); };
         }
 
         #endregion

@@ -180,6 +180,8 @@ namespace GrappleZ_Player
             if (colliders.Length > 0)
             {
                 //temporary solution
+                Physics.Raycast(collisionPoint, Vector3.down, out RaycastHit hit, sphereRadius, groundLayer);
+                playerController.GroundImpactNormal = hit.normal;
                 LastGroundCollider = colliders[0];
             }
             else
