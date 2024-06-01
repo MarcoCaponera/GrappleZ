@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,7 +58,24 @@ namespace GrappleZ_Player
 
         #region AbilitiesParameters
 
-        //to implement
+        #region PlayerCollisionDetection
+
+        public bool IsGrounded 
+        { 
+            get; 
+            set; 
+        }
+
+        public Collider LastGroundCollider
+        {
+            get;
+            set;
+        }
+
+        public Action OnGroundLanded;
+        public Action OnGroundReleased;
+
+        #endregion
 
         #endregion
 
@@ -136,7 +154,8 @@ namespace GrappleZ_Player
         //to implement
         private void InitDebugEvents()
         {
-            //to add
+            OnGroundLanded += () => { Debug.Log("OnGroundLanded"); };
+            OnGroundReleased += () => { Debug.Log("OnGroundReleased"); };
         }
 
         #endregion
