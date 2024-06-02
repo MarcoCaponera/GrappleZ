@@ -16,6 +16,8 @@ namespace GrappleZ_Player
         private float maxAerialSpeed;
         [SerializeField]
         private float aerialAcceleration;
+        [SerializeField]
+        private float frictionForce;
 
         #endregion
 
@@ -59,20 +61,46 @@ namespace GrappleZ_Player
             wasWalking = false;
         }
 
-        protected void FixedUpdate()
+        protected void Update()
         {
             if (isPrevented) return;
             FillDirectionFromInput();
-            if(playerController.MovementDirection != Vector2.zero)
+            HandleEvents();
+        }
+
+        protected void FixedUpdate()
+        {
+            if (isPrevented) return;
+            if (playerController.MovementDirection != Vector2.zero)
             {
                 Move();
             }
-            HandleEvents();
+            else
+            {
+                ApplyFriction();
+            }    
         }
 
         #endregion
 
         #region InternalMethods
+
+        protected void ApplyFriction()
+        {
+            if (playerController.GetVelocity() != Vector3.zero && playerController.IsGrounded)
+            {
+                Vector3 frictionDirection = -playerController.GetVelocity().normalized;
+                if (playerController.GetVelocity().sqrMagnitude <= 0.1f)
+                {
+                    playerController.SetVelocity(Vector3.zero);
+                }
+                else
+                {
+
+                    playerController.AddRigidBodyForce(frictionDirection * frictionForce, ForceMode.Force);
+                }
+            }
+        }
 
         protected void FillDirectionFromInput()
         {
