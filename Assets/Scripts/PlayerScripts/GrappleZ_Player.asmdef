@@ -2,7 +2,8 @@
     "name": "GrappleZ_Player",
     "rootNamespace": "",
     "references": [
-        "GUID:a503000e86a3da54ea7e1dba5e7e7f94"
+        "GUID:a503000e86a3da54ea7e1dba5e7e7f94",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

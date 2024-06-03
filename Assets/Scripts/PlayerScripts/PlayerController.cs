@@ -16,7 +16,7 @@ namespace GrappleZ_Player
         [SerializeField]
         protected Collider playerPhysicsCollider;
         [SerializeField]
-        protected Transform cameraPosition;
+        protected Transform cameraTransform;
         [SerializeField]
         protected PlayerVisual playerVisual;
 
@@ -32,11 +32,11 @@ namespace GrappleZ_Player
             }
         }
 
-        public Transform CameraPosition
+        public Transform CameraTransform
         {
             get
             {
-                return cameraPosition;
+                return cameraTransform;
             }
         }
 
@@ -93,6 +93,19 @@ namespace GrappleZ_Player
 
         public Action OnWalkStarted;
         public Action OnWalkEnded;
+
+        #endregion
+
+        #region PlayerHook
+
+        public bool IsHooking
+        {
+            get;
+            set;
+        }
+
+        public Action OnHookStarted;
+        public Action OnHookReleased;
 
         #endregion
 

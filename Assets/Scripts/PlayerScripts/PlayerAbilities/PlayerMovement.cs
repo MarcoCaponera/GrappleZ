@@ -87,7 +87,7 @@ namespace GrappleZ_Player
 
         protected void ApplyFriction()
         {
-            if (playerController.GetVelocity() != Vector3.zero && playerController.IsGrounded)
+            if (playerController.GetVelocity() != Vector3.zero && playerController.IsGrounded && !playerController.IsHooking)
             {
                 Vector3 frictionDirection = -playerController.GetVelocity().normalized;
                 if (playerController.GetVelocity().sqrMagnitude <= 0.1f)
