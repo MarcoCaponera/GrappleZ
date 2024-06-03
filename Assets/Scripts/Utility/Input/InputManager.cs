@@ -22,6 +22,11 @@ namespace GrappleZ_Utility
             return input.Player.Move.ReadValue<Vector2>();
         }
 
+        public static Vector2 PlayerLook()
+        {
+            return input.Player.Look.ReadValue<Vector2>();
+        }
+
         public static void ManageHookSubscription(Action<InputAction.CallbackContext> action, bool add)
         {
             if (add)

@@ -96,6 +96,22 @@ namespace GrappleZ_Player
 
         #endregion
 
+        #region PlayerLook
+        public float HorizontalRotation
+        {
+            get;
+            set;
+        }
+        public float VerticalCameraRotation
+        {
+            get;
+            set;
+        }
+
+        public Action OnCameraRotated;
+
+        #endregion
+
         #region PlayerHook
 
         public bool IsHooking
@@ -190,6 +206,7 @@ namespace GrappleZ_Player
             OnGroundReleased += () => { Debug.Log("OnGroundReleased"); };
             OnWalkStarted += () => { Debug.Log("OnWalkStarted"); };
             OnWalkEnded += () => { Debug.Log("OnWalkEnded"); };
+            OnCameraRotated += () => { Debug.Log("OnCameraRotated (X " + HorizontalRotation + ": Y " + VerticalCameraRotation); };
         }
 
         #endregion
