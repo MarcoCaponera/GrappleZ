@@ -1,3 +1,16 @@
 {
-	"name": "GrappleZ_Enemy"
+    "name": "GrappleZ_Enemy",
+    "rootNamespace": "",
+    "references": [
+        "GUID:87d95790c53dfec469eb21cb2e9edb89"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

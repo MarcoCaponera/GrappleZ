@@ -1,48 +1,62 @@
 using System;
 using UnityEngine;
+using UnityEngine.Pool;
+using GrappleZ_Player;
 using UnityEngine.AI;
 using UnityEngine.Experimental.GlobalIllumination;
 
 public class Enemy : MonoBehaviour
 {
     public NavMeshAgent agent;
+    public Animator anim;
     public Transform player;
     public Transform lookPoint;
     public LayerMask IsGroundLayer, IsPlayerLayer;
-
-    [Header("Enemy Healt and Damage")]
-
-    private float healt = 10;
-    private float currentHealt;
-
-    public float damage = 5f;
     public Camera AttackingRaycastArea;
-    public float timeBetweenAttack;
-    bool hasAttacked;
-
-
-
+    public GameObject[] WalkPoints;
 
 
     [Header("Enemy variables")]
-    public GameObject[] WalkPoints;
-    private int currentPosition = 0;
-    public float walkingPointRadius = 2;
-    public float enemySpeed;
+    [SerializeField]
+    private float healt = 10;
+    private float currentHealt;
 
+    [SerializeField]
+    private float damage = 5f;
+    [SerializeField]
+    private float timeBetweenAttack;
+    [SerializeField]
+    private float enemySpeed = 10;
+
+    bool hasAttacked = false;
+    private int currentPosition = 0;
+    private float walkingPointRadius = 5;
 
     [Header("Enemy States")]
-    public float visionRadius;
-    public float attackingRadius;
-    public bool playerInVisionRadius;
-    public bool playerInAttackingRadius;
+    [SerializeField]
+    private float visionRadius = 15;
+    [SerializeField]
+    private float attackingRadius = 2;
+    private bool playerInVisionRadius;
+    private bool playerInAttackingRadius;
+
+    ///ENEMY-POOL///
+    private IObjectPool<Enemy> enemyPool;
+
+    public void SetPool(IObjectPool<Enemy> enemyPool)
+    {
+        this.enemyPool = enemyPool;
+    }
+
+
 
     private void Awake()
     {
         currentHealt = healt;
         agent = GetComponent<NavMeshAgent>();
-    }
+        player = FindObjectOfType<Player>().transform;
 
+    }
     private void Update()
     {
         if (agent != null)
@@ -50,7 +64,7 @@ public class Enemy : MonoBehaviour
             playerInVisionRadius = Physics.CheckSphere(transform.position, visionRadius, IsPlayerLayer);
             playerInAttackingRadius = Physics.CheckSphere(transform.position, attackingRadius, IsPlayerLayer);
 
-            if (!playerInVisionRadius && !playerInAttackingRadius) Guard();
+            if (!playerInVisionRadius && !playerInAttackingRadius) Patrol();
             if (playerInVisionRadius && !playerInAttackingRadius) Chase();
             if (playerInVisionRadius && playerInAttackingRadius) Attack();
 
@@ -68,12 +82,16 @@ public class Enemy : MonoBehaviour
             RaycastHit hitInfo;
             if (Physics.Raycast(AttackingRaycastArea.transform.position, AttackingRaycastArea.transform.forward, out hitInfo, attackingRadius)) 
             {
-                Debug.Log("Attacking");
+                Debug.Log("Attacking" + hitInfo.transform.name);
                 if (!hitInfo.collider.CompareTag("Player")) return;
                 Debug.Log("PlayerGetDamage");
-            
                 
             }
+            anim.SetBool("Walking", false);
+            anim.SetBool("Idle", false);
+            anim.SetBool("Attacking", true);
+            anim.SetBool("Dead", false);
+
             hasAttacked = true;
             Invoke(nameof(ActiveAttacking), timeBetweenAttack);
         }
@@ -82,14 +100,31 @@ public class Enemy : MonoBehaviour
     private void ActiveAttacking()
     {
         hasAttacked = false;
+        anim.SetBool("Attacking", false);
+
+
     }
 
     private void Chase()
     {
-        agent.SetDestination(player.position);
+        if (agent.SetDestination(player.position))
+        {
+            anim.SetBool("Walking", true);
+            anim.SetBool("Idle", false);
+            anim.SetBool("Attacking", false);
+            anim.SetBool("Dead", false);
+        }
+        else
+        {
+            anim.SetBool("Walking", false);
+            anim.SetBool("Idle", true);
+            anim.SetBool("Attacking", false);
+            anim.SetBool("Dead", false);
+        }
+        
     }
 
-    private void Guard()
+    private void Patrol()
     {
         if (Vector3.Distance(WalkPoints[currentPosition].transform.position, transform.position)<walkingPointRadius)
         {
@@ -110,10 +145,13 @@ public class Enemy : MonoBehaviour
         currentHealt -= dmg;
         if (currentHealt <= 0)
         {
+            anim.SetBool("Walking", false);
+            anim.SetBool("Idle", false);
+            anim.SetBool("Attacking", false);
+            anim.SetBool("Dead", true);
             Die();
         }
     }
-
     private void Die()
     {
         agent.SetDestination(transform.position);
@@ -122,6 +160,8 @@ public class Enemy : MonoBehaviour
         visionRadius = 0;
         playerInAttackingRadius = false;
         playerInVisionRadius = false;
-        Destroy(gameObject, 5f);
+
+        enemyPool.Release(this);
+        //Destroy(gameObject, 5f);
     }
 }
