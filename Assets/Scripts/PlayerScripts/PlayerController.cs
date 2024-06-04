@@ -16,7 +16,7 @@ namespace GrappleZ_Player
         [SerializeField]
         protected Collider playerPhysicsCollider;
         [SerializeField]
-        protected Transform cameraPosition;
+        protected Transform cameraTransform;
         [SerializeField]
         protected PlayerVisual playerVisual;
 
@@ -32,11 +32,11 @@ namespace GrappleZ_Player
             }
         }
 
-        public Transform CameraPosition
+        public Transform CameraTransform
         {
             get
             {
-                return cameraPosition;
+                return cameraTransform;
             }
         }
 
@@ -66,6 +66,12 @@ namespace GrappleZ_Player
             set; 
         }
 
+        public Vector3 GroundImpactNormal
+        {
+            get;
+            set;
+        }
+
         public Collider LastGroundCollider
         {
             get;
@@ -74,6 +80,48 @@ namespace GrappleZ_Player
 
         public Action OnGroundLanded;
         public Action OnGroundReleased;
+
+        #endregion
+
+        #region PlayerMovement
+
+        public Vector2 MovementDirection
+        {
+            get;
+            set;
+        }
+
+        public Action OnWalkStarted;
+        public Action OnWalkEnded;
+
+        #endregion
+
+        #region PlayerLook
+        public float HorizontalRotation
+        {
+            get;
+            set;
+        }
+        public float VerticalCameraRotation
+        {
+            get;
+            set;
+        }
+
+        public Action OnCameraRotated;
+
+        #endregion
+
+        #region PlayerHook
+
+        public bool IsHooking
+        {
+            get;
+            set;
+        }
+
+        public Action OnHookStarted;
+        public Action OnHookReleased;
 
         #endregion
 
@@ -100,7 +148,7 @@ namespace GrappleZ_Player
 
         //used to centralize rigidbody usage around the project
 
-        public Vector2 GetVelocity()
+        public Vector3 GetVelocity()
         {
             return playerRigidBody.velocity;
         }
@@ -156,6 +204,9 @@ namespace GrappleZ_Player
         {
             OnGroundLanded += () => { Debug.Log("OnGroundLanded"); };
             OnGroundReleased += () => { Debug.Log("OnGroundReleased"); };
+            OnWalkStarted += () => { Debug.Log("OnWalkStarted"); };
+            OnWalkEnded += () => { Debug.Log("OnWalkEnded"); };
+            OnCameraRotated += () => { Debug.Log("OnCameraRotated (X " + HorizontalRotation + ": Y " + VerticalCameraRotation); };
         }
 
         #endregion

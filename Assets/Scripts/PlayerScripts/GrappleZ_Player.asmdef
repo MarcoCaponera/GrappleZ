@@ -1,3 +1,17 @@
 {
-	"name": "GrappleZ_Player"
+    "name": "GrappleZ_Player",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a503000e86a3da54ea7e1dba5e7e7f94",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
