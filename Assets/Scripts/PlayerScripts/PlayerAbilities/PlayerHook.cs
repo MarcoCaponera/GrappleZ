@@ -73,7 +73,7 @@ namespace Grapple_Player
         {
             if (hookCoroutine != null) StopCoroutine(hookCoroutine);
             lineRenderer.enabled = false;
-            playerController.OnHookReleased.Invoke();
+            playerController.OnHookReleased?.Invoke();
             playerController.IsHooking = false;
             hookState = HookState.None;
         }
