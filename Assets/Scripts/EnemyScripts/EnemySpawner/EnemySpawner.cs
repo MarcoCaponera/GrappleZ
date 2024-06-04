@@ -20,7 +20,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Awake()
     {
-        enemyPool = new ObjectPool<Enemy>(CreateEnemy);
+        enemyPool = new ObjectPool<Enemy>(CreateEnemy, OnGet, OnRelease);
     }
 
     private Enemy CreateEnemy()
@@ -29,6 +29,20 @@ public class EnemySpawner : MonoBehaviour
         enemy.SetPool(enemyPool);
         return enemy;
     }
+
+    private void OnGet(Enemy enemy)
+    {
+        enemy.gameObject.SetActive(true);
+        Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        enemy.transform.position = randomSpawnPoint.position;
+    }
+
+    private void OnRelease(Enemy enemy)
+    {
+        enemy.gameObject.SetActive(false);
+
+    }
+
 
     private void Update()
     {
