@@ -3568,7 +3568,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6991210626972101030
 Transform:
   m_ObjectHideFlags: 0
@@ -5566,7 +5566,7 @@ MonoBehaviour:
   IsPlayerLayer:
     serializedVersion: 2
     m_Bits: 0
-  AttackingRaycastArea: {fileID: 0}
+  AttackingRaycastArea: {fileID: 536524282329411965}
   WalkPoints: []
   healt: 10
   damage: 5
