@@ -36,5 +36,15 @@ namespace GrappleZ_Utility
             }
             input.Player.Hook.performed -= action;
         }
+
+        public static void ManageShootSubscription(Action<InputAction.CallbackContext> action, bool add)
+        {
+            if (add)
+            {
+                input.Player.Shoot.performed += action;
+                return;
+            }
+            input.Player.Shoot.performed -= action;
+        }
     }
 }
