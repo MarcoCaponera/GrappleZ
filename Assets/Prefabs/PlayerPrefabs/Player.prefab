@@ -267,10 +267,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82014d3c7e09e094c9070735b890aa7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hookRange: 30
-  hookLaunchSpeed: 50
-  hookReturnSpeed: 70
-  hookPullForce: 50
+  hookRange: 50
+  hookLaunchSpeed: 100
+  hookReturnSpeed: 150
+  hookPullForce: 30
   initialLaunchForce: 10
   collisionRadius: 0.2
   detachRadius: 5
@@ -433,7 +433,7 @@ MonoBehaviour:
   bulletsPerBrust: 3
   burstBuletLeft: 0
   recoilIntesity: 5
-  knockBackForce: 10
+  knockBackForce: 1
   bulletPrefab: {fileID: 6987734286842340342, guid: 229e42068207c124bbb268ef3520959a, type: 3}
   bulletSpawn: {fileID: 4866481770532134564}
   bulletSpeed: 30
@@ -587,8 +587,56 @@ Transform:
   - {fileID: 7873746421915187628}
   - {fileID: 5730933862134268066}
   - {fileID: 2312491521791622077}
+  - {fileID: 7088527597407131602}
   m_Father: {fileID: 4866481770532134564}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3915634518124631233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7088527597407131602}
+  - component: {fileID: 3065784734820124505}
+  m_Layer: 6
+  m_Name: SpeedControl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7088527597407131602
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915634518124631233}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1906242950691296610}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3065784734820124505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915634518124631233}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da53a5ed70fc8a349a324fdecab51b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxAerialSpeed: 30
+  maxGroundSpeed: 10
+  eventSpeed: 0
 --- !u!1 &4105068442269567951
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,6 +801,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundSpeed: 3
-  maxAerialSpeed: 10
   aerialAcceleration: 10
-  frictionForce: 5
+  frictionForce: 0

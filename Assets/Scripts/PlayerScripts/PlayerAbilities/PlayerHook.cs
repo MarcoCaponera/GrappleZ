@@ -6,11 +6,14 @@ using GrappleZ_Utility;
 using UnityEngine.InputSystem;
 using Codice.Client.Commands.TransformerRule;
 using System.Runtime.CompilerServices;
+using PlasticPipe.PlasticProtocol.Messages;
 
 namespace Grapple_Player
 {
     public class PlayerHook : PlayerAbilityBase
     {
+        private const float angleThreshold = 90;
+
         #region SerializeFields
 
         [SerializeField]
@@ -115,6 +118,14 @@ namespace Grapple_Player
             hookCoroutine = StartCoroutine(HookCoroutine());
         }
 
+        protected void CalculateNewVelocity(Vector3 pullPoint)
+        {
+            Vector3 velocityVectorNeg = playerController.GetVelocity();
+            Vector3 pullVectorNorm = (pullPoint - playerController.PlayerTransform.position).normalized;
+            Vector3 reflectedVector = Vector3.Reflect(velocityVectorNeg, pullVectorNorm);
+            playerController.SetVelocity(reflectedVector + pullVectorNorm * hookPullForce);
+        }
+
         #endregion
 
         #region Callbacks
@@ -137,7 +148,6 @@ namespace Grapple_Player
         protected IEnumerator HookCoroutine()
         {
             playerController.IsHooking = true;
-            playerController.OnHookStarted?.Invoke();
             lineRenderer.enabled = true;
             Vector3 direction = playerController.CameraTransform.forward;
             float currentLength = 0;
@@ -168,6 +178,8 @@ namespace Grapple_Player
                 //pull logic
                 hookState = HookState.Pull;
                 lineRenderer.SetPosition(1, hitPoint);
+                playerController.OnHookLanded?.Invoke();
+                CalculateNewVelocity(hitPoint);
                 if (playerController.IsGrounded)
                 {
                     playerController.AddRigidBodyForce(Vector3.up * initialLaunchForce, ForceMode.Impulse);
@@ -175,9 +187,9 @@ namespace Grapple_Player
                 float distance = float.MaxValue;
                 while(distance > sqDetachRadius)
                 {
+                    CalculateNewVelocity(hitPoint);
                     direction = hitPoint - gameObject.transform.position;
                     distance = direction.sqrMagnitude;
-                    playerController.AddRigidBodyForce(direction.normalized * hookPullForce, ForceMode.Acceleration);
                     lineRenderer.SetPosition(0, gameObject.transform.position);
                     yield return wfFixedUpdate;
                 }
@@ -188,7 +200,7 @@ namespace Grapple_Player
                 float distance = float.MaxValue;
                 Vector3 returnDirection = gameObject.transform.position - hookPosition;
                 hookState = HookState.Return;
-                while (distance >= 0.5f)
+                while (distance >= 1f)
                 {
                     hookPosition = hookPosition + hookReturnSpeed * returnDirection.normalized * Time.deltaTime;
                     returnDirection = gameObject.transform.position - hookPosition; 

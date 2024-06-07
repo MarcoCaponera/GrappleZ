@@ -120,7 +120,7 @@ namespace GrappleZ_Player
             set;
         }
 
-        public Action OnHookStarted;
+        public Action OnHookLanded;
         public Action OnHookReleased;
 
         #endregion
