@@ -197,6 +197,24 @@ namespace GrappleZ_Player
 
         #endregion
 
+        #region HealthModule
+        private bool isDead;
+        public Action<DamageContainer> OnDamageTaken;
+        public Action OnDeath;
+        public bool IsDead
+        {
+            get
+            {
+                return isDead;
+            }
+            set
+            {
+                isDead = value;
+                //playerVisual.SetAnimatorParameter(isDeadAnimatorParameter, value); TO ADD ANIMATIONS
+            }
+        }
+        #endregion
+
         #region DebugMethods
 
         //to implement
