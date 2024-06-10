@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Crosshair/Resources/CrosshairUSS.uss?fileID=7433441132597879392&amp;guid=a32704766aad92d469ace1777c58e362&amp;type=3#CrosshairUSS" />
+    <ui:VisualElement name="Container" style="flex-grow: 1;">
+        <ui:VisualElement name="Top" style="flex-grow: 1; flex-basis: 20%;" />
+        <ui:VisualElement name="Center" style="flex-grow: 1; flex-basis: 60%; transform-origin: center;">
+            <ui:VisualElement name="Crosshair" class="Crosshair" style="flex-grow: 0; flex-basis: auto; height: 50px; width: 50px; transform-origin: center; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; position: relative; top: 50%; left: 50%;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Bottom" style="flex-grow: 0; flex-basis: 20%;" />
+    </ui:VisualElement>
+</ui:UXML>
