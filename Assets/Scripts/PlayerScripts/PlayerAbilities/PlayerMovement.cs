@@ -13,8 +13,6 @@ namespace GrappleZ_Player
         [SerializeField]
         private float groundSpeed;
         [SerializeField]
-        private float maxAerialSpeed;
-        [SerializeField]
         private float aerialAcceleration;
         [SerializeField]
         private float frictionForce;
@@ -49,7 +47,6 @@ namespace GrappleZ_Player
         public override void Init(PlayerController playerController, PlayerVisual playerVisual)
         {
             base.Init(playerController, playerVisual);
-            sqMaxAerialSpeed = maxAerialSpeed * maxAerialSpeed;
         }
 
         #endregion
@@ -119,7 +116,7 @@ namespace GrappleZ_Player
         protected void AerialMove()
         {
             Vector3 velocityVector = transform.right * playerController.MovementDirection.x + transform.forward * playerController.MovementDirection.y;
-            velocityVector = velocityVector.normalized * aerialAcceleration + Vector3.up * playerController.GetVelocity().z;
+            velocityVector = velocityVector.normalized * aerialAcceleration;
             playerController.AddRigidBodyForce(velocityVector, ForceMode.Acceleration);
         }
 
@@ -149,5 +146,6 @@ namespace GrappleZ_Player
             wasWalking = isWalking;
         }
         #endregion
+
     }
 }
