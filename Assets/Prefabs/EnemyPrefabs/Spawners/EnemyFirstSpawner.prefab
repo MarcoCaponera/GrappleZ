@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 3569942592691351676}
   - component: {fileID: 1739012566517163360}
   m_Layer: 0
-  m_Name: Spawner
+  m_Name: EnemyFirstSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,10 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5526addd85c47b046977f151458bc5b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints:
-  - {fileID: 6083880210901069337}
-  - {fileID: 6470200899369353705}
-  - {fileID: 5085005292167646701}
-  - {fileID: 5391571647262442570}
-  timeBetweenSpawns: 4
+  spawnPoints: []
+  timeBetweenSpawns: 0
+  spawnCount: 0
   enemyPrefab: {fileID: 2129018823105560109, guid: f0c0351bc2684b74eb7b33f0bb493632, type: 3}
