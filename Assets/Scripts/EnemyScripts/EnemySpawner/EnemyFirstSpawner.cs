@@ -3,41 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemyFirstSpawner : MonoBehaviour
 {
     [SerializeField]
     private Transform[] spawnPoints;
     
     [SerializeField]
     private float timeBetweenSpawns;
+    [SerializeField]
+    private int spawnCount;
 
     private float timeSinceLastSpawn;
 
     [SerializeField]
-    private Enemy enemyPrefab;
+    private EnemyFirst enemyPrefab;
 
-    private IObjectPool<Enemy> enemyPool;
+
+    private IObjectPool<EnemyFirst> enemyPool;
 
     private void Awake()
     {
-        enemyPool = new ObjectPool<Enemy>(CreateEnemy, OnGet, OnRelease);
+        enemyPool = new ObjectPool<EnemyFirst>(CreateEnemy, OnGet, OnRelease);
     }
 
-    private Enemy CreateEnemy()
+    private EnemyFirst CreateEnemy()
     {
-        Enemy enemy = Instantiate(enemyPrefab);
+        EnemyFirst enemy = Instantiate(enemyPrefab);
         enemy.SetPool(enemyPool);
         return enemy;
     }
 
-    private void OnGet(Enemy enemy)
+    private void OnGet(EnemyFirst enemy)
     {
         enemy.gameObject.SetActive(true);
         Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
         enemy.transform.position = randomSpawnPoint.position;
     }
 
-    private void OnRelease(Enemy enemy)
+    private void OnRelease(EnemyFirst enemy)
     {
         enemy.gameObject.SetActive(false);
 
@@ -46,11 +49,12 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        if (Time.time > timeSinceLastSpawn)
+        if (Time.time > timeSinceLastSpawn && spawnCount != 0)
         {
             //SPAWN
             enemyPool.Get();
             timeSinceLastSpawn = Time.time + timeBetweenSpawns; 
+            spawnCount -= 1;
         }
     }
 }
