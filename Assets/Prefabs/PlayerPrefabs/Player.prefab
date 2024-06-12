@@ -270,7 +270,7 @@ MonoBehaviour:
   hookRange: 50
   hookLaunchSpeed: 100
   hookReturnSpeed: 150
-  hookPullForce: 30
+  hookPullForce: 2
   initialLaunchForce: 10
   collisionRadius: 0.2
   detachRadius: 5
@@ -801,5 +801,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundSpeed: 3
-  aerialAcceleration: 10
+  aerialAcceleration: 30
   frictionForce: 0

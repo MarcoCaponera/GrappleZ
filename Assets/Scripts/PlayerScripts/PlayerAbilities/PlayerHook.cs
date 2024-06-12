@@ -120,10 +120,24 @@ namespace Grapple_Player
 
         protected void CalculateNewVelocity(Vector3 pullPoint)
         {
+            Vector3 pullVector = pullPoint - playerController.PlayerTransform.position;
             Vector3 velocityVectorNeg = playerController.GetVelocity();
-            Vector3 pullVectorNorm = (pullPoint - playerController.PlayerTransform.position).normalized;
+            if (pullVector.sqrMagnitude <= (pullVector + velocityVectorNeg).sqrMagnitude) return;
+            Vector3 pullVectorNorm = pullVector.normalized;
             Vector3 reflectedVector = Vector3.Reflect(velocityVectorNeg, pullVectorNorm);
-            playerController.SetVelocity(reflectedVector + pullVectorNorm * hookPullForce);
+            float perc = 1f;
+            Vector3 sumVector = velocityVectorNeg + reflectedVector;
+            Vector3 maxVector = velocityVectorNeg * 2;
+            float maxLen = maxVector.sqrMagnitude;
+            float sumLen = sumVector.sqrMagnitude;
+            perc = sumLen / maxLen; 
+            playerController.SetVelocity((reflectedVector * perc) + pullVectorNorm * hookPullForce);
+        }
+
+        protected void ApplyPull(Vector3 pullPoint)
+        {
+            Vector3 pullVectorNorm = (pullPoint - playerController.PlayerTransform.position).normalized;
+            playerController.SetVelocity(playerController.GetVelocity() + pullVectorNorm * hookPullForce);
         }
 
         #endregion
@@ -152,7 +166,7 @@ namespace Grapple_Player
             Vector3 direction = playerController.CameraTransform.forward;
             float currentLength = 0;
             bool hit = false;
-            Vector3 hookPosition = gameObject.transform.position;
+            Vector3 hookPosition = playerController.CameraTransform.position;
             Vector3 hitPoint = Vector2.zero;
             WaitForFixedUpdate wfFixedUpdate = new WaitForFixedUpdate();
             hookState = HookState.Launch;
@@ -187,7 +201,8 @@ namespace Grapple_Player
                 float distance = float.MaxValue;
                 while(distance > sqDetachRadius)
                 {
-                    CalculateNewVelocity(hitPoint);
+                    //CalculateNewVelocity(hitPoint);
+                    ApplyPull(hitPoint);
                     direction = hitPoint - gameObject.transform.position;
                     distance = direction.sqrMagnitude;
                     lineRenderer.SetPosition(0, gameObject.transform.position);
@@ -200,7 +215,7 @@ namespace Grapple_Player
                 float distance = float.MaxValue;
                 Vector3 returnDirection = gameObject.transform.position - hookPosition;
                 hookState = HookState.Return;
-                while (distance >= 1f)
+                while (distance >= 2f)
                 {
                     hookPosition = hookPosition + hookReturnSpeed * returnDirection.normalized * Time.deltaTime;
                     returnDirection = gameObject.transform.position - hookPosition; 
