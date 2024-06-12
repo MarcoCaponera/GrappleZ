@@ -14,5 +14,16 @@ namespace GrappleZ_Player
                 Destroy(gameObject);
             }
         }
+
+        /*[SerializeField]
+        private DamageContainer damage;
+        [SerializeField]
+        private string damagebleTag;*/
+
+        /*if (!other.CompareTag(damagebleTag)) return;
+        IDamageble damageble = other.GetComponent<IDamageble>();
+        if (damageble == null) return;
+        damage.SetContactPoint(other.ClosestPoint(transform.position));
+        damageble.TakeDamage(damage);*/
     }
 }

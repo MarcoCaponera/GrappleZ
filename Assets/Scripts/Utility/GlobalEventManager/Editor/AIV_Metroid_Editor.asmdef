@@ -1,12 +1,13 @@
 {
-    "name": "GrappleZ_Player",
+    "name": "AIV_Metroid_Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:a503000e86a3da54ea7e1dba5e7e7f94",
-        "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:75ce9906e9bebed47a84be327bfe2426"
+        "GUID:68a2cdd032371dc45a5119e9466a2769",
+        "GUID:45b8700d5fe4d444caaf2481499cd66b"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
