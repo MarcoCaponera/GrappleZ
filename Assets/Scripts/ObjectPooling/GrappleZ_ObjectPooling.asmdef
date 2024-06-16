@@ -1,3 +1,16 @@
 {
-	"name": "GrappleZ_ObjectPooling"
+    "name": "GrappleZ_ObjectPooling",
+    "rootNamespace": "",
+    "references": [
+        "GUID:9c494e94edeb88a48bc7bba251d3477b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

@@ -125,6 +125,16 @@ namespace GrappleZ_Player
 
         #endregion
 
+        #region PlayerShoot
+
+        public bool IsShooting
+        {
+            get;
+            set;
+        }
+
+        #endregion
+
         #endregion
 
         #region Mono

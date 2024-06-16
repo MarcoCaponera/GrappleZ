@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 752134c1383fe694686c5aa85126cd6d, type: 3}
+  m_Name: ShotGunData
+  m_EditorClassIdentifier: 
+  weaponType: 1
+  shootType: 0
+  magAmmo: 10
+  damage: 5
+  bulletTime: 0.2
+  bulletSpeed: 100
+  shootDelay: 1
+  reloadTime: 5
+  recoilAmount: 0.1
+  bulletData: {fileID: 11400000, guid: 1d6e90bac76dbe146af954bf9bee2cf9, type: 2}
+  shootMode: 1
+  bulletsPerShot: 8
+  knockBackForce: 50
