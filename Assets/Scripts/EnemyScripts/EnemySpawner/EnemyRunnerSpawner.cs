@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Pool;
 
 public class EnemyRunnerSpawner : MonoBehaviour
@@ -36,6 +37,9 @@ public class EnemyRunnerSpawner : MonoBehaviour
     private void OnGet(EnemyRunner enemy)
     {
         enemy.gameObject.SetActive(true);
+        
+        
+
         Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
         enemy.transform.position = randomSpawnPoint.position;
     }

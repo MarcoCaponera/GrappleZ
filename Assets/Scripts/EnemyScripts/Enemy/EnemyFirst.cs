@@ -1,56 +1,59 @@
-using GrappleZ_Player;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Pool;
+using GrappleZ_Player;
+using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
-public class EnemyRunner : MonoBehaviour
+
+public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
 {
     public NavMeshAgent agent;
-    private Animator anim;
-    private Transform player;
-    public Transform lookPoint;
+    protected Animator anim;
+    protected Transform player;
+    [SerializeField]
+    protected Transform lookPoint;
     public LayerMask IsPlayerLayer;
     public Camera AttackingRaycastArea;
 
     [Header("Enemy variables")]
     [SerializeField]
     private float healt;
+    private float currentHealt;
+
     [SerializeField]
     private float damage;
     [SerializeField]
-    private float timeBetweenAttack;
+    protected float timeBetweenAttack;
     [SerializeField]
     private float enemySpeed;
+
+    protected bool hasAttacked = false;
+
     [SerializeField]
-    private float attackingRadius;
-
-    bool hasAttacked = false;
-
-    private float currentHealt;
+    protected float attackingRadius;
 
     private bool playerInAttackingRadius;
 
-    ///ENEMY-POOL///
-    private IObjectPool<EnemyRunner> enemyPool;
+    /////ENEMY-POOL///
+    //private IObjectPool<EnemyFirst> enemyPool;
 
-    public void SetPool(IObjectPool<EnemyRunner> enemyPool)
-    {
-        this.enemyPool = enemyPool;
-    }
+    //public void SetPool(IObjectPool<EnemyFirst> enemyPool)
+    //{
+    //    this.enemyPool = enemyPool;
+    //}
 
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.speed = enemySpeed;
-        agent.acceleration = enemySpeed;
-        agent.stoppingDistance = attackingRadius;
+        agent.stoppingDistance = attackingRadius+2;
+
         anim = GetComponent<Animator>();
         currentHealt = healt;
         player = FindObjectOfType<Player>().transform;
-
+        lookPoint = player.Find("LookPointForEnemies");
 
 
     }
@@ -65,7 +68,7 @@ public class EnemyRunner : MonoBehaviour
         }
     }
 
-    private void Attack()
+    protected virtual void Attack()
     {
         //agent.SetDestination(transform.position);
 
@@ -74,11 +77,21 @@ public class EnemyRunner : MonoBehaviour
         if (!hasAttacked)
         {
             RaycastHit hitInfo;
-            if (Physics.Raycast(AttackingRaycastArea.transform.position, AttackingRaycastArea.transform.forward, out hitInfo, attackingRadius))
+            if (Physics.Raycast(AttackingRaycastArea.transform.position, AttackingRaycastArea.transform.forward, out hitInfo, attackingRadius)) 
             {
                 Debug.Log("Attacking" + hitInfo.transform.name);
                 if (!hitInfo.collider.CompareTag("Player")) return;
-                Debug.Log("PLAYER GET DAMAGE");
+
+                IDamageble damageble = hitInfo.collider.gameObject.GetComponent<IDamageble>();
+                if (damageble != null)
+                {
+                    DamageContainer damageContainer = new DamageContainer();
+                    damageContainer.Damage = damage;
+                    
+                    damageble.TakeDamage(damageContainer);
+
+                }
+                
 
             }
 
@@ -102,8 +115,8 @@ public class EnemyRunner : MonoBehaviour
 
     private void Chase()
     {
-        agent.SetDestination(player.position);
-        if (agent.SetDestination(player.position))
+        SetAgentDestination();
+        if (SetAgentDestination())
         {
             anim.SetBool("Walking", true);
             anim.SetBool("Idle", false);
@@ -117,11 +130,40 @@ public class EnemyRunner : MonoBehaviour
             anim.SetBool("Attacking", false);
             anim.SetBool("Dead", false);
         }
-
+        
     }
 
+    private bool SetAgentDestination()
+    {
+        if (agent.isOnNavMesh)
+        {
+            agent.SetDestination(player.position);
+            return true;
+        }
+        else
+        {
+            Debug.LogError("Agent is not on a NavMesh");
+            return false;
+        }
+    }
 
-    public void TakeDamage(float dmg)
+    //private void Patrol()
+    //{
+    //    if (Vector3.Distance(WalkPoints[currentPosition].transform.position, transform.position)<walkingPointRadius)
+    //    {
+    //        currentPosition = UnityEngine.Random.Range(0, WalkPoints.Length);
+    //        if (currentPosition >= WalkPoints.Length)
+    //        {
+    //            currentPosition = 0;
+    //        }
+    //    }
+    //    transform.position = Vector3.MoveTowards(transform.position, WalkPoints[currentPosition].transform.position, Time.deltaTime * enemySpeed);
+
+    //    //FaceDirection
+    //    transform.LookAt(WalkPoints[currentPosition].transform.position);
+    //}
+
+    public void InternalTakeDamage(float dmg)
     {
         currentHealt -= dmg;
         if (currentHealt <= 0)
@@ -133,14 +175,14 @@ public class EnemyRunner : MonoBehaviour
             Die();
         }
     }
-    private void Die()
+    protected virtual void Die()
     {
-        agent.SetDestination(transform.position);
         enemySpeed = 0;
         attackingRadius = 0;
         playerInAttackingRadius = false;
 
-        enemyPool.Release(this);
+        //enemyPool.Release(this);
+
         //Destroy(gameObject, 5f);
     }
 
@@ -148,7 +190,12 @@ public class EnemyRunner : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            TakeDamage(damage);
+            InternalTakeDamage(damage);
         }
+    }
+
+    public void TakeDamage(DamageContainer damage)
+    {
+        InternalTakeDamage(damage.Damage);
     }
 }
