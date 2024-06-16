@@ -7,9 +7,6 @@ namespace GrappleZ_Player
 {
     public class Player : MonoBehaviour, IDamageble
     {
-        #region Modules
-        private HealthModule healthModule;
-        #endregion //Modules
 
         #region SerializeFields
 
@@ -20,6 +17,10 @@ namespace GrappleZ_Player
 
         #endregion //References
 
+        #region Modules
+        [SerializeField]
+        private HealthModule healthModule;
+        #endregion //Modules
 
         [SerializeField]
         private float damageInvTime;
@@ -46,6 +47,11 @@ namespace GrappleZ_Player
 
         #region Mono
 
+        private void Start(){
+            ResetHealth();
+            healthModule.OnDamageTaken += InternalOnDamageTaken;
+            healthModule.OnDeath += InternalOnDeath;
+        }
         private void Awake()
         {
             //singleton pattern, ensures that there will be only one instance of the player

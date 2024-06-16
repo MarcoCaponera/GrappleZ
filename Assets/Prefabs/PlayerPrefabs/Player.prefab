@@ -741,6 +741,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 3357497508574309582}
+  healthModule:
+    maxHP: 100
   damageInvTime: 0
 --- !u!114 &3357497508574309582
 MonoBehaviour:
