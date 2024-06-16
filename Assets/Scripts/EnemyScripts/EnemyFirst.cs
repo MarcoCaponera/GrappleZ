@@ -4,31 +4,31 @@ using UnityEngine.Pool;
 using GrappleZ_Player;
 using UnityEngine.AI;
 
-public class EnemyFirst : MonoBehaviour
+
+public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
 {
     public NavMeshAgent agent;
-    private Animator anim;
-    private Transform player;
-    public Transform lookPoint;
+    protected Animator anim;
+    protected Transform player;
     public LayerMask IsPlayerLayer;
     public Camera AttackingRaycastArea;
 
     [Header("Enemy variables")]
     [SerializeField]
-    private float healt = 10;
+    private float healt;
     private float currentHealt;
 
     [SerializeField]
-    private float damage = 5f;
+    private float damage;
     [SerializeField]
-    private float timeBetweenAttack;
+    protected float timeBetweenAttack;
     [SerializeField]
-    private float enemySpeed = 10;
+    private float enemySpeed;
 
-    bool hasAttacked = false;
+    protected bool hasAttacked = false;
 
     [SerializeField]
-    private float attackingRadius = 5;
+    private float attackingRadius;
 
     private bool playerInAttackingRadius;
 
@@ -65,11 +65,11 @@ public class EnemyFirst : MonoBehaviour
         }
     }
 
-    private void Attack()
+    protected virtual void Attack()
     {
         //agent.SetDestination(transform.position);
 
-        transform.LookAt(lookPoint);
+        transform.LookAt(player);
 
         if (!hasAttacked)
         {
@@ -78,8 +78,18 @@ public class EnemyFirst : MonoBehaviour
             {
                 Debug.Log("Attacking" + hitInfo.transform.name);
                 if (!hitInfo.collider.CompareTag("Player")) return;
-                Debug.Log("PLAYER GET DAMAGE");
+
+                IDamageble damageble = hitInfo.collider.gameObject.GetComponent<IDamageble>();
+                if (damageble != null)
+                {
+                    DamageContainer damageContainer = new DamageContainer();
+                    damageContainer.Damage = damage;
+                    
+                    damageble.TakeDamage(damageContainer);
+
+                }
                 
+
             }
 
             anim.SetBool("Walking", false);
@@ -165,5 +175,10 @@ public class EnemyFirst : MonoBehaviour
         {
             TakeDamage(damage);
         }
+    }
+
+    public void TakeDamage(DamageContainer damage)
+    {
+        
     }
 }

@@ -10,7 +10,6 @@ public class EnemySniper : MonoBehaviour
     public NavMeshAgent agent;
     private Animator anim;
     private Transform player;
-    public Transform lookPoint;
     public LayerMask IsPlayerLayer;
     public Camera AttackingRaycastArea;
 
@@ -72,6 +71,7 @@ public class EnemySniper : MonoBehaviour
 
         if (!hasAttacked)
         {
+            Debug.Log("ATTACKING");
             RaycastHit hitInfo;
             if (Physics.Raycast(AttackingRaycastArea.transform.position, AttackingRaycastArea.transform.forward, out hitInfo, attackingRadius))
             {

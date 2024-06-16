@@ -2,7 +2,8 @@
     "name": "GrappleZ_Enemy",
     "rootNamespace": "",
     "references": [
-        "GUID:87d95790c53dfec469eb21cb2e9edb89"
+        "GUID:87d95790c53dfec469eb21cb2e9edb89",
+        "GUID:75ce9906e9bebed47a84be327bfe2426"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
