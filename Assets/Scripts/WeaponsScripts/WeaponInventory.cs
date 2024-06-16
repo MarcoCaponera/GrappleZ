@@ -52,14 +52,14 @@ namespace GrappleZ_Weapons
 
         public void ChangeWeapon()
         {
-            int newIndex = activeWeapon + 1;
-            if (newIndex >= weapons.Length)
+            int newIndex = activeWeapon;
+            if (newIndex >= weapons.Length - 1)
             {
                 newIndex = 0;
             }
             else
             {
-                for(int i = newIndex; i < weapons.Length; i++)
+                for(int i = newIndex + 1; i < weapons.Length; i++)
                 {
                     if (weapons[i].enabled)
                     {
