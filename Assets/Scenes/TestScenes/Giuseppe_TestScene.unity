@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 3bb8bd5c5d2f8354fa66ddd5ad7015f4, type: 2}
+--- !u!4 &44439423 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5346115881173052038, guid: 2356e013be558d94ab523759bce94706, type: 3}
+  m_PrefabInstance: {fileID: 1831531831}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &83174941
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,7 +236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1187553971404128287, guid: cb666cf6c1217514ebb583246984c538, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2284090237614294034, guid: cb666cf6c1217514ebb583246984c538, type: 3}
       propertyPath: m_LocalPosition.x
@@ -272,6 +277,22 @@ PrefabInstance:
     - target: {fileID: 2284090237614294034, guid: cb666cf6c1217514ebb583246984c538, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8672042580871562809, guid: cb666cf6c1217514ebb583246984c538, type: 3}
+      propertyPath: healt
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8672042580871562809, guid: cb666cf6c1217514ebb583246984c538, type: 3}
+      propertyPath: damage
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8672042580871562809, guid: cb666cf6c1217514ebb583246984c538, type: 3}
+      propertyPath: lookPoint
+      value: 
+      objectReference: {fileID: 44439423}
+    - target: {fileID: 8672042580871562809, guid: cb666cf6c1217514ebb583246984c538, type: 3}
+      propertyPath: timeBetweenAttack
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -515,7 +536,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5617655565437667876, guid: 37c6305e2d9f60f418803da75ac1287c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8292900751992204729, guid: 37c6305e2d9f60f418803da75ac1287c, type: 3}
+      propertyPath: healt
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -612,13 +637,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3050195116926306062, guid: 9ba7bc87ed2d4224aad62893b4441636, type: 3}
+      propertyPath: healt
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3050195116926306062, guid: 9ba7bc87ed2d4224aad62893b4441636, type: 3}
+      propertyPath: damage
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3050195116926306062, guid: 9ba7bc87ed2d4224aad62893b4441636, type: 3}
+      propertyPath: lookPoint
+      value: 
+      objectReference: {fileID: 44439423}
+    - target: {fileID: 3050195116926306062, guid: 9ba7bc87ed2d4224aad62893b4441636, type: 3}
+      propertyPath: timeBetweenAttack
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4789079576071012648, guid: 9ba7bc87ed2d4224aad62893b4441636, type: 3}
       propertyPath: m_Name
       value: EnemyRunnerPro
       objectReference: {fileID: 0}
     - target: {fileID: 4789079576071012648, guid: 9ba7bc87ed2d4224aad62893b4441636, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5602345391914698021, guid: 9ba7bc87ed2d4224aad62893b4441636, type: 3}
       propertyPath: m_LocalPosition.x

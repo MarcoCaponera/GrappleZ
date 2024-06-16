@@ -14,40 +14,38 @@ public class EnemySniperPro : EnemyFirst
     //    bulletPrefab.SetActive(false);
     //}
 
-    //protected override void Attack()
-    //{
+    protected override void Attack()
+    {
 
-    //    transform.LookAt(player);
+        transform.LookAt(player);
 
-    //    if (!hasAttacked)
-    //    {
-    //        //SHOOOT
-    //        Shoot();
+        if (!hasAttacked)
+        {
+            //SHOOOT
+            Shoot();
 
-    //        anim.SetBool("Walking", false);
-    //        anim.SetBool("Idle", false);
-    //        anim.SetBool("Attacking", false);
-    //        anim.SetBool("Dead", false);
+            anim.SetBool("Walking", false);
+            anim.SetBool("Idle", false);
+            anim.SetBool("Attacking", false);
+            anim.SetBool("Dead", false);
 
-    //        hasAttacked = true;
-    //        Invoke(nameof(ActiveAttacking), timeBetweenAttack);
-    //    }
-    //}
+            hasAttacked = true;
+            Invoke(nameof(ActiveAttacking), timeBetweenAttack);
+        }
+    }
 
-    //private void ActiveAttacking()
-    //{
-    //    hasAttacked = false;
-    //    anim.SetBool("Attacking", false);
+    private void ActiveAttacking()
+    {
+        hasAttacked = false;
+        anim.SetBool("Attacking", false);
 
 
-    //}
+    }
 
-    //private void Shoot()
-    //{
-    //    bulletPrefab.SetActive(true);
-    //    bulletPrefab.transform.position = this.transform.position;
-    //    bulletPrefab.GetComponent<Rigidbody>().velocity = this.transform.forward*Time.deltaTime;
+    private void Shoot()
+    {
+        
 
-    //}
+    }
 
 }

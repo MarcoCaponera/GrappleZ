@@ -10,6 +10,8 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
     public NavMeshAgent agent;
     protected Animator anim;
     protected Transform player;
+    [SerializeField]
+    protected Transform lookPoint;
     public LayerMask IsPlayerLayer;
     public Camera AttackingRaycastArea;
 
@@ -69,7 +71,7 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
     {
         //agent.SetDestination(transform.position);
 
-        transform.LookAt(player);
+        transform.LookAt(lookPoint);
 
         if (!hasAttacked)
         {
@@ -146,7 +148,7 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
     //    transform.LookAt(WalkPoints[currentPosition].transform.position);
     //}
 
-    public void TakeDamage(float dmg)
+    public void InternalTakeDamage(float dmg)
     {
         currentHealt -= dmg;
         if (currentHealt <= 0)
@@ -173,12 +175,12 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
     {
         if (other.CompareTag("Player"))
         {
-            TakeDamage(damage);
+            InternalTakeDamage(damage);
         }
     }
 
     public void TakeDamage(DamageContainer damage)
     {
-        
+        InternalTakeDamage(damage.Damage);
     }
 }
