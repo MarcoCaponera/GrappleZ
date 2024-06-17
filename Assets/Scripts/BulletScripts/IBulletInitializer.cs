@@ -7,6 +7,7 @@ public struct BulletInitArgs
     public float LifeTime;
     public Vector3 Velocity;
     public Vector3 SpawnPoint;
+    public float Damage;
 }
 
 public interface IBulletInitializer 

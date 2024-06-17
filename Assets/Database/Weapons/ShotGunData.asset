@@ -17,7 +17,7 @@ MonoBehaviour:
   magAmmo: 10
   damage: 5
   bulletTime: 0.2
-  bulletSpeed: 100
+  bulletSpeed: 50
   shootDelay: 1
   reloadTime: 5
   recoilAmount: 0.1

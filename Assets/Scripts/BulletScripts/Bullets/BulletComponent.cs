@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GrappleZ_Bullets
 {
-    public class BulletComponent : MonoBehaviour, IBulletInitializer
+    public class BulletComponent : MonoBehaviour, IBulletInitializer, IDamager
     {
         #region SerializeField
 
@@ -18,6 +18,7 @@ namespace GrappleZ_Bullets
 
         private float lifeTime;
         private float lifeTimeCounter;
+        private float damage;
 
         #endregion
 
@@ -42,7 +43,13 @@ namespace GrappleZ_Bullets
         {
             if (other.CompareTag("Enemy"))
             {
-                
+                IDamageble damageble = other.GetComponent<IDamageble>();
+                if (damageble != null)
+                {
+                    DamageContainer container = new DamageContainer();
+                    container.Damage = damage;
+                    damageble.TakeDamage(container);
+                }
             }
             gameObject.SetActive(false);
         }
@@ -54,6 +61,7 @@ namespace GrappleZ_Bullets
             rb.velocity = args.Velocity;
             transform.position = args.SpawnPoint;
             lifeTime = args.LifeTime;
+            damage = args.Damage;
         }
     }
 

@@ -23,6 +23,7 @@ namespace GrappleZ_Weapons
                 args.LifeTime = data.BulletTime;
                 args.SpawnPoint = origin;
                 args.Velocity = (direction + recoil) * data.BulletSpeed;
+                args.Damage = data.Damage;
                 bulletInit.InitBullet(args);
             }
         }

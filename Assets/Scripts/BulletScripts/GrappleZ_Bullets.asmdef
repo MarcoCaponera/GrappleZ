@@ -1,3 +1,16 @@
 {
-	"name": "GrappleZ_Bullets"
+    "name": "GrappleZ_Bullets",
+    "rootNamespace": "",
+    "references": [
+        "GUID:75ce9906e9bebed47a84be327bfe2426"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
