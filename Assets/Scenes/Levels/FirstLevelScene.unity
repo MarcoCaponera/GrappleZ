@@ -272,7 +272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8559345698948777844, guid: eed04ec8a8a4e394d8c5dbb5460b06c6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2341,7 +2341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7384026578411640809, guid: 73927ba8be5f6df4ca9a21aa4125f680, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7441487982903930919, guid: 73927ba8be5f6df4ca9a21aa4125f680, type: 3}
       propertyPath: spawnCount
