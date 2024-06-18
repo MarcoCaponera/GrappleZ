@@ -23,6 +23,8 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
 
     [SerializeField]
     private float damage;
+
+    
     [SerializeField]
     protected float timeBetweenAttack;
     [SerializeField]
@@ -103,6 +105,10 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
             hasAttacked = true;
             Invoke(nameof(ActiveAttacking), timeBetweenAttack);
         }
+    }
+    protected float GetBodyDamage()
+    {
+        return damage;
     }
 
     private void ActiveAttacking()
