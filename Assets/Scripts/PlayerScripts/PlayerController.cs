@@ -152,6 +152,11 @@ namespace GrappleZ_Player
 #endif
         }
 
+        private void Start()
+        {
+            
+        }
+
         #endregion
 
         #region RigidBodyMethods
