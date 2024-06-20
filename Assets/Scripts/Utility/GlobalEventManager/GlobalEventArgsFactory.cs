@@ -18,6 +18,9 @@ public static class GlobalEventArgsFactory {
         methodDebugString.Add(GlobalEventIndex.DialoguePerformed, new EventDebug(DialoguePerformedDebug));
         methodDebugString.Add(GlobalEventIndex.ShakeCamera, new EventDebug(ShakeCameraDebug));
         methodDebugString.Add(GlobalEventIndex.PlayerEnergyUpdated, new EventDebug(PlayerEnergyUpdatedDebug));
+        methodDebugString.Add(GlobalEventIndex.WaveStarted, new EventDebug(WaveStartedDebug));
+        methodDebugString.Add(GlobalEventIndex.WaveEnded, new EventDebug(WaveEndedDebug));
+        methodDebugString.Add(GlobalEventIndex.ScoreIncreased, new EventDebug(ScoreIncreaseDebug));
     }
 
     public static string GetDebugString(GlobalEventIndex eventType, GlobalEventArgs message) {
@@ -159,4 +162,65 @@ public static class GlobalEventArgsFactory {
     }
     #endregion
 
+    #region WaveStarted
+
+    public static GlobalEventArgs WaveStartedFactory()
+    {
+        GlobalEventArgs message = new GlobalEventArgs();
+        return message;
+    }
+
+    public static void WaveStartedParser(GlobalEventArgs message)
+    {
+
+    }
+
+    public static string WaveStartedDebug(GlobalEventArgs message)
+    {
+        return "wave started";
+    }
+
+    #endregion
+
+    #region WaveEnded
+
+    public static GlobalEventArgs WaveEndedFactory()
+    {
+        GlobalEventArgs message = new GlobalEventArgs();
+        return message;
+    }
+
+    public static void WaveEndedParser(GlobalEventArgs message)
+    {
+
+    }
+
+    public static string WaveEndedDebug(GlobalEventArgs message)
+    {
+        return "wave ended";
+    }
+
+    #endregion
+
+    #region ScoreIncrease
+
+    public static GlobalEventArgs ScoreIncreaseFactory(float score)
+    {
+        GlobalEventArgs message = new GlobalEventArgs();
+        message.args = new ExtendedVariable[1];
+        message.args[0] = new ExtendedVariable("Score", ExtendedVariableType.Float, score);
+        return message;
+    }
+
+    public static void ScoreIncreaseParser(GlobalEventArgs message, out float score)
+    {
+        score = (float)message.args[0].GetValue();
+    }
+
+    public static string ScoreIncreaseDebug(GlobalEventArgs message)
+    {
+        return "Score increased with: " + message.args[0].GetValue().ToString();
+    }
+
+    #endregion
 }
