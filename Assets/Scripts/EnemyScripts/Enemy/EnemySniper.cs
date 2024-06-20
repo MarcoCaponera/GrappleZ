@@ -22,7 +22,7 @@ public class EnemySniper : EnemyFirst
 
     protected override void Attack()
     {
-        base.Attack();
+        //base.Attack();
         transform.LookAt(lookPoint);
 
         if (!hasAttacked)

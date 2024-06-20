@@ -8,42 +8,38 @@ using static UnityEngine.GraphicsBuffer;
 
 public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
 {
+    #region Public members
     public NavMeshAgent agent;
+    public LayerMask IsPlayerLayer;
+    public Camera AttackingRaycastArea;
+    #endregion
+
+    #region Protected members
     protected Animator anim;
     protected Transform player;
     [SerializeField]
     protected Transform lookPoint;
-    public LayerMask IsPlayerLayer;
-    public Camera AttackingRaycastArea;
+    #endregion
+
+    #region Private members
 
     [Header("Enemy variables")]
     [SerializeField]
     private float healt;
-    private float currentHealt;
-
     [SerializeField]
     private float damage;
-
-    
     [SerializeField]
     protected float timeBetweenAttack;
     [SerializeField]
     private float enemySpeed;
-
-    protected bool hasAttacked = false;
-
     [SerializeField]
     protected float attackingRadius;
 
+    private float currentHealt;
     private bool playerInAttackingRadius;
+    protected bool hasAttacked = false;
 
-    /////ENEMY-POOL///
-    //private IObjectPool<EnemyFirst> enemyPool;
-
-    //public void SetPool(IObjectPool<EnemyFirst> enemyPool)
-    //{
-    //    this.enemyPool = enemyPool;
-    //}
+    #endregion
 
 
     private void Start()
@@ -56,7 +52,6 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
         currentHealt = healt;
         player = FindObjectOfType<Player>().transform;
         lookPoint = player.Find("LookPointForEnemies");
-
 
     }
     private void Update()
@@ -72,7 +67,6 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
 
     protected virtual void Attack()
     {
-        //agent.SetDestination(transform.position);
 
         transform.LookAt(lookPoint);
 
@@ -121,7 +115,15 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
 
     private void Chase()
     {
-        SetAgentDestination();
+        if (player.position.y > 1)
+        {
+            agent.SetDestination(new Vector3(player.position.x, 0, player.position.z));
+            Debug.Log("Player is in air so i follow the position without the y");
+        }else
+        {
+
+            SetAgentDestination();
+        }
         if (SetAgentDestination())
         {
             anim.SetBool("Walking", true);
@@ -153,23 +155,8 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
         }
     }
 
-    //private void Patrol()
-    //{
-    //    if (Vector3.Distance(WalkPoints[currentPosition].transform.position, transform.position)<walkingPointRadius)
-    //    {
-    //        currentPosition = UnityEngine.Random.Range(0, WalkPoints.Length);
-    //        if (currentPosition >= WalkPoints.Length)
-    //        {
-    //            currentPosition = 0;
-    //        }
-    //    }
-    //    transform.position = Vector3.MoveTowards(transform.position, WalkPoints[currentPosition].transform.position, Time.deltaTime * enemySpeed);
 
-    //    //FaceDirection
-    //    transform.LookAt(WalkPoints[currentPosition].transform.position);
-    //}
-
-    public void InternalTakeDamage(float dmg)
+    private void InternalTakeDamage(float dmg)
     {
         currentHealt -= dmg;
         if (currentHealt <= 0)
