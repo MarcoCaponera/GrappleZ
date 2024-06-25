@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class EnemyWalkerSpawner : EnemySpawnerBase
+public class EnemyWalkerSpawner : MonoBehaviour
 {
     [SerializeField]
     private Transform[] spawnPoints;
@@ -23,7 +23,6 @@ public class EnemyWalkerSpawner : EnemySpawnerBase
 
     private void Awake()
     {
-        //GlobalEventManager.CastEvent(GlobalEventIndex.WaveStarted, GlobalEventArgsFactory.WaveStartedFactory());
 
         enemyPool = new ObjectPool<EnemyWalker>(CreateEnemy, OnGet, OnRelease);
     }

@@ -31,7 +31,7 @@ public abstract class EnemySpawnerBase : MonoBehaviour
     protected virtual EnemyFirst CreateEnemy()
     {
         EnemyFirst enemy = Instantiate(enemyPrefab);
-        enemy.SetPool(enemyPool);
+        //enemy.SetPool(enemyPool);
         return enemy;
     }
 
