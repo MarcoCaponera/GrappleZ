@@ -6,6 +6,8 @@ using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
 
 
+
+
 public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
 {
     #region Public members
@@ -57,6 +59,35 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
         lookPoint = player.Find("LookPointForEnemies");
 
     }
+
+
+    protected IObjectPool<EnemyFirst> enemyPool;
+
+    public virtual void SetPool(IObjectPool<EnemyFirst> pool)
+    {
+        enemyPool = pool;
+    }
+
+    public virtual void Activate()
+    {
+        gameObject.SetActive(true);
+    }
+    public virtual void Deactivate()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public virtual void ReleaseToPool()
+    {
+        if (enemyPool != null)
+        {
+            enemyPool.Release(this);
+        }
+    }
+
+
+
+
     private void Update()
     {
         if (agent != null)
