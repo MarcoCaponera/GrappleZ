@@ -34,12 +34,15 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
     private float enemySpeed;
     [SerializeField]
     protected float attackingRadius;
+    [SerializeField]
+    protected float givenScorePoint;
 
     private float currentHealt;
     private bool playerInAttackingRadius;
     protected bool hasAttacked = false;
 
     #endregion
+
 
 
     private void Start()
@@ -117,8 +120,8 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
     {
         if (player.position.y > 1)
         {
-            agent.SetDestination(new Vector3(player.position.x, 0, player.position.z));
-            Debug.Log("Player is in air so i follow the position without the y");
+            agent.SetDestination(new Vector3(player.position.x, 1, player.position.z));
+            
         }else
         {
 
@@ -173,6 +176,8 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
         enemySpeed = 0;
         attackingRadius = 0;
         playerInAttackingRadius = false;
+
+        GlobalEventManager.CastEvent(GlobalEventIndex.ScoreIncreased, GlobalEventArgsFactory.ScoreIncreaseFactory(givenScorePoint));
 
         //enemyPool.Release(this);
 

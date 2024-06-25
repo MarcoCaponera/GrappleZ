@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class EnemyWalkerSpawner : EnemySpawnerBase
+public abstract class EnemySpawnerBase : MonoBehaviour
 {
     [SerializeField]
     private Transform[] spawnPoints;
@@ -16,26 +16,26 @@ public class EnemyWalkerSpawner : EnemySpawnerBase
     private float timeSinceLastSpawn;
 
     [SerializeField]
-    private EnemyWalker enemyPrefab;
+    protected EnemyFirst enemyPrefab;
 
 
-    private IObjectPool<EnemyWalker> enemyPool;
+    protected IObjectPool<EnemyFirst> enemyPool;
 
     private void Awake()
     {
         //GlobalEventManager.CastEvent(GlobalEventIndex.WaveStarted, GlobalEventArgsFactory.WaveStartedFactory());
 
-        enemyPool = new ObjectPool<EnemyWalker>(CreateEnemy, OnGet, OnRelease);
+        enemyPool = new ObjectPool<EnemyFirst>(CreateEnemy, OnGet, OnRelease);
     }
 
-    private EnemyWalker CreateEnemy()
+    protected virtual EnemyFirst CreateEnemy()
     {
-        EnemyWalker enemy = Instantiate(enemyPrefab);
+        EnemyFirst enemy = Instantiate(enemyPrefab);
         enemy.SetPool(enemyPool);
         return enemy;
     }
 
-    private void OnGet(EnemyWalker enemy)
+    private void OnGet(EnemyFirst enemy)
     {
         enemy.gameObject.SetActive(true);
         Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
@@ -59,7 +59,4 @@ public class EnemyWalkerSpawner : EnemySpawnerBase
             spawnCount -= 1;
         }
     }
-
-
-
 }
