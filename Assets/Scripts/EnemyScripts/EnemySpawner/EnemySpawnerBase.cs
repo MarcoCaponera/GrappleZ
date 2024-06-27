@@ -11,8 +11,7 @@ public enum EnemyType
     Runner
 }
 
-public abstract class EnemySpawnerBase : MonoBehaviour
-{
+    #region OLD_SCRIPT
     //[SerializeField]
     //private Transform[] spawnPoints;
 
@@ -75,104 +74,254 @@ public abstract class EnemySpawnerBase : MonoBehaviour
     //    }
 
     //}
+    #endregion
 
-    [SerializeField]
-    private int spawnCount;
+    #region OLD 2
 
-    [SerializeField]
-    EnemyWalker enemyWalkerPrefab;
+    //[SerializeField]
+    //private Transform spawnPoint;
+    //[SerializeField]
+    //private float timeBetweenSpawns;
+    //private float timeSinceLastSpawn;
 
-    [SerializeField]
-    EnemySniper enemySniperPrefab;
+    //[SerializeField]
+    //private int spawnCount;
+    //protected static int totalEnemy = 0;
 
-    [SerializeField]
-    EnemyRunner enemyRunnerPrefab;
+    //[SerializeField]
+    //EnemyWalker enemyWalkerPrefab;
 
-    IObjectPool<EnemyFirst> walkerPool;
-    IObjectPool<EnemyFirst> sniperPool;
-    IObjectPool<EnemyFirst> runnerPool;
+    //[SerializeField]
+    //EnemySniper enemySniperPrefab;
+
+    //[SerializeField]
+    //EnemyRunner enemyRunnerPrefab;
 
 
-    private IObjectPool<EnemyFirst> CreatePool<T>(T prefab) where T : EnemyFirst
+    //private void Awake()
+    //{
+    //    walkerPool = CreatePool(enemyWalkerPrefab, 20);
+    //    sniperPool = CreatePool(enemySniperPrefab, 10);
+    //    runnerPool = CreatePool(enemyRunnerPrefab, 10);
+
+    //    totalEnemy += spawnCount;
+    //    GlobalEventManager.CastEvent(GlobalEventIndex.WaveStarted, GlobalEventArgsFactory.WaveStartedFactory());
+    //}
+
+    //private void Update()
+    //{
+    //    if (Time.time > timeSinceLastSpawn && spawnCount != 0)
+    //    {
+    //        //SPAWN
+    //        SpawnEnemy(EnemyType.Walker);
+    //        SpawnEnemy(EnemyType.Sniper);
+    //        SpawnEnemy(EnemyType.Runner);
+    //        timeSinceLastSpawn = Time.time + timeBetweenSpawns;
+    //        spawnCount -= 1;
+    //    }
+
+    //}
+
+    //#region EnemyPooling
+    //IObjectPool<EnemyFirst> walkerPool;
+    //IObjectPool<EnemyFirst> sniperPool;
+    //IObjectPool<EnemyFirst> runnerPool;
+
+
+    //private IObjectPool<EnemyFirst> CreatePool<T>(T prefab, int initialSize) where T : EnemyFirst
+    //{
+    //    var pool = new ObjectPool<T>(
+    //        () => {
+    //            var enemy = Instantiate(prefab);
+    //            enemy.SetPool(null);
+    //            return enemy;
+    //        },
+    //        enemy => {
+    //            enemy.Activate();
+    //            enemy.SetPool(GetPool(enemy));
+    //        },
+    //        enemy => enemy.Deactivate(),
+    //        enemy => Destroy(enemy.gameObject),
+    //        maxSize: 100
+    //    );
+
+    //    // Pre-popo
+    //    List<T> initialEnemies = new List<T>(initialSize);
+    //    for (int i = 0; i < initialSize; i++)
+    //    {
+    //        initialEnemies.Add(pool.Get());
+    //    }
+    //    foreach (var enemy in initialEnemies)
+    //    {
+    //        pool.Release(enemy);
+    //    }
+
+    //    return (IObjectPool<EnemyFirst>)pool;
+    //}
+
+    //private IObjectPool<EnemyFirst> GetPool(EnemyFirst enemy)
+    //{
+    //    if (enemy is EnemyWalker) return walkerPool as IObjectPool<EnemyFirst>;
+    //    if (enemy is EnemySniper) return sniperPool as IObjectPool<EnemyFirst>;
+    //    if (enemy is EnemyRunner) return runnerPool as IObjectPool<EnemyFirst>;
+    //    return null;
+    //}
+
+    //public EnemyFirst GetEnemy(EnemyType enemyType)
+    //{
+
+    //    switch (enemyType)
+    //    {
+    //        case EnemyType.Runner:
+    //            return runnerPool.Get();
+
+    //        case EnemyType.Sniper:
+    //            return sniperPool.Get();
+
+    //        case EnemyType.Walker:
+    //            return walkerPool.Get();
+
+    //        default:
+    //            return null;
+
+    //    }
+    //}
+
+    //public void ReleaseEnemy(EnemyFirst enemy)
+    //{
+    //    enemy.ReleaseToPool();
+
+    //}
+
+    //#endregion
+
+
+
+
+    //private void SpawnEnemy(EnemyType enemyType)
+    //{
+    //    totalEnemy--;
+    //    EnemyFirst enemy = GetEnemy(enemyType);
+    //    enemy.transform.position = spawnPoint.position;
+    //}
+    #endregion
+
+    public class EnemySpawnerBase : MonoBehaviour
     {
-        return new ObjectPool<EnemyFirst>(
-             () => {
-                 var enemy = Instantiate(prefab);
-                 enemy.SetPool(null);  
-                 return enemy;
-             },
-             enemy => {
-                 enemy.Activate();
-                 enemy.SetPool(GetPool(enemy));
-             },
-             enemy => enemy.Deactivate(),
-             enemy => Destroy(enemy.gameObject),
-             true,
-             spawnCount
-         );
-    }
-
-    private IObjectPool<EnemyFirst> GetPool(EnemyFirst enemy)
-    {
-        if (enemy is EnemyRunner) return runnerPool;
-        if (enemy is EnemySniper) return sniperPool;
-        if (enemy is EnemyWalker) return walkerPool;
-        return null;
-    }
-
-    public EnemyFirst GetEnemy(EnemyType enemyType)
-    {
-
-        switch (enemyType)
+        [Serializable]
+        public class Pool
         {
-            case EnemyType.Runner:
-                return runnerPool.Get();
+            public EnemyType type;
+            public GameObject prefab;
+            public int size;
+        }
 
-            case EnemyType.Sniper:
-                return sniperPool.Get();
+        public List<Pool> pools;
+        private Dictionary<EnemyType, Queue<GameObject>> poolDictionary;
 
-            case EnemyType.Walker:
-                return walkerPool.Get();
+        [SerializeField]
+        private Pool pool;
 
-            default:
+        [SerializeField]
+        private int totalEnemiesToSpawn;
+        [SerializeField]
+        private float spawnInterval;
+        [SerializeField]
+        private Vector3 spawnPoint;
+
+        private static int enemiesSpawned;
+
+        void Start()
+        {
+            poolDictionary = new Dictionary<EnemyType, Queue<GameObject>>();
+
+            foreach (Pool pool in pools)
+            {
+                Queue<GameObject> objectPool = new Queue<GameObject>();
+
+                for (int i = 0; i < pool.size; i++)
+                {
+                    GameObject obj = Instantiate(pool.prefab);
+                    obj.SetActive(false);
+                    objectPool.Enqueue(obj);
+                }
+
+                poolDictionary.Add(pool.type, objectPool);
+            }
+
+            enemiesSpawned = 0;
+            GlobalEventManager.CastEvent(GlobalEventIndex.WaveStarted, GlobalEventArgsFactory.WaveStartedFactory());
+            StartCoroutine(SpawnEnemies());
+        }
+
+        IEnumerator SpawnEnemies()
+        {
+            while (enemiesSpawned < totalEnemiesToSpawn)
+            {
+                yield return new WaitForSeconds(spawnInterval);
+
+                EnemyType randomType = GetRandomEnemyType();
+                Vector3 spawnPosition = GetRandomSpawnPosition();
+                SpawnFromPool(randomType, spawnPosition, Quaternion.identity);
+
+                enemiesSpawned++;
+            }
+            if (enemiesSpawned >= totalEnemiesToSpawn)
+            {
+                GlobalEventManager.CastEvent(GlobalEventIndex.WaveStarted, GlobalEventArgsFactory.WaveEndedFactory());
+            }
+
+        }
+
+        private EnemyType GetRandomEnemyType()
+        {
+            //int randomIndex = pools.Count;
+            int randomIndex = UnityEngine.Random.Range(0, pools.Count);
+
+
+            return pools[randomIndex].type;
+        }
+
+        public GameObject SpawnFromPool(EnemyType type, Vector3 position, Quaternion rotation)
+        {
+            if (!poolDictionary.ContainsKey(type))
+            {
+                Debug.LogWarning("Pool with type " + type + " doesn't exist.");
                 return null;
+            }
 
+            GameObject objectToSpawn = poolDictionary[type].Dequeue();
+
+            objectToSpawn.SetActive(true);
+            objectToSpawn.transform.position = position;
+            objectToSpawn.transform.rotation = rotation;
+
+            EnemyFirst enemy = objectToSpawn.GetComponent<EnemyFirst>();
+
+            enemy.OnSpawn();
+
+            poolDictionary[type].Enqueue(objectToSpawn);
+
+            return objectToSpawn;
+        }
+
+        public void DespawnToPool(GameObject objectToDespawn)
+        {
+            objectToDespawn.SetActive(false);
+
+            EnemyFirst enemy = objectToDespawn.GetComponent<EnemyFirst>();
+            enemy.OnDespawn();
+        }
+
+        private Vector3 GetRandomSpawnPosition()
+        {
+            
+
+            //int randomIndex = Random.Range(0, spawnPoints.Count);
+            return spawnPoint;
         }
     }
 
-    public void ReleaseEnemy(EnemyFirst enemy)
-    {
-        enemy.ReleaseToPool();
-    }
 
-}
 
-/*
- 
- 
-  EnemySpawnerbse spawner;
 
-Start
-{
-    GlobalEventManager.CastEvent(GlobalEventIndex.WaveStarted, GlobalEventArgsFactory.WaveStartedFactory());
-    SpawnEnemy(EnemyType.Walker);
-    SpawnEnemy(EnemyType.Sniper);
-    SpawnEnemy(EnemyType.Runner);
-}
- 
- SpawnEnemy(EnemyType enemyType)
-{
-    EnemyFirst enemy = spawner.GetEnemy(enemyType);
-    passo posizione di spawn
-}
-
-RetrunEnemyToPool(Enemytype enemyType)
-{
-    spawner.ReleaseEnemy(enemy);
-}
- 
- 
- 
- 
- 
- */

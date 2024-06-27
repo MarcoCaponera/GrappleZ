@@ -45,6 +45,7 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
 
     #endregion
 
+    private EnemySpawnerBase spawnController;
 
 
     private void Start()
@@ -55,38 +56,35 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
 
         anim = GetComponent<Animator>();
         currentHealt = healt;
-        player = FindObjectOfType<Player>().transform;
-        lookPoint = player.Find("LookPointForEnemies");
+        player = Player.Get().transform;
+        lookPoint = Player.Get().transform;
 
     }
 
-
-    protected IObjectPool<EnemyFirst> enemyPool;
-
-    public virtual void SetPool(IObjectPool<EnemyFirst> pool)
+    public void Initialize()
     {
-        enemyPool = pool;
+
     }
 
-    public virtual void Activate()
-    {
-        gameObject.SetActive(true);
-    }
-    public virtual void Deactivate()
+    public void OnDespawn()
     {
         gameObject.SetActive(false);
     }
 
-    public virtual void ReleaseToPool()
+    public void OnSpawn()
     {
-        if (enemyPool != null)
-        {
-            enemyPool.Release(this);
-        }
+        gameObject.SetActive(true);
     }
+ 
 
-
-
+    protected virtual void Die()
+    {
+        enemySpeed = 0;
+        attackingRadius = 0;
+        playerInAttackingRadius = false;
+        OnDespawn();
+        GlobalEventManager.CastEvent(GlobalEventIndex.ScoreIncreased, GlobalEventArgsFactory.ScoreIncreaseFactory(givenScorePoint));
+    }
 
     private void Update()
     {
@@ -189,7 +187,6 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
         }
     }
 
-
     private void InternalTakeDamage(float dmg)
     {
         currentHealt -= dmg;
@@ -202,18 +199,7 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
             Die();
         }
     }
-    protected virtual void Die()
-    {
-        enemySpeed = 0;
-        attackingRadius = 0;
-        playerInAttackingRadius = false;
 
-        GlobalEventManager.CastEvent(GlobalEventIndex.ScoreIncreased, GlobalEventArgsFactory.ScoreIncreaseFactory(givenScorePoint));
-
-        //enemyPool.Release(this);
-
-        //Destroy(gameObject, 5f);
-    }
 
     private void OnTriggerEnter(Collider other)
     {

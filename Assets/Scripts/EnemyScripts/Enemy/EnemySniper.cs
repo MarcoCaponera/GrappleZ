@@ -7,18 +7,8 @@ using UnityEngine.Pool;
 
 public class EnemySniper : EnemyFirst
 {
-    ///ENEMY-POOL///
-    private IObjectPool<EnemySniper> enemyPool;
 
-    public void SetPool(IObjectPool<EnemySniper> enemyPool)
-    {
-        this.enemyPool = enemyPool;
-    }
-    protected override void Die()
-    {
-        base.Die();
-        enemyPool.Release(this);
-    }
+
 
     protected override void Attack()
     {
