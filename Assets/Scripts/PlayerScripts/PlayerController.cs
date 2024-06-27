@@ -20,6 +20,7 @@ namespace GrappleZ_Player
         [SerializeField]
         protected PlayerVisual playerVisual;
 
+
         #endregion
 
         #region ReferenceGetter
@@ -137,11 +138,15 @@ namespace GrappleZ_Player
 
         #endregion
 
+
+
         #region Mono
 
         private void Awake()
         {
+
             abilities = GetComponentsInChildren<PlayerAbilityBase>();
+
             foreach(var ability in abilities)
             {
                 ability.Init(this, playerVisual);

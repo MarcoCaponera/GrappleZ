@@ -138,10 +138,14 @@ namespace GrappleZ_Player
             if (wasWalking && !isWalking) 
             {
                 playerController.OnWalkEnded?.Invoke();
+                //playerVisual.SetAnimatorParamerer("Static_b", true);
+                //playerVisual.SetAnimatorParameter("Speed_f", 0f);
             }
             if (!wasWalking && isWalking)
             {
                 playerController.OnWalkStarted?.Invoke();
+                //playerVisual.SetAnimatorParamerer("Static_b", false);
+                //playerVisual.SetAnimatorParameter("Speed_f", 1f);
             }
             wasWalking = isWalking;
         }

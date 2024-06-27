@@ -4,6 +4,7 @@ using UnityEngine.Pool;
 using GrappleZ_Player;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
+using System.Collections.Generic;
 
 
 
@@ -46,6 +47,10 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
     #endregion
 
     private EnemySpawnerBase spawnController;
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip[] attackClipList;
 
 
     private void Start()
@@ -127,6 +132,8 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
             anim.SetBool("Idle", false);
             anim.SetBool("Attacking", true);
             anim.SetBool("Dead", false);
+
+            audioSource.PlayOneShot(attackClipList[UnityEngine.Random.Range(0, attackClipList.Length-1)]);
 
             hasAttacked = true;
             Invoke(nameof(ActiveAttacking), timeBetweenAttack);
