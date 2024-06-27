@@ -5,60 +5,65 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class MainMenu : MonoBehaviour
+namespace GrappleZ_UI
 {
-    #region SerilizedField
-    [SerializeField]
-    private String SceneToLoad;
 
-
-    #endregion
-
-    #region PrivateAttributes
-    private Coroutine changeSceneCoroutine;
-    private Button startButton;
-    private Button exitButton;
-
-    #endregion
-
-    #region Mono
-    private void Awake()
+    public class MainMenu : MonoBehaviour
     {
-        startButton = GetComponent<UIDocument>().rootVisualElement.Q<Button>("StartButton");
-        exitButton = GetComponent<UIDocument>().rootVisualElement.Q<Button>("ExitButton");
-
-        startButton.clicked += StartClickedCallback;
-        exitButton.clicked += ExitClickedCallback;
-    }
+        #region SerilizedField
+        [SerializeField]
+        private String SceneToLoad;
 
 
-    #endregion
+        #endregion
 
-    #region InternalMethods
+        #region PrivateAttributes
+        private Coroutine changeSceneCoroutine;
+        private Button startButton;
+        private Button exitButton;
 
-    private IEnumerator ChangeSceneCoroutine()
-    {
-        var loadScene = SceneManager.LoadSceneAsync(SceneToLoad);
-        if (!loadScene.isDone)
+        #endregion
+
+        #region Mono
+        private void Awake()
         {
-            yield return new WaitForEndOfFrame();
+            startButton = GetComponent<UIDocument>().rootVisualElement.Q<Button>("StartButton");
+            exitButton = GetComponent<UIDocument>().rootVisualElement.Q<Button>("ExitButton");
+
+            startButton.clicked += StartClickedCallback;
+            exitButton.clicked += ExitClickedCallback;
         }
-    }
-    #endregion
 
-    #region Callbacks
-    private void StartClickedCallback()
-    {
-        if (changeSceneCoroutine != null) return;
-        changeSceneCoroutine = StartCoroutine(ChangeSceneCoroutine());
-    }
 
-    private void ExitClickedCallback()
-    {
+        #endregion
+
+        #region InternalMethods
+
+        private IEnumerator ChangeSceneCoroutine()
+        {
+            var loadScene = SceneManager.LoadSceneAsync(SceneToLoad);
+            if (!loadScene.isDone)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+        }
+        #endregion
+
+        #region Callbacks
+        private void StartClickedCallback()
+        {
+            if (changeSceneCoroutine != null) return;
+            changeSceneCoroutine = StartCoroutine(ChangeSceneCoroutine());
+        }
+
+        private void ExitClickedCallback()
+        {
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+            UnityEditor.EditorApplication.isPlaying = false;
 #endif
-        Application.Quit();
+            Application.Quit();
+        }
+        #endregion
     }
-    #endregion
+
 }

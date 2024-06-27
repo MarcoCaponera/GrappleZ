@@ -1,8 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/Crosshair/Resources/CrosshairUSS.uss?fileID=7433441132597879392&amp;guid=a32704766aad92d469ace1777c58e362&amp;type=3#CrosshairUSS" />
-    <Style src="project://database/Assets/UI/HealthBar/HealthBarUSS.uss?fileID=7433441132597879392&amp;guid=43fa6a9ed5700fd49b2bde24665b00ba&amp;type=3#HealthBarUSS" />
+    <Style src="project://database/Assets/UI/HUD/Crosshair/Resources/CrosshairUSS.uss?fileID=7433441132597879392&amp;guid=a32704766aad92d469ace1777c58e362&amp;type=3#CrosshairUSS" />
+    <Style src="project://database/Assets/UI/HUD/HealthBar/HealthBarUSS.uss?fileID=7433441132597879392&amp;guid=43fa6a9ed5700fd49b2bde24665b00ba&amp;type=3#HealthBarUSS" />
+    <Style src="project://database/Assets/UI/HUD/Score/Score.uss?fileID=7433441132597879392&amp;guid=541538e7c5d53c245b2b1baa00699057&amp;type=3#Score" />
     <ui:VisualElement name="Container" style="flex-grow: 1;">
         <ui:VisualElement name="Top" style="flex-grow: 1; flex-basis: 20%;">
+            <ui:Label tabindex="-1" text="0000" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Score" class="Score" style="align-items: auto; justify-content: flex-start;" />
             <ui:ProgressBar value="0.5" name="HealthBar" high-value="1" class="HealthBar" />
         </ui:VisualElement>
         <ui:VisualElement name="Center" style="flex-grow: 1; flex-basis: 60%; transform-origin: center;">
