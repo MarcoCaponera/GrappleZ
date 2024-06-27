@@ -32,17 +32,18 @@ namespace GrappleZ_Weapons
                 w.Init(this);
             }
             activeWeapon = 0;
+            GlobalEventManager.AddListener(GlobalEventIndex.WaveEnded, OnWaveEnded);
         }
 
         #endregion
 
         #region PublicMethods
 
-        public void AddWeapon(WeaponData data)
+        public void AddWeapon(WeaponType type)
         {
             foreach(WeaponComponent weapon in weapons)
             {
-                if (weapon.Type == data.WeaponType)
+                if (weapon.Type == type)
                 {
                     weapon.SetActive(true);
                     return;
@@ -95,6 +96,22 @@ namespace GrappleZ_Weapons
                 pool[i] = bulletPool.GetItem(data);
             }
             return pool;
+        }
+
+        #endregion
+
+        #region Callbacks
+
+        protected void OnWaveEnded(GlobalEventArgs args)
+        {
+            foreach(WeaponComponent item in weapons)
+            {
+                if(item.enabled == false)
+                {
+                    AddWeapon(item.Type);
+                    return;
+                }
+            }
         }
 
         #endregion
