@@ -3514,7 +3514,7 @@ MonoBehaviour:
   timeBetweenAttack: 2
   enemySpeed: 8
   attackingRadius: 3
-  givenScorePoint: 0
+  givenScorePoint: 50
   audioSource: {fileID: 1565616241561565850}
   deathClip: {fileID: 8300000, guid: 5ef6f3f127b61af40a8cbcd0ae20c3e0, type: 3}
   attackClipList1: {fileID: 8300000, guid: 63e211d00005d3b43a128c7bdfc6840a, type: 3}
