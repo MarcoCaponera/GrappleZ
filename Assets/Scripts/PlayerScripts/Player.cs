@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,8 @@ namespace GrappleZ_Player
     {
 
         #region SerializeFields
+        [SerializeField]
+        private Transform lookPointForEnemies;
 
         #region References
 
@@ -28,9 +31,17 @@ namespace GrappleZ_Player
 
         #endregion //SerializeFields
 
+        #region Getters
+
+        public Transform LookPointForEnemies
+        {
+            get { return lookPointForEnemies; }
+        }
+        #endregion  //getters
+
         #region StaticMembers
         //player instance
-        public static Player instance; 
+        public static Player instance;
 
         //returns instance if instance has already been assigned
         public static Player Get()
@@ -44,15 +55,19 @@ namespace GrappleZ_Player
 
         #region PrivateMembers
         private Coroutine invCoroutine;
+        private Vector3 startPosition;
         #endregion //PrivateMembers
 
         #region Mono
 
-        private void Start(){
-            ResetHealth();
+        private void Start()
+        {
+            PlayerSetup();
             healthModule.OnDamageTaken += InternalOnDamageTaken;
             healthModule.OnDeath += InternalOnDeath;
+            startPosition = transform.position;
         }
+
         private void Awake()
         {
             //singleton pattern, ensures that there will be only one instance of the player
@@ -99,11 +114,13 @@ namespace GrappleZ_Player
             playerController.IsDead = true;
             playerController.OnDeath?.Invoke();
 
-            print("DEAD");
+            Debug.Log("DEAD");
             GlobalEventManager.CastEvent(GlobalEventIndex.PlayerDeath, null);
             //LEVEL RESET TO FIX
+            Debug.Log("Player Reset");
+            PlayerSetup();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
-            print("Scene Restarted");
+            Debug.Log("Scene Restarted");
         }
         #endregion //HealthModule
 
@@ -123,6 +140,13 @@ namespace GrappleZ_Player
             //    EventArgsFactory.PlayerHealthUpdatedFactory((int)healthModule.MaxHP, (int)healthModule.CurrentHP));
             GlobalEventManager.CastEvent(GlobalEventIndex.PlayerHealthUpdated,
                 GlobalEventArgsFactory.PlayerHealthUpdatedFactory(healthModule.MaxHP, healthModule.CurrentHP));
+        }
+
+
+        private void PlayerSetup()
+        {
+            ResetHealth();
+            transform.position = startPosition;
         }
         #endregion
 

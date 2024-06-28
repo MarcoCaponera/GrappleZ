@@ -44,7 +44,7 @@ namespace GrappleZ_UI
         private void OnScoreIncreased(GlobalEventArgs message)
         {
             GlobalEventArgsFactory.ScoreIncreaseParser(message, out float newScore);
-            CurrentScore += newScore+1;
+            CurrentScore += newScore;
             scoreLabel.text = scoreText;
         }
 

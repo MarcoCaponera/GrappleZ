@@ -36,7 +36,7 @@ namespace GrappleZ_Gameplay
         private float CalculateScore()
         {
             float multiplier = maxTime - currentTime;
-            return currentScore * multiplier;
+            return currentScore * (int)multiplier;
         }
 
         private void ResetParams()

@@ -740,6 +740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb903a727c4b4764487211356770fddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lookPointForEnemies: {fileID: 5346115881173052038}
   playerController: {fileID: 3357497508574309582}
   healthModule:
     maxHP: 100

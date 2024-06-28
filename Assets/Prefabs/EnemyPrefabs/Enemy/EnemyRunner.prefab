@@ -132,13 +132,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 2195962419208434278}
-  lookPoint: {fileID: 0}
   IsPlayerLayer:
     serializedVersion: 2
     m_Bits: 64
   AttackingRaycastArea: {fileID: 3507651993206786142}
+  lookPoint: {fileID: 0}
   healt: 100
   damage: 25
   timeBetweenAttack: 1.5
   enemySpeed: 13
   attackingRadius: 1.5
+  givenScorePoint: 10

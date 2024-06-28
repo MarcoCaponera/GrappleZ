@@ -57,7 +57,7 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
         anim = GetComponent<Animator>();
         currentHealt = healt;
         player = Player.Get().transform;
-        lookPoint = Player.Get().transform;
+        lookPoint = Player.Get().LookPointForEnemies;
 
     }
 

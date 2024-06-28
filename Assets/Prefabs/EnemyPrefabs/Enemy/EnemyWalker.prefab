@@ -106,16 +106,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 5509187279251960657}
-  lookPoint: {fileID: 0}
   IsPlayerLayer:
     serializedVersion: 2
     m_Bits: 64
   AttackingRaycastArea: {fileID: 7106854402830846313}
+  lookPoint: {fileID: 0}
   healt: 100
   damage: 25
   timeBetweenAttack: 1.5
   enemySpeed: 8
   attackingRadius: 1.5
+  givenScorePoint: 10
 --- !u!195 &5509187279251960657 stripped
 NavMeshAgent:
   m_CorrespondingSourceObject: {fileID: 3001107320954620741, guid: f0c0351bc2684b74eb7b33f0bb493632, type: 3}

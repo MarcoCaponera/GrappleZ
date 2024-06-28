@@ -23,8 +23,9 @@ namespace GrappleZ_ObjectPooling
         #endregion
 
         #region Mono
-        protected void Awake()
+        private void Awake()
         {
+
             foreach (BulletData b in bulletData)
             {
                 items[b.name] = new GameObject[itemAmount];
@@ -32,6 +33,7 @@ namespace GrappleZ_ObjectPooling
                 {
                     items[b.name][i] = Instantiate(b.BulletPrefab);
                     items[b.name][i].SetActive(false);
+                    DontDestroyOnLoad(items[b.name][i].gameObject);
                 }
             }
 

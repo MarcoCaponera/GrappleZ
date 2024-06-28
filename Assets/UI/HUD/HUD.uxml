@@ -5,7 +5,7 @@
     <ui:VisualElement name="Container" style="flex-grow: 1;">
         <ui:VisualElement name="Top" style="flex-grow: 1; flex-basis: 20%;">
             <ui:Label tabindex="-1" text="0000" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Score" class="Score" style="align-items: auto; justify-content: flex-start;" />
-            <ui:ProgressBar value="0.5" name="HealthBar" high-value="1" class="HealthBar" />
+            <ui:ProgressBar value="1" name="HealthBar" high-value="1" class="HealthBar" />
         </ui:VisualElement>
         <ui:VisualElement name="Center" style="flex-grow: 1; flex-basis: 60%; transform-origin: center;">
             <ui:VisualElement name="Crosshair" class="Crosshair" style="flex-grow: 0; flex-basis: auto; height: 50px; width: 50px; transform-origin: center; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; position: relative; top: 50%; left: 50%;" />
