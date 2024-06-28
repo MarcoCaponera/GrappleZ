@@ -858,7 +858,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundSpeed: 3
   aerialAcceleration: 30
-  frictionForce: 0
+  frictionForce: 5
 --- !u!1001 &231559525032831591
 PrefabInstance:
   m_ObjectHideFlags: 0
