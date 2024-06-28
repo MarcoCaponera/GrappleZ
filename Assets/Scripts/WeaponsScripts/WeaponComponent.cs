@@ -16,7 +16,10 @@ namespace GrappleZ_Weapons
         private Transform shootForward;
         [SerializeField]
         private Transform shootPoint;
-
+        [SerializeField]
+        private AudioSource weaponSoundSource;
+        [SerializeField]
+        private AudioClip[] weaponSounds;
         #endregion
 
         #region PrivateAttributes
@@ -48,6 +51,7 @@ namespace GrappleZ_Weapons
                     break;  
             }
             shootType.BulletQuery += OnBulletQuery;
+            weaponSoundSource = GetComponent<AudioSource>();
             ResetAmmo();
         }
 
@@ -147,6 +151,10 @@ namespace GrappleZ_Weapons
 
         private void UseAmmo()
         {
+
+            weaponSoundSource.PlayOneShot(weaponSounds[0]);
+
+
             leftAmmo--;
             if (leftAmmo <= 0)
             {
@@ -157,6 +165,8 @@ namespace GrappleZ_Weapons
         public void Reload()
         {
             if (leftAmmo >= weaponData.MagAmmo) return;
+            weaponSoundSource.PlayOneShot(weaponSounds[1]);
+
             isReloading = true;
         }
 

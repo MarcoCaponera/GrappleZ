@@ -230,6 +230,7 @@ public enum EnemyType
         private Vector3 spawnPoint;
 
         private static int enemiesSpawned;
+        private static int counter;
 
         void Start()
         {
@@ -249,6 +250,7 @@ public enum EnemyType
                 poolDictionary.Add(pool.type, objectPool);
             }
 
+
             enemiesSpawned = 0;
             GlobalEventManager.CastEvent(GlobalEventIndex.WaveStarted, GlobalEventArgsFactory.WaveStartedFactory());
             StartCoroutine(SpawnEnemies());
@@ -266,10 +268,7 @@ public enum EnemyType
 
                 enemiesSpawned++;
             }
-            if (enemiesSpawned >= totalEnemiesToSpawn)
-            {
-                GlobalEventManager.CastEvent(GlobalEventIndex.WaveStarted, GlobalEventArgsFactory.WaveEndedFactory());
-            }
+            
 
         }
 
@@ -311,12 +310,21 @@ public enum EnemyType
 
             EnemyFirst enemy = objectToDespawn.GetComponent<EnemyFirst>();
             enemy.OnDespawn();
+            counter++;
+            CheckForWaveEnded();
+            
         }
+
+        private void CheckForWaveEnded()
+        {
+            if (counter >= totalEnemiesToSpawn)
+            {
+                GlobalEventManager.CastEvent(GlobalEventIndex.WaveEnded, GlobalEventArgsFactory.WaveEndedFactory());
+            }
+    }
 
         private Vector3 GetRandomSpawnPosition()
         {
-            
-
             //int randomIndex = Random.Range(0, spawnPoints.Count);
             return spawnPoint;
         }

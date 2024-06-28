@@ -19,7 +19,7 @@ MonoBehaviour:
   bulletTime: 5
   bulletSpeed: 100
   shootDelay: 0.2
-  reloadTime: 2
+  reloadTime: 3
   recoilAmount: 0.02
   bulletData: {fileID: 11400000, guid: 1d6e90bac76dbe146af954bf9bee2cf9, type: 2}
   shootMode: 0

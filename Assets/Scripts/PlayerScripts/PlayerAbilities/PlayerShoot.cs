@@ -29,6 +29,18 @@ namespace GrappleZ_Player
 
         #endregion
 
+        #region VisualControl
+        private void StartShootAnimation()
+        {
+            playerVisual.SetAnimatorParamerer("Shoot_b", true);
+        }
+
+        private void StopShootAnimation()
+        {
+            playerVisual.SetAnimatorParamerer("Shoot_b", true);
+        }
+        #endregion
+
         #region SerializeField
 
         [SerializeField]
@@ -49,7 +61,7 @@ namespace GrappleZ_Player
 
         public override void StopAbility()
         {
-            
+            StopShootAnimation();
         }
         #endregion
 
@@ -59,6 +71,8 @@ namespace GrappleZ_Player
         {
             if (!CanShoot()) return;
             playerController.AddRigidBodyForce(weaponInventory.ShootActiveWeapon(), ForceMode.Impulse);
+
+            StartShootAnimation();
         }
 
         private void OnWeaponSwapInputPerformed(InputAction.CallbackContext action)
