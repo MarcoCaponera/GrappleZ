@@ -28,6 +28,26 @@ PrefabInstance:
       propertyPath: weaponData
       value: 
       objectReference: {fileID: 11400000, guid: aee7f5ea44834bb4d8c985caf48f88bc, type: 2}
+    - target: {fileID: 6031684317572162944, guid: 3a5263d16eac3514dacd9c0cc3ae61b0, type: 3}
+      propertyPath: reloadSound
+      value: 
+      objectReference: {fileID: 186098978230395521}
+    - target: {fileID: 6031684317572162944, guid: 3a5263d16eac3514dacd9c0cc3ae61b0, type: 3}
+      propertyPath: weaponSoundSource
+      value: 
+      objectReference: {fileID: 186098978230395521}
+    - target: {fileID: 6031684317572162944, guid: 3a5263d16eac3514dacd9c0cc3ae61b0, type: 3}
+      propertyPath: weaponSounds.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6031684317572162944, guid: 3a5263d16eac3514dacd9c0cc3ae61b0, type: 3}
+      propertyPath: weaponSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: a8a508257303497468179bcaaaacaf1f, type: 3}
+    - target: {fileID: 6031684317572162944, guid: 3a5263d16eac3514dacd9c0cc3ae61b0, type: 3}
+      propertyPath: weaponSounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: a0c02b11174a7bd41b823a74e7c1194c, type: 3}
     - target: {fileID: 6659748598657953005, guid: 3a5263d16eac3514dacd9c0cc3ae61b0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -68,6 +88,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7090004929567882245, guid: 3a5263d16eac3514dacd9c0cc3ae61b0, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: a8a508257303497468179bcaaaacaf1f, type: 3}
     - target: {fileID: 8690539857930257047, guid: 3a5263d16eac3514dacd9c0cc3ae61b0, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
@@ -81,3 +105,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a5263d16eac3514dacd9c0cc3ae61b0, type: 3}
+--- !u!82 &186098978230395521 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6757058876397575696, guid: 3a5263d16eac3514dacd9c0cc3ae61b0, type: 3}
+  m_PrefabInstance: {fileID: 6868215070068817041}
+  m_PrefabAsset: {fileID: 0}
