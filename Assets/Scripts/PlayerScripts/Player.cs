@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace GrappleZ_Player
 {
@@ -97,6 +98,12 @@ namespace GrappleZ_Player
         {
             playerController.IsDead = true;
             playerController.OnDeath?.Invoke();
+
+            print("DEAD");
+            GlobalEventManager.CastEvent(GlobalEventIndex.PlayerDeath, null);
+            //LEVEL RESET TO FIX
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+            print("Scene Restarted");
         }
         #endregion //HealthModule
 
