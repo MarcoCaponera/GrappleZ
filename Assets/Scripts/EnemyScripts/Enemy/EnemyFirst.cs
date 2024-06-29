@@ -51,7 +51,8 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
     private AudioSource audioSource;
     [SerializeField]
     private AudioClip[] attackClipList;
-
+    [SerializeField]
+    private AudioClip deathSound;
 
     private void Start()
     {
@@ -63,6 +64,7 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
         currentHealt = healt;
         player = Player.Get().transform;
         lookPoint = Player.Get().transform;
+        spawnController = FindObjectOfType<EnemySpawnerBase>();
 
     }
 
@@ -87,7 +89,7 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
         enemySpeed = 0;
         attackingRadius = 0;
         playerInAttackingRadius = false;
-        OnDespawn();
+        spawnController.DespawnToPool(gameObject);
         GlobalEventManager.CastEvent(GlobalEventIndex.ScoreIncreased, GlobalEventArgsFactory.ScoreIncreaseFactory(givenScorePoint));
     }
 
@@ -203,6 +205,7 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
             anim.SetBool("Idle", false);
             anim.SetBool("Attacking", false);
             anim.SetBool("Dead", true);
+            audioSource.PlayOneShot(deathSound);
             Die();
         }
     }
@@ -212,7 +215,7 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
     {
         if (other.CompareTag("Player"))
         {
-            InternalTakeDamage(damage);
+            //InternalTakeDamage(damage);
         }
     }
 
