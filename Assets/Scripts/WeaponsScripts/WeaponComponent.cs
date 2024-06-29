@@ -99,6 +99,7 @@ namespace GrappleZ_Weapons
         private void InternalShoot()
         {
             shootType.Shoot(shootPoint.position, shootForward.forward, weaponData);
+            visual.SetMuzzleFlashActive(true);
             UseAmmo();
         }
 
@@ -158,7 +159,7 @@ namespace GrappleZ_Weapons
             leftAmmo--;
             if (leftAmmo <= 0)
             {
-                isReloading = true;
+                Reload();
             }
         }
 

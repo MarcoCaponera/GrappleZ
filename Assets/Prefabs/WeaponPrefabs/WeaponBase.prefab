@@ -28,7 +28,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8658959960674879484}
   m_Father: {fileID: 6659748598657953005}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5845235217626562245
@@ -115,6 +116,7 @@ MonoBehaviour:
   meshRenderer: {fileID: 8690539857930257047}
   mesh: {fileID: 5653632647150833803}
   animator: {fileID: 5713874651708282608}
+  muzzleFlashRenderer: {fileID: 8658959960677172508}
 --- !u!23 &8690539857930257047
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -333,3 +335,90 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1001 &8658959960675016060
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6017454691242815049}
+    m_Modifications:
+    - target: {fileID: 100000, guid: 50a5b61475aba5649a793b8d076e8681, type: 3}
+      propertyPath: m_Name
+      value: SA_FX_GunFlash
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 50a5b61475aba5649a793b8d076e8681, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 50a5b61475aba5649a793b8d076e8681, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 50a5b61475aba5649a793b8d076e8681, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 50a5b61475aba5649a793b8d076e8681, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 50a5b61475aba5649a793b8d076e8681, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 50a5b61475aba5649a793b8d076e8681, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 50a5b61475aba5649a793b8d076e8681, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 50a5b61475aba5649a793b8d076e8681, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 50a5b61475aba5649a793b8d076e8681, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 50a5b61475aba5649a793b8d076e8681, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 50a5b61475aba5649a793b8d076e8681, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 50a5b61475aba5649a793b8d076e8681, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 50a5b61475aba5649a793b8d076e8681, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 50a5b61475aba5649a793b8d076e8681, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7068beb0eb3789b468c7dbda32083649, type: 2}
+    - target: {fileID: 2300000, guid: 50a5b61475aba5649a793b8d076e8681, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 50a5b61475aba5649a793b8d076e8681, type: 3}
+--- !u!4 &8658959960674879484 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 50a5b61475aba5649a793b8d076e8681, type: 3}
+  m_PrefabInstance: {fileID: 8658959960675016060}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8658959960677172508 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300000, guid: 50a5b61475aba5649a793b8d076e8681, type: 3}
+  m_PrefabInstance: {fileID: 8658959960675016060}
+  m_PrefabAsset: {fileID: 0}

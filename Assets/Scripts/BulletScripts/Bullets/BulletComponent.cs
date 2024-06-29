@@ -11,6 +11,10 @@ namespace GrappleZ_Bullets
 
         [SerializeField]
         private Rigidbody rb;
+        [SerializeField]
+        private BulletTrailData trailData;
+        [SerializeField]
+        private Renderer tRenderer;
 
         #endregion
 
@@ -19,15 +23,26 @@ namespace GrappleZ_Bullets
         private float lifeTime;
         private float lifeTimeCounter;
         private float damage;
+        private TrailRenderer trailRenderer;
 
         #endregion
 
-
         #region Mono
+        protected void Awake()
+        {
+            trailRenderer = GetComponent<TrailRenderer>();
+        }
 
         protected void OnEnable()
         {
+            tRenderer.enabled = true;
+            InitTrail();
             lifeTimeCounter = 0;
+        }
+
+        protected void OnDisable()
+        {
+            trailRenderer.Clear();
         }
 
         protected void Update()
@@ -56,6 +71,13 @@ namespace GrappleZ_Bullets
 
         #endregion
 
+        #region InternalMethods
+
+        private void InitTrail()
+        {
+            trailData.SetupTrail(trailRenderer);
+        }
+
         public void InitBullet(BulletInitArgs args)
         {
             rb.velocity = args.Velocity;
@@ -63,6 +85,8 @@ namespace GrappleZ_Bullets
             lifeTime = args.LifeTime;
             damage = args.Damage;
         }
+
+        #endregion
     }
 
 }
