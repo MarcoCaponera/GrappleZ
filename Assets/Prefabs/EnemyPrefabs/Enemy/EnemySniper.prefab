@@ -99,6 +99,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7179285088695533955}
   m_SourcePrefab: {fileID: 100100000, guid: f0c0351bc2684b74eb7b33f0bb493632, type: 3}
+--- !u!82 &709359846852948019 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3568053109616787996, guid: f0c0351bc2684b74eb7b33f0bb493632, type: 3}
+  m_PrefabInstance: {fileID: 4061229144073548335}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &747684070567806754 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3619817475679335693, guid: f0c0351bc2684b74eb7b33f0bb493632, type: 3}
@@ -107,11 +112,6 @@ Transform:
 --- !u!195 &1295472459514165610 stripped
 NavMeshAgent:
   m_CorrespondingSourceObject: {fileID: 3001107320954620741, guid: f0c0351bc2684b74eb7b33f0bb493632, type: 3}
-  m_PrefabInstance: {fileID: 4061229144073548335}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &3307416526179289269 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 1565616241561565850, guid: f0c0351bc2684b74eb7b33f0bb493632, type: 3}
   m_PrefabInstance: {fileID: 4061229144073548335}
   m_PrefabAsset: {fileID: 0}
 --- !u!20 &4552716591483716434 stripped
@@ -147,12 +147,13 @@ MonoBehaviour:
   timeBetweenAttack: 3
   enemySpeed: 7
   attackingRadius: 15
-  givenScorePoint: 40
-  audioSource: {fileID: 3307416526179289269}
-  deathClip: {fileID: 8300000, guid: 5ef6f3f127b61af40a8cbcd0ae20c3e0, type: 3}
-  attackClipList1: {fileID: 8300000, guid: 63e211d00005d3b43a128c7bdfc6840a, type: 3}
-  attackClipList2: {fileID: 8300000, guid: 9c466be7144f27345858aac16992f8cc, type: 3}
-  attackClipList3: {fileID: 8300000, guid: ccf969e80e17ea14d9730ff22e834ce4, type: 3}
+  givenScorePoint: 50
+  audioSource: {fileID: 709359846852948019}
+  attackClipList:
+  - {fileID: 8300000, guid: 63e211d00005d3b43a128c7bdfc6840a, type: 3}
+  - {fileID: 8300000, guid: 9c466be7144f27345858aac16992f8cc, type: 3}
+  - {fileID: 8300000, guid: ccf969e80e17ea14d9730ff22e834ce4, type: 3}
+  deathSound: {fileID: 8300000, guid: 5ef6f3f127b61af40a8cbcd0ae20c3e0, type: 3}
 --- !u!1001 &8268606525733029778
 PrefabInstance:
   m_ObjectHideFlags: 0

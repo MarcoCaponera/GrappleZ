@@ -3,9 +3,8 @@ using UnityEngine;
 using UnityEngine.Pool;
 using GrappleZ_Player;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 using System.Collections.Generic;
-using System.Collections;
-using Codice.Client.BaseCommands;
 
 
 
@@ -49,45 +48,25 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
 
     private EnemySpawnerBase spawnController;
     [SerializeField]
-    protected AudioSource audioSource;
+    private AudioSource audioSource;
     [SerializeField]
-    private AudioClip deathClip;
+    private AudioClip[] attackClipList;
     [SerializeField]
-    private AudioClip attackClipList1;
-    [SerializeField]
-    private AudioClip attackClipList2;
-    [SerializeField]
-    private AudioClip attackClipList3;
-
+    private AudioClip deathSound;
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.speed = enemySpeed;
-        agent.stoppingDistance = attackingRadius + 2;
+        agent.stoppingDistance = attackingRadius+2;
 
         anim = GetComponent<Animator>();
         currentHealt = healt;
         player = Player.Get().transform;
-        lookPoint = Player.Get().LookPointForEnemies;
-
-        audioSource = GetComponent<AudioSource>();
-        audioSource.playOnAwake = false;
-
+        lookPoint = Player.Get().transform;
+        spawnController = FindObjectOfType<EnemySpawnerBase>();
 
     }
-
-    #region Audio Methods
-    private void PlaySound(AudioClip clip)
-    {
-        if (clip != null)
-        {
-
-            audioSource.clip = clip;
-            audioSource.Play();
-        }
-    }
-    #endregion
 
     public void Initialize()
     {
@@ -103,14 +82,14 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
     {
         gameObject.SetActive(true);
     }
-
+ 
 
     protected virtual void Die()
     {
         enemySpeed = 0;
         attackingRadius = 0;
         playerInAttackingRadius = false;
-        OnDespawn();
+        spawnController.DespawnToPool(gameObject);
         GlobalEventManager.CastEvent(GlobalEventIndex.ScoreIncreased, GlobalEventArgsFactory.ScoreIncreaseFactory(givenScorePoint));
     }
 
@@ -128,14 +107,12 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
     protected virtual void Attack()
     {
 
-        PlaySound(attackClipList2);
         transform.LookAt(lookPoint);
 
         if (!hasAttacked)
         {
-
             RaycastHit hitInfo;
-            if (Physics.Raycast(AttackingRaycastArea.transform.position, AttackingRaycastArea.transform.forward, out hitInfo, attackingRadius))
+            if (Physics.Raycast(AttackingRaycastArea.transform.position, AttackingRaycastArea.transform.forward, out hitInfo, attackingRadius)) 
             {
                 Debug.Log("Attacking" + hitInfo.transform.name);
                 if (!hitInfo.collider.CompareTag("Player")) return;
@@ -145,10 +122,12 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
                 {
                     DamageContainer damageContainer = new DamageContainer();
                     damageContainer.Damage = damage;
-
+                    
                     damageble.TakeDamage(damageContainer);
 
                 }
+                
+
             }
 
             anim.SetBool("Walking", false);
@@ -156,7 +135,7 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
             anim.SetBool("Attacking", true);
             anim.SetBool("Dead", false);
 
-
+            audioSource.PlayOneShot(attackClipList[UnityEngine.Random.Range(0, attackClipList.Length-1)]);
 
             hasAttacked = true;
             Invoke(nameof(ActiveAttacking), timeBetweenAttack);
@@ -180,9 +159,8 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
         if (player.position.y > 1)
         {
             agent.SetDestination(new Vector3(player.position.x, 1, player.position.z));
-
-        }
-        else
+            
+        }else
         {
 
             SetAgentDestination();
@@ -201,7 +179,7 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
             anim.SetBool("Attacking", false);
             anim.SetBool("Dead", false);
         }
-
+        
     }
 
     private bool SetAgentDestination()
@@ -227,28 +205,22 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
             anim.SetBool("Idle", false);
             anim.SetBool("Attacking", false);
             anim.SetBool("Dead", true);
-
-            PlaySound(deathClip);
-
-           
+            audioSource.PlayOneShot(deathSound);
             Die();
         }
     }
-    
-  
 
 
     private void OnTriggerEnter(Collider other)
     {
-        //if (other.CompareTag("Player"))
-        //{
-        //    InternalTakeDamage(damage);
-        //}
+        if (other.CompareTag("Player"))
+        {
+            //InternalTakeDamage(damage);
+        }
     }
 
     public void TakeDamage(DamageContainer damage)
     {
         InternalTakeDamage(damage.Damage);
     }
-    
 }

@@ -115,25 +115,26 @@ MonoBehaviour:
   damage: 25
   timeBetweenAttack: 1.5
   enemySpeed: 8
-  attackingRadius: 2.5
-  givenScorePoint: 30
-  audioSource: {fileID: 8099913304436179598}
-  deathClip: {fileID: 8300000, guid: 5ef6f3f127b61af40a8cbcd0ae20c3e0, type: 3}
-  attackClipList1: {fileID: 8300000, guid: 63e211d00005d3b43a128c7bdfc6840a, type: 3}
-  attackClipList2: {fileID: 8300000, guid: 9c466be7144f27345858aac16992f8cc, type: 3}
-  attackClipList3: {fileID: 8300000, guid: ccf969e80e17ea14d9730ff22e834ce4, type: 3}
+  attackingRadius: 1.5
+  givenScorePoint: 0
+  audioSource: {fileID: 6077263511624694280}
+  attackClipList:
+  - {fileID: 8300000, guid: 63e211d00005d3b43a128c7bdfc6840a, type: 3}
+  - {fileID: 8300000, guid: 9c466be7144f27345858aac16992f8cc, type: 3}
+  - {fileID: 8300000, guid: ccf969e80e17ea14d9730ff22e834ce4, type: 3}
+  deathSound: {fileID: 8300000, guid: 5ef6f3f127b61af40a8cbcd0ae20c3e0, type: 3}
 --- !u!195 &5509187279251960657 stripped
 NavMeshAgent:
   m_CorrespondingSourceObject: {fileID: 3001107320954620741, guid: f0c0351bc2684b74eb7b33f0bb493632, type: 3}
   m_PrefabInstance: {fileID: 7337071401913481236}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &6077263511624694280 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3568053109616787996, guid: f0c0351bc2684b74eb7b33f0bb493632, type: 3}
+  m_PrefabInstance: {fileID: 7337071401913481236}
+  m_PrefabAsset: {fileID: 0}
 --- !u!20 &7106854402830846313 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 536524282329411965, guid: f0c0351bc2684b74eb7b33f0bb493632, type: 3}
-  m_PrefabInstance: {fileID: 7337071401913481236}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &8099913304436179598 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 1565616241561565850, guid: f0c0351bc2684b74eb7b33f0bb493632, type: 3}
   m_PrefabInstance: {fileID: 7337071401913481236}
   m_PrefabAsset: {fileID: 0}

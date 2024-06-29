@@ -3417,7 +3417,7 @@ GameObject:
   - component: {fileID: 2129018823105560109}
   - component: {fileID: 3001107320954620741}
   - component: {fileID: -2956495276786163056}
-  - component: {fileID: 1565616241561565850}
+  - component: {fileID: 3568053109616787996}
   m_Layer: 7
   m_Name: EnemyFirst
   m_TagString: Enemy
@@ -3514,12 +3514,12 @@ MonoBehaviour:
   timeBetweenAttack: 2
   enemySpeed: 8
   attackingRadius: 3
-  givenScorePoint: 50
-  audioSource: {fileID: 1565616241561565850}
-  deathClip: {fileID: 8300000, guid: 5ef6f3f127b61af40a8cbcd0ae20c3e0, type: 3}
-  attackClipList1: {fileID: 8300000, guid: 63e211d00005d3b43a128c7bdfc6840a, type: 3}
-  attackClipList2: {fileID: 8300000, guid: 9c466be7144f27345858aac16992f8cc, type: 3}
-  attackClipList3: {fileID: 8300000, guid: ccf969e80e17ea14d9730ff22e834ce4, type: 3}
+  givenScorePoint: 0
+  audioSource: {fileID: 3568053109616787996}
+  attackClipList:
+  - {fileID: 8300000, guid: 63e211d00005d3b43a128c7bdfc6840a, type: 3}
+  - {fileID: 8300000, guid: 9c466be7144f27345858aac16992f8cc, type: 3}
+  - {fileID: 8300000, guid: ccf969e80e17ea14d9730ff22e834ce4, type: 3}
 --- !u!195 &3001107320954620741
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3565,7 +3565,7 @@ CapsuleCollider:
   m_Height: 3.4919834
   m_Direction: 1
   m_Center: {x: 0.0034143925, y: 1.2459917, z: 0.017477006}
---- !u!82 &1565616241561565850
+--- !u!82 &3568053109616787996
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

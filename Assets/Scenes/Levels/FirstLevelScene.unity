@@ -7350,6 +7350,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3141915672145185702, guid: 2356e013be558d94ab523759bce94706, type: 3}
+      propertyPath: damageInvTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 718640048741821724, guid: 2356e013be558d94ab523759bce94706, type: 3}
       propertyPath: playerAnimator
       value: 
