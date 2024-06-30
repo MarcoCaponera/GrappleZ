@@ -28,7 +28,7 @@ public class EnemySniper : EnemyFirst
                 {
                     DamageContainer damageContainer = new DamageContainer();
 
-                    damageContainer.Damage = GetBodyDamage();
+                    damageContainer.Damage = damage;
 
                     damageble.TakeDamage(damageContainer);
 
