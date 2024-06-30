@@ -1,3 +1,4 @@
+using GrappleZ_Utility;
 using PlasticGui.WorkspaceWindow;
 using System;
 using System.Collections;
@@ -252,7 +253,7 @@ public enum EnemyType
 
 
             enemiesSpawned = 0;
-            GlobalEventManager.CastEvent(GlobalEventIndex.WaveStarted, GlobalEventArgsFactory.WaveStartedFactory());
+            GlobalEventManager.CastEvent(GlobalEventIndex.WaveStarted, GlobalEventArgsFactory.WaveStartedFactory(WaveEnum.First));
             StartCoroutine(SpawnEnemies());
         }
 
@@ -319,7 +320,7 @@ public enum EnemyType
         {
             if (counter >= totalEnemiesToSpawn)
             {
-                GlobalEventManager.CastEvent(GlobalEventIndex.WaveEnded, GlobalEventArgsFactory.WaveEndedFactory());
+                GlobalEventManager.CastEvent(GlobalEventIndex.WaveEnded, GlobalEventArgsFactory.WaveEndedFactory(WaveEnum.First));
             }
     }
 

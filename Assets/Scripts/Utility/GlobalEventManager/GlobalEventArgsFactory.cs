@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using GrappleZ_Utility;
+using UnityEngine.SocialPlatforms.Impl;
 
 
 public static class GlobalEventArgsFactory {
@@ -164,15 +166,17 @@ public static class GlobalEventArgsFactory {
 
     #region WaveStarted
 
-    public static GlobalEventArgs WaveStartedFactory()
+    public static GlobalEventArgs WaveStartedFactory(WaveEnum StartedWave)
     {
         GlobalEventArgs message = new GlobalEventArgs();
+        message.args = new ExtendedVariable[1];
+        message.args[0] = new ExtendedVariable("StartedWave", ExtendedVariableType.Int, (int)StartedWave);
         return message;
     }
 
-    public static void WaveStartedParser(GlobalEventArgs message)
+    public static void WaveStartedParser(GlobalEventArgs message, out WaveEnum StartedWave)
     {
-
+        StartedWave = (WaveEnum)message.args[0].GetValue();
     }
 
     public static string WaveStartedDebug(GlobalEventArgs message)
@@ -184,15 +188,17 @@ public static class GlobalEventArgsFactory {
 
     #region WaveEnded
 
-    public static GlobalEventArgs WaveEndedFactory()
+    public static GlobalEventArgs WaveEndedFactory(WaveEnum EndedWave)
     {
         GlobalEventArgs message = new GlobalEventArgs();
+        message.args = new ExtendedVariable[1];
+        message.args[0] = new ExtendedVariable("EndedWave", ExtendedVariableType.Int, (int)EndedWave);
         return message;
     }
 
-    public static void WaveEndedParser(GlobalEventArgs message)
+    public static void WaveEndedParser(GlobalEventArgs message,out WaveEnum EndedWave)
     {
-
+        EndedWave = (WaveEnum)message.args[0].GetValue();
     }
 
     public static string WaveEndedDebug(GlobalEventArgs message)
