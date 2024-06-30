@@ -45,7 +45,7 @@ namespace GrappleZ_Weapons
             {
                 if (weapon.Type == type)
                 {
-                    weapon.SetActive(true);
+                    weapon.enabled = true;
                     return;
                 }
             }
