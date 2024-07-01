@@ -30,6 +30,7 @@ public class EnemySpawnerBase : MonoBehaviour
         public List<EnemyType> EnemyTypes;
         public int TotalEnemiesInWave;
         public float SpawnInterval;
+        public WaveEnum WaveEnum;
     }
 
     public List<Pool> Pools;
@@ -76,7 +77,7 @@ public class EnemySpawnerBase : MonoBehaviour
             enemiesSpawned = 0;
             enemiesDefeated = 0;
             Wave currentWave = Waves[currentWaveIndex];
-            //GlobalEventManager.CastEvent(GlobalEventIndex.WaveStarted, GlobalEventArgsFactory.WaveStartedFactory());
+            GlobalEventManager.CastEvent(GlobalEventIndex.WaveStarted, GlobalEventArgsFactory.WaveStartedFactory(Waves[currentWaveIndex].WaveEnum));
             StartCoroutine(SpawnEnemiesForWave(currentWave));
         }
         else
@@ -137,7 +138,9 @@ public class EnemySpawnerBase : MonoBehaviour
     {
         if (enemiesDefeated >= Waves[currentWaveIndex].TotalEnemiesInWave)
         {
-            //GlobalEventManager.CastEvent(GlobalEventIndex.WaveEnded, GlobalEventArgsFactory.WaveEndedFactory());
+            GlobalEventManager.CastEvent(GlobalEventIndex.WaveEnded, GlobalEventArgsFactory.WaveEndedFactory(Waves[currentWaveIndex].WaveEnum));
+
+            //To fix, this should be called after the WaveEndedPopUp
             StartNextWave();
         }
     }
