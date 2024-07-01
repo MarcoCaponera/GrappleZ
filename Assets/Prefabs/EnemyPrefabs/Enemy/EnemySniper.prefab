@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6269438219225501062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7936680978904619153}
+  m_Layer: 0
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7936680978904619153
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6269438219225501062}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.132, z: 0.346}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8179415384941484014}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4061229144073548335
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -154,6 +185,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9c466be7144f27345858aac16992f8cc, type: 3}
   - {fileID: 8300000, guid: ccf969e80e17ea14d9730ff22e834ce4, type: 3}
   deathSound: {fileID: 8300000, guid: 5ef6f3f127b61af40a8cbcd0ae20c3e0, type: 3}
+  bulletPrefab: {fileID: 4940230035889560811, guid: be593c2bca6a6694191ae7d4161c5e25, type: 3}
+  firePoint: {fileID: 7936680978904619153}
+  bulletSpeed: 20
+  initialPoolSize: 10
+  maxPoolSize: 20
 --- !u!1001 &8268606525733029778
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -210,11 +246,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pistol
       objectReference: {fileID: 0}
+    - target: {fileID: 8635612817070714997, guid: 6f620fa1746987046bb840a8c8b54299, type: 3}
+      propertyPath: muzzleFlashRenderer
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 3573104805460852878, guid: 6f620fa1746987046bb840a8c8b54299, type: 3}
     - {fileID: 5290743781646497623, guid: 6f620fa1746987046bb840a8c8b54299, type: 3}
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 233311038568009852, guid: 6f620fa1746987046bb840a8c8b54299, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7936680978904619153}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f620fa1746987046bb840a8c8b54299, type: 3}
 --- !u!4 &8179415384941484014 stripped

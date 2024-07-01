@@ -3520,6 +3520,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 63e211d00005d3b43a128c7bdfc6840a, type: 3}
   - {fileID: 8300000, guid: 9c466be7144f27345858aac16992f8cc, type: 3}
   - {fileID: 8300000, guid: ccf969e80e17ea14d9730ff22e834ce4, type: 3}
+  deathSound: {fileID: 0}
 --- !u!195 &3001107320954620741
 NavMeshAgent:
   m_ObjectHideFlags: 0

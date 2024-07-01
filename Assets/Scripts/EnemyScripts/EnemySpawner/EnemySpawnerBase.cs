@@ -11,7 +11,8 @@ public enum EnemyType
 {
     Walker,
     Sniper,
-    Runner
+    Runner,
+    Jumper
 }
 
 public class EnemySpawnerBase : MonoBehaviour

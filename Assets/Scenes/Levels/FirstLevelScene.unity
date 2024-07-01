@@ -12386,7 +12386,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6740107299060490096, guid: 3f31e03cf2b42824d9fe3d342eb19fa9, type: 3}
       propertyPath: Pools.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6740107299060490096, guid: 3f31e03cf2b42824d9fe3d342eb19fa9, type: 3}
       propertyPath: Waves.Array.size
@@ -12417,6 +12417,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6740107299060490096, guid: 3f31e03cf2b42824d9fe3d342eb19fa9, type: 3}
+      propertyPath: Pools.Array.data[3].Size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6740107299060490096, guid: 3f31e03cf2b42824d9fe3d342eb19fa9, type: 3}
+      propertyPath: Pools.Array.data[3].Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6740107299060490096, guid: 3f31e03cf2b42824d9fe3d342eb19fa9, type: 3}
       propertyPath: pools.Array.data[0].size
       value: 10
       objectReference: {fileID: 0}
@@ -12441,6 +12449,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5617655565437667876, guid: 37c6305e2d9f60f418803da75ac1287c, type: 3}
     - target: {fileID: 6740107299060490096, guid: 3f31e03cf2b42824d9fe3d342eb19fa9, type: 3}
+      propertyPath: Pools.Array.data[3].Prefab
+      value: 
+      objectReference: {fileID: 4631413400941161583, guid: 80fe2de1704994c428825d8e9dae03dc, type: 3}
+    - target: {fileID: 6740107299060490096, guid: 3f31e03cf2b42824d9fe3d342eb19fa9, type: 3}
       propertyPath: Waves.Array.data[1].WaveEnum
       value: 1
       objectReference: {fileID: 0}
@@ -12462,10 +12474,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6740107299060490096, guid: 3f31e03cf2b42824d9fe3d342eb19fa9, type: 3}
       propertyPath: Waves.Array.data[0].EnemyTypes.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6740107299060490096, guid: 3f31e03cf2b42824d9fe3d342eb19fa9, type: 3}
       propertyPath: Waves.Array.data[1].EnemyTypes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6740107299060490096, guid: 3f31e03cf2b42824d9fe3d342eb19fa9, type: 3}
+      propertyPath: Waves.Array.data[0].EnemyTypes.Array.data[0]
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6740107299060490096, guid: 3f31e03cf2b42824d9fe3d342eb19fa9, type: 3}
