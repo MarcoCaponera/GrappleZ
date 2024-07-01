@@ -13,6 +13,8 @@ namespace GrappleZ_UI
         #region SerilizedField
         [SerializeField]
         private String SceneToLoad;
+        [SerializeField]
+        private GameObject settingsMenu;
 
 
         #endregion
@@ -21,19 +23,28 @@ namespace GrappleZ_UI
         private Coroutine changeSceneCoroutine;
         private Button startButton;
         private Button exitButton;
+        private Button optionsButton;
 
         #endregion
 
         #region Mono
-        private void Awake()
+
+        private void OnEnable()
         {
             startButton = GetComponent<UIDocument>().rootVisualElement.Q<Button>("StartButton");
             exitButton = GetComponent<UIDocument>().rootVisualElement.Q<Button>("ExitButton");
-
+            optionsButton = GetComponent<UIDocument>().rootVisualElement.Q<Button>("OptionsButton");
             startButton.clicked += StartClickedCallback;
             exitButton.clicked += ExitClickedCallback;
+            optionsButton.clicked += OptionsClickedCallback;
         }
 
+        private void OnDisable()
+        {
+            startButton.clicked -= StartClickedCallback;
+            exitButton.clicked -= ExitClickedCallback;
+            optionsButton.clicked -= OptionsClickedCallback;
+        }
 
         #endregion
 
@@ -54,6 +65,12 @@ namespace GrappleZ_UI
         {
             if (changeSceneCoroutine != null) return;
             changeSceneCoroutine = StartCoroutine(ChangeSceneCoroutine());
+        }
+
+        private void OptionsClickedCallback()
+        {
+            settingsMenu.SetActive(true);
+            gameObject.SetActive(false);
         }
 
         private void ExitClickedCallback()
