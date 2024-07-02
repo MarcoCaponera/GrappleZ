@@ -89,8 +89,8 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
         enemySpeed = 0;
         attackingRadius = 0;
         playerInAttackingRadius = false;
-        spawnController.DespawnToPool(gameObject);
         GlobalEventManager.CastEvent(GlobalEventIndex.ScoreIncreased, GlobalEventArgsFactory.ScoreIncreaseFactory(givenScorePoint));
+        spawnController.DespawnToPool(gameObject);
     }
 
     private void Update()

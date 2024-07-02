@@ -18,12 +18,12 @@ namespace GrappleZ_Utility
 
         #region PublicMethods
 
-        public void SetVisibility(bool visible)
+        public static void SetVisibility(bool visible)
         {
             Cursor.visible = visible;
         }
 
-        public void SetLockState(CursorLockMode cursorLockMode)
+        public static void SetLockState(CursorLockMode cursorLockMode)
         {
             Cursor.lockState = cursorLockMode;
         }

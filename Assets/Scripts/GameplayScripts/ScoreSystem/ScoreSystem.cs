@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using GrappleZ_Utility;
 using System.Linq;
+using GrappleZ_UI;
 
 namespace GrappleZ_Gameplay
 {
-    public struct ScoreStruct
-    {
-        public float Score;
-        public float Time;
-    }
 
     public class ScoreSystem : MonoBehaviour
     {
@@ -18,6 +14,8 @@ namespace GrappleZ_Gameplay
 
         [SerializeField]
         private float maxTime;
+        [SerializeField]
+        private EndWaveMenu endWaveUI;
 
         #endregion
 
@@ -47,7 +45,7 @@ namespace GrappleZ_Gameplay
         {
             CalculateFinalTime();
             float multiplier = maxTime - currentTime;
-            return new ScoreStruct() {Score = currentScore * (int)multiplier , Time = currentTime };
+            return new ScoreStruct() { Score = currentScore * (int)multiplier, Time = currentTime };
         }
 
         private void ResetParams()
@@ -56,6 +54,12 @@ namespace GrappleZ_Gameplay
             currentTime = 0;
         }
 
+        #endregion
+        #region publicMethods
+        public List<ScoreStruct> GetLeaderbordForWave(WaveEnum wave)
+        {
+            return leaderBoard[wave].OrderByDescending(x => x.Score).ToList();
+        }
         #endregion
 
         #region Mono
@@ -79,21 +83,23 @@ namespace GrappleZ_Gameplay
         protected void OnWaveStarted(GlobalEventArgs message)
         {
             ResetParams();
-            GlobalEventArgsFactory.WaveStartedParser(message,out currentWave);
+            GlobalEventArgsFactory.WaveStartedParser(message, out currentWave);
             currentTime = Time.realtimeSinceStartup;
         }
 
-        protected void OnWaveEnded(GlobalEventArgs message) 
+        protected void OnWaveEnded(GlobalEventArgs message)
         {
             leaderBoard[currentWave].Add(CalculateScore());
-            leaderBoard[currentWave].OrderByDescending(s => s.Score);
+            endWaveUI.ComputeLeaderbard(
+                    leaderBoard[currentWave].OrderByDescending(s => s.Score).ToList()
+                );
         }
 
         protected void OnScoreIncrease(GlobalEventArgs message)
         {
             GlobalEventArgsFactory.ScoreIncreaseParser(message, out float score);
-            Debug.Log(currentScore);
             currentScore += score;
+            Debug.Log(currentScore);
         }
 
         #endregion

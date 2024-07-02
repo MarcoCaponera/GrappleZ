@@ -66,5 +66,19 @@ namespace GrappleZ_Utility
             }
             input.Player.Reload.performed -= action;
         }
+
+
+        public static void EnablePlayerMap(bool enable)
+        {
+            if (enable)
+            {
+                input.Player.Enable();
+            }
+            else
+            {
+                input.Player.Disable();
+            }
+
+        }
     }
 }

@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/EndWave/Resources/LeaderBoardUSS.uss?fileID=7433441132597879392&amp;guid=300719c6a3c334842852df611027bd7f&amp;type=3#LeaderBoardUSS" />
+    <ui:VisualElement name="menuContainer" style="flex-grow: 1;">
+        <ui:VisualElement name="Header" style="flex-grow: 0; flex-basis: auto; flex-direction: row; justify-content: space-between; align-self: auto; align-items: auto;">
+            <ui:Label tabindex="-1" text="Position" parse-escape-sequences="true" display-tooltip-when-elided="true" class="Leaderboard-header Position-Container" style="flex-shrink: 1; flex-basis: auto;" />
+            <ui:Label tabindex="-1" text="Total Score" parse-escape-sequences="true" display-tooltip-when-elided="true" class="Leaderboard-header Score-Container" style="flex-shrink: 1; flex-grow: 1;" />
+            <ui:Label tabindex="-1" text="Time " parse-escape-sequences="true" display-tooltip-when-elided="true" class="Leaderboard-header Time-Container" style="flex-grow: 1; flex-shrink: 1;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Body" style="flex-grow: 1;">
+            <ui:ListView name="ScoreListView" style="flex-grow: 1;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
