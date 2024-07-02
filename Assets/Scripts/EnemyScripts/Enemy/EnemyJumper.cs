@@ -15,6 +15,8 @@ public class EnemyJumper : EnemyFirst
 
     protected override void Attack()
     {
+        transform.LookAt(lookPoint);
+
         if (!hasAttacked)
         {
             float distanceToTarget = Vector3.Distance(transform.position, lookPoint.position);
@@ -97,6 +99,8 @@ public class EnemyJumper : EnemyFirst
         if (agent != null) agent.enabled = true;
 
         anim.SetBool("Eating", false);
+        transform.LookAt(lookPoint);
+
     }
 
     private void PlaceOnNavMesh()

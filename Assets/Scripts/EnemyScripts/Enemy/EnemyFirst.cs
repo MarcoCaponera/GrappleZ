@@ -53,6 +53,8 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
     private AudioClip[] attackClipList;
     [SerializeField]
     private AudioClip deathSound;
+    [SerializeField]
+    private GameObject hitEffect;
 
     private void Start()
     {
@@ -199,6 +201,7 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
     private void InternalTakeDamage(float dmg)
     {
         currentHealt -= dmg;
+        
         if (currentHealt <= 0)
         {
             anim.SetBool("Walking", false);
@@ -210,6 +213,12 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
         }
     }
 
+    private void HitReaction()
+    {
+        Vector3 hitOffset= new Vector3(0,2,0);
+        GameObject onHitEffect = Instantiate(hitEffect, transform.position + hitOffset, Quaternion.LookRotation(lookPoint.position));
+        Destroy(onHitEffect , 1.5f);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -221,6 +230,7 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
 
     public void TakeDamage(DamageContainer damage)
     {
+        HitReaction();
         InternalTakeDamage(damage.Damage);
     }
 }
