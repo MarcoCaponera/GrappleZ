@@ -86,8 +86,10 @@ namespace GrappleZ_UI
         #region Callbacks
         private void NextWaveClickedCallback()
         {
-            if (changeSceneCoroutine != null) return;
-            changeSceneCoroutine = StartCoroutine(ChangeSceneCoroutine(NextWaveScene));
+            HideMenu();
+            MouseCursor.SetVisibility(false);
+            MouseCursor.SetLockState(CursorLockMode.Locked);
+            GlobalEventManager.CastEvent(GlobalEventIndex.WaveStarted, GlobalEventArgsFactory.WaveStartedFactory());
         }
 
         private void MainMenuClickedCallback()
@@ -103,7 +105,7 @@ namespace GrappleZ_UI
             menuRoot.visible = true;
             InputManager.EnablePlayerMap(false);
             MouseCursor.SetVisibility(true);
-            MouseCursor.SetLockState(CursorLockMode.None);
+            MouseCursor.SetLockState(CursorLockMode.Confined);
             nextWaveButton.clicked += NextWaveClickedCallback;
             mainMenuButton.clicked += MainMenuClickedCallback;
         }

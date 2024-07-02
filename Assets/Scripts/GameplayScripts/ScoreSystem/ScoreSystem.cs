@@ -83,12 +83,12 @@ namespace GrappleZ_Gameplay
         protected void OnWaveStarted(GlobalEventArgs message)
         {
             ResetParams();
-            GlobalEventArgsFactory.WaveStartedParser(message, out currentWave);
             currentTime = Time.realtimeSinceStartup;
         }
 
         protected void OnWaveEnded(GlobalEventArgs message)
         {
+            GlobalEventArgsFactory.WaveEndedParser(message, out currentWave);
             leaderBoard[currentWave].Add(CalculateScore());
             endWaveUI.ComputeLeaderbard(
                     leaderBoard[currentWave].OrderByDescending(s => s.Score).ToList()

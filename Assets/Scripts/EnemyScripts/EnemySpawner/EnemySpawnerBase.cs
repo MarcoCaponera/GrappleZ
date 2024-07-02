@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Pool;
 
 public enum EnemyType
@@ -48,8 +49,10 @@ public class EnemySpawnerBase : MonoBehaviour
     private void Start()
     {
         InitializePools();
-        StartNextWave();
+        GlobalEventManager.AddListener(GlobalEventIndex.WaveStarted, StartNextWave);
+        GlobalEventManager.CastEvent(GlobalEventIndex.WaveStarted, GlobalEventArgsFactory.WaveStartedFactory());
     }
+
 
     private void InitializePools()
     {
@@ -70,7 +73,7 @@ public class EnemySpawnerBase : MonoBehaviour
         }
     }
 
-    private void StartNextWave()
+    protected void StartNextWave(GlobalEventArgs message)
     {
         currentWaveIndex++;
         if (currentWaveIndex < Waves.Count)
@@ -78,7 +81,7 @@ public class EnemySpawnerBase : MonoBehaviour
             enemiesSpawned = 0;
             enemiesDefeated = 0;
             Wave currentWave = Waves[currentWaveIndex];
-            GlobalEventManager.CastEvent(GlobalEventIndex.WaveStarted, GlobalEventArgsFactory.WaveStartedFactory(Waves[currentWaveIndex].WaveEnum));
+            //GlobalEventManager.CastEvent(GlobalEventIndex.WaveStarted, GlobalEventArgsFactory.WaveStartedFactory(Waves[currentWaveIndex].WaveEnum));
             StartCoroutine(SpawnEnemiesForWave(currentWave));
         }
         else
@@ -142,7 +145,7 @@ public class EnemySpawnerBase : MonoBehaviour
             GlobalEventManager.CastEvent(GlobalEventIndex.WaveEnded, GlobalEventArgsFactory.WaveEndedFactory(Waves[currentWaveIndex].WaveEnum));
 
             //To fix, this should be called after the WaveEndedPopUp
-            StartNextWave();
+            //StartNextWave();
         }
     }
 }

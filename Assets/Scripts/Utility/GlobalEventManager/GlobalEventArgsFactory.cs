@@ -166,17 +166,14 @@ public static class GlobalEventArgsFactory {
 
     #region WaveStarted
 
-    public static GlobalEventArgs WaveStartedFactory(WaveEnum StartedWave)
+    public static GlobalEventArgs WaveStartedFactory()
     {
         GlobalEventArgs message = new GlobalEventArgs();
-        message.args = new ExtendedVariable[1];
-        message.args[0] = new ExtendedVariable("StartedWave", ExtendedVariableType.Int, (int)StartedWave);
         return message;
     }
 
-    public static void WaveStartedParser(GlobalEventArgs message, out WaveEnum StartedWave)
+    public static void WaveStartedParser(GlobalEventArgs message)
     {
-        StartedWave = (WaveEnum)message.args[0].GetValue();
     }
 
     public static string WaveStartedDebug(GlobalEventArgs message)
