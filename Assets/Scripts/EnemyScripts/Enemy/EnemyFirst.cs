@@ -30,7 +30,7 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
     [SerializeField]
     private float healt;
     [SerializeField]
-    private float damage;
+    protected float damage;
     [SerializeField]
     protected float timeBetweenAttack;
     [SerializeField]
@@ -86,10 +86,10 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
 
     protected virtual void Die()
     {
+        GlobalEventManager.CastEvent(GlobalEventIndex.ScoreIncreased, GlobalEventArgsFactory.ScoreIncreaseFactory(givenScorePoint));
         enemySpeed = 0;
         attackingRadius = 0;
         playerInAttackingRadius = false;
-        GlobalEventManager.CastEvent(GlobalEventIndex.ScoreIncreased, GlobalEventArgsFactory.ScoreIncreaseFactory(givenScorePoint));
         spawnController.DespawnToPool(gameObject);
     }
 

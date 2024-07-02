@@ -6,6 +6,7 @@
     <ui:VisualElement name="Center" style="flex-grow: 1; background-color: rgb(111, 111, 111);">
         <ui:VisualElement name="Menu" class="Menu" style="flex-grow: 1;">
             <ui:Button text="Start" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StartButton" class="MenuButton" />
+            <ui:Button text="Options" parse-escape-sequences="true" display-tooltip-when-elided="true" name="OptionsButton" class="MenuButton" />
             <ui:Button text="Exit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ExitButton" class="MenuButton" />
         </ui:VisualElement>
     </ui:VisualElement>

@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/SettingsMenu/Resources/SettingsMenu.uss?fileID=7433441132597879392&amp;guid=15f33e66ad7d50b42b04a5b1499a2d5d&amp;type=3#SettingsMenu" />
+    <ui:VisualElement name="Root" style="flex-grow: 1; -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgb(111, 111, 111);">
+        <ui:VisualElement name="Top" style="flex-grow: 0; flex-basis: 25%;">
+            <ui:Label tabindex="-1" text="Settings" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" class="Title" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Mid" style="flex-grow: 1; flex-basis: 50px;">
+            <ui:VisualElement name="VolumeContainer" class="settingContainer" style="flex-grow: 1; flex-basis: 0;">
+                <ui:Slider label="Volume" high-value="1" name="VolumeSlider" style="justify-content: center; width: 50%; align-self: center;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ResolutionContainer" class="settingContainer" style="flex-grow: 1; flex-basis: 0;">
+                <ui:DropdownField label="Resolution" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="ResDropdown" style="align-self: center; flex-basis: auto; width: 50%;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="Bot" style="flex-grow: 1; justify-content: center; align-self: auto;">
+            <ui:Button text="Back" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BackButton" style="width: 10%; align-self: center; justify-content: flex-start; align-items: stretch;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

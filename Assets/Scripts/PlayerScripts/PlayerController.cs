@@ -240,11 +240,12 @@ namespace GrappleZ_Player
         //to implement
         private void InitDebugEvents()
         {
-            OnGroundLanded += () => { Debug.Log("OnGroundLanded"); };
-            OnGroundReleased += () => { Debug.Log("OnGroundReleased"); };
-            OnWalkStarted += () => { Debug.Log("OnWalkStarted"); };
-            OnWalkEnded += () => { Debug.Log("OnWalkEnded"); };
-            OnCameraRotated += () => { Debug.Log("OnCameraRotated (X " + HorizontalRotation + ": Y " + VerticalCameraRotation); };
+
+            //OnGroundLanded += () => { Debug.Log("OnGroundLanded"); };
+            //OnGroundReleased += () => { Debug.Log("OnGroundReleased"); };
+            //OnWalkStarted += () => { Debug.Log("OnWalkStarted"); };
+            //OnWalkEnded += () => { Debug.Log("OnWalkEnded"); };
+            //OnCameraRotated += () => { Debug.Log("OnCameraRotated (X " + HorizontalRotation + ": Y " + VerticalCameraRotation); };
         }
 
         #endregion
