@@ -79,7 +79,9 @@ namespace GrappleZ_Player
             }
             instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoad;
         }
+
 
         #endregion
 
@@ -125,6 +127,11 @@ namespace GrappleZ_Player
         #endregion //HealthModule
 
         #region PrivateMethods
+        private void OnSceneLoad(Scene arg0, LoadSceneMode arg1)
+        {
+            PlayerSetup();
+        }
+
         private void SetInvulnearble(float invTime)
         {
             if (invCoroutine != null)
