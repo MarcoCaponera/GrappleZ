@@ -1,10 +1,8 @@
 {
-    "name": "GrappleZ_Gameplay",
+    "name": "GrappleZ_SaveSystem",
     "rootNamespace": "",
     "references": [
-        "GUID:a503000e86a3da54ea7e1dba5e7e7f94",
-        "GUID:3a73e151b2a47dd44bbb57606e00bb90",
-        "GUID:eaac14c69b3ca5548a21285af4dd9380"
+        "GUID:a503000e86a3da54ea7e1dba5e7e7f94"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
