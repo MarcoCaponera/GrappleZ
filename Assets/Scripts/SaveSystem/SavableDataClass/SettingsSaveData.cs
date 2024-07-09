@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor.Graphs;
 using UnityEngine;
 
 namespace GrappleZ_SaveSystem
@@ -12,6 +14,38 @@ namespace GrappleZ_SaveSystem
 
 
         #region DataToSave
+
+        private float volume;
+        private int screenW;
+        private int screenH;
+
+        public float Volume
+        {
+            get { return volume; }
+            set
+            {
+                volume = Math.Clamp(value, 0f, 1f);
+            }
+        }
+
+        public int ScreenWidth
+        {
+            get { return screenW; }
+            set
+            {
+                screenW = value;
+            }
+        }
+
+        public int ScreenHeight
+        {
+            get { return screenH; }
+            set
+            {
+                screenH = value;
+            }
+        }
+
         #endregion
 
 
