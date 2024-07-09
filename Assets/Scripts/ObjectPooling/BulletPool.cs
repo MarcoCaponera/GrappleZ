@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GrappleZ_Bullets;
-using PlasticGui;
 
 namespace GrappleZ_ObjectPooling
 {

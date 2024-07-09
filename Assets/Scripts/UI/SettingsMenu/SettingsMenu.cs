@@ -58,8 +58,8 @@ namespace GrappleZ_UI
         {
             resolutionDropdown = GetComponent<UIDocument>().rootVisualElement.Q<DropdownField>("ResDropdown");
             resolutionDropdown.choices = Screen.resolutions.Select(resolution => $"{resolution.width}x{resolution.height}").ToList();
-            float currentWidth = Screen.currentResolution.width;
-            float currentHeight = Screen.currentResolution.height;
+            float currentWidth = Screen.width;
+            float currentHeight = Screen.height;
             resolutionDropdown.index = Screen.resolutions
                 .Select((resolution, index) => (resolution, index))
                 .First((value) => value.resolution.width ==  currentWidth && value.resolution.height == currentHeight).index;
