@@ -29,6 +29,8 @@ namespace GrappleZ_Gameplay
 
         private float currentScore;
         private float currentTime;
+        private float pauseStartTime;
+        private float totalPausedTime;
         private WaveEnum currentWave;
 
         #endregion
@@ -37,11 +39,15 @@ namespace GrappleZ_Gameplay
 
         private void CalculateFinalTime()
         {
-            currentTime = Time.realtimeSinceStartup - currentTime;
+            Debug.Log("Partial : " + ( Time.realtimeSinceStartup - currentTime));
+            currentTime = (Time.realtimeSinceStartup - currentTime) - totalPausedTime;
+            Debug.Log("Paused : " + totalPausedTime);
+            Debug.Log("Total : " +currentTime);
             if (currentTime > maxTime)
             {
                 currentTime = maxTime;
             }
+
         }
 
         private ScoreStruct CalculateScore()
@@ -55,6 +61,7 @@ namespace GrappleZ_Gameplay
         {
             currentScore = 0;
             currentTime = 0;
+            totalPausedTime = 0;
         }
 
         #endregion
@@ -66,6 +73,8 @@ namespace GrappleZ_Gameplay
             GlobalEventManager.AddListener(GlobalEventIndex.WaveStarted, OnWaveStarted);
             GlobalEventManager.AddListener(GlobalEventIndex.WaveEnded, OnWaveEnded);
             GlobalEventManager.AddListener(GlobalEventIndex.ScoreIncreased, OnScoreIncrease);
+            GlobalEventManager.AddListener(GlobalEventIndex.GamePaused, OnGamePaused);
+            GlobalEventManager.AddListener(GlobalEventIndex.GameResumed, OnGameResumed);
         }
 
         #endregion
@@ -93,6 +102,18 @@ namespace GrappleZ_Gameplay
             Debug.Log(currentScore);
         }
 
+
+        protected void OnGamePaused(GlobalEventArgs message)
+        {
+            pauseStartTime = Time.realtimeSinceStartup;
+            Debug.Log(totalPausedTime);
+        }
+        protected void OnGameResumed(GlobalEventArgs message)
+        {
+            totalPausedTime += (Time.realtimeSinceStartup - pauseStartTime);
+            pauseStartTime = 0;
+            Debug.Log(totalPausedTime);
+        }
         #endregion
     }
 }

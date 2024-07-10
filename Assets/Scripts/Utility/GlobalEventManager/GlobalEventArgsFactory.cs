@@ -23,6 +23,8 @@ public static class GlobalEventArgsFactory {
         methodDebugString.Add(GlobalEventIndex.WaveStarted, new EventDebug(WaveStartedDebug));
         methodDebugString.Add(GlobalEventIndex.WaveEnded, new EventDebug(WaveEndedDebug));
         methodDebugString.Add(GlobalEventIndex.ScoreIncreased, new EventDebug(ScoreIncreaseDebug));
+        methodDebugString.Add(GlobalEventIndex.GamePaused, new EventDebug(GamePausedDebug));
+        methodDebugString.Add(GlobalEventIndex.GameResumed, new EventDebug(GameResumedDebug));
     }
 
     public static string GetDebugString(GlobalEventIndex eventType, GlobalEventArgs message) {
@@ -223,6 +225,44 @@ public static class GlobalEventArgsFactory {
     public static string ScoreIncreaseDebug(GlobalEventArgs message)
     {
         return "Score increased with: " + message.args[0].GetValue().ToString();
+    }
+
+    #endregion
+
+    #region GamePaused
+
+    public static GlobalEventArgs GamePausedFactory()
+    {
+        GlobalEventArgs message = new GlobalEventArgs();
+        return message;
+    }
+
+    public static void GamePausedParser(GlobalEventArgs message)
+    {
+    }
+
+    public static string GamePausedDebug(GlobalEventArgs message)
+    {
+        return "Game Paused ";
+    }
+
+    #endregion
+
+    #region GameResumed
+
+    public static GlobalEventArgs GameResumedFactory()
+    {
+        GlobalEventArgs message = new GlobalEventArgs();
+        return message;
+    }
+
+    public static void GameResumedParser(GlobalEventArgs message)
+    {
+    }
+
+    public static string GameResumedDebug(GlobalEventArgs message)
+    {
+        return "Game Resumed ";
     }
 
     #endregion

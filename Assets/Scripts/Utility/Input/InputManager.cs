@@ -66,6 +66,16 @@ namespace GrappleZ_Utility
             input.Player.Reload.performed -= action;
         }
 
+        public static void ManagePauseSubscription(Action<InputAction.CallbackContext> action, bool add)
+        {
+            if (add)
+            {
+                input.Player.Pause.performed += action;
+                return;
+            }
+            input.Player.Pause.performed -= action;
+        }
+
 
         public static void EnablePlayerMap(bool enable)
         {
