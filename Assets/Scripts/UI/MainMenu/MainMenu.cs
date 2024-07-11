@@ -1,3 +1,4 @@
+using GrappleZ_SaveSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,6 +29,11 @@ namespace GrappleZ_UI
         #endregion
 
         #region Mono
+        private void Awake()
+        {
+            Screen.SetResolution(SaveSystem.SettingsData.ScreenWidth, SaveSystem.SettingsData.ScreenHeight, true);
+            AudioListener.volume = SaveSystem.SettingsData.Volume;
+        }
 
         private void OnEnable()
         {

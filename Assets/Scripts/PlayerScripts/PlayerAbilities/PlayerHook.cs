@@ -4,11 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using GrappleZ_Utility;
 using UnityEngine.InputSystem;
-using Codice.Client.Commands.TransformerRule;
 using System.Runtime.CompilerServices;
-using PlasticPipe.PlasticProtocol.Messages;
 
-namespace Grapple_Player
+namespace GrappleZ_Player
 {
     public class PlayerHook : PlayerAbilityBase
     {

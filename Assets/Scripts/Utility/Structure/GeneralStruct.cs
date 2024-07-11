@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
 namespace GrappleZ_Utility
 {
+    [Serializable]
     public struct ScoreStruct
     {
         public float Score;

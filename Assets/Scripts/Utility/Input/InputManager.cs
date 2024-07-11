@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal.VersionControl;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -65,6 +64,16 @@ namespace GrappleZ_Utility
                 return;
             }
             input.Player.Reload.performed -= action;
+        }
+
+        public static void ManagePauseSubscription(Action<InputAction.CallbackContext> action, bool add)
+        {
+            if (add)
+            {
+                input.Player.Pause.performed += action;
+                return;
+            }
+            input.Player.Pause.performed -= action;
         }
 
 

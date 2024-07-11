@@ -12,8 +12,9 @@
                 <ui:DropdownField label="Resolution" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="ResDropdown" style="align-self: center; flex-basis: auto; width: 50%;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="Bot" style="flex-grow: 1; justify-content: center; align-self: auto;">
+        <ui:VisualElement name="Bot" style="flex-grow: 1; justify-content: center; align-self: auto; flex-direction: row;">
             <ui:Button text="Back" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BackButton" style="width: 10%; align-self: center; justify-content: flex-start; align-items: stretch;" />
+            <ui:Button text="Apply" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ApplyButton" style="justify-content: center; align-items: center; align-self: center; width: 10%;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

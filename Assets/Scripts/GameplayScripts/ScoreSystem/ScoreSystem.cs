@@ -4,6 +4,7 @@ using UnityEngine;
 using GrappleZ_Utility;
 using System.Linq;
 using GrappleZ_UI;
+using GrappleZ_SaveSystem;
 
 namespace GrappleZ_Gameplay
 {
@@ -19,13 +20,17 @@ namespace GrappleZ_Gameplay
 
         #endregion
 
-        #region PrivateAttributes
+        public LeaderboardSavedData LeaderboardData
+        {
+            get { return SaveSystem.GameData.LeaderboardData; }
+        }
 
-        private List<float> scores = new List<float>();
-        private Dictionary<WaveEnum, List<ScoreStruct>> leaderBoard;
+        #region PrivateAttributes
 
         private float currentScore;
         private float currentTime;
+        private float pauseStartTime;
+        private float totalPausedTime;
         private WaveEnum currentWave;
 
         #endregion
@@ -34,11 +39,15 @@ namespace GrappleZ_Gameplay
 
         private void CalculateFinalTime()
         {
-            currentTime = Time.realtimeSinceStartup - currentTime;
+            Debug.Log("Partial : " + ( Time.realtimeSinceStartup - currentTime));
+            currentTime = (Time.realtimeSinceStartup - currentTime) - totalPausedTime;
+            Debug.Log("Paused : " + totalPausedTime);
+            Debug.Log("Total : " +currentTime);
             if (currentTime > maxTime)
             {
                 currentTime = maxTime;
             }
+
         }
 
         private ScoreStruct CalculateScore()
@@ -52,14 +61,9 @@ namespace GrappleZ_Gameplay
         {
             currentScore = 0;
             currentTime = 0;
+            totalPausedTime = 0;
         }
 
-        #endregion
-        #region publicMethods
-        public List<ScoreStruct> GetLeaderbordForWave(WaveEnum wave)
-        {
-            return leaderBoard[wave].OrderByDescending(x => x.Score).ToList();
-        }
         #endregion
 
         #region Mono
@@ -69,11 +73,8 @@ namespace GrappleZ_Gameplay
             GlobalEventManager.AddListener(GlobalEventIndex.WaveStarted, OnWaveStarted);
             GlobalEventManager.AddListener(GlobalEventIndex.WaveEnded, OnWaveEnded);
             GlobalEventManager.AddListener(GlobalEventIndex.ScoreIncreased, OnScoreIncrease);
-            leaderBoard = new Dictionary<WaveEnum, List<ScoreStruct>>();
-            for (int i = 0; i < (int)WaveEnum.LAST; i++)
-            {
-                leaderBoard.Add((WaveEnum)i, new List<ScoreStruct>());
-            }
+            GlobalEventManager.AddListener(GlobalEventIndex.GamePaused, OnGamePaused);
+            GlobalEventManager.AddListener(GlobalEventIndex.GameResumed, OnGameResumed);
         }
 
         #endregion
@@ -89,10 +90,9 @@ namespace GrappleZ_Gameplay
         protected void OnWaveEnded(GlobalEventArgs message)
         {
             GlobalEventArgsFactory.WaveEndedParser(message, out currentWave);
-            leaderBoard[currentWave].Add(CalculateScore());
-            endWaveUI.ComputeLeaderbard(
-                    leaderBoard[currentWave].OrderByDescending(s => s.Score).ToList()
-                );
+            LeaderboardData.AddScore(currentWave, CalculateScore());
+            endWaveUI.ComputeLeaderbard(LeaderboardData.GetWaveLeaderBoard(currentWave));
+            SaveSystem.SaveGameData();
         }
 
         protected void OnScoreIncrease(GlobalEventArgs message)
@@ -102,6 +102,18 @@ namespace GrappleZ_Gameplay
             Debug.Log(currentScore);
         }
 
+
+        protected void OnGamePaused(GlobalEventArgs message)
+        {
+            pauseStartTime = Time.realtimeSinceStartup;
+            Debug.Log(totalPausedTime);
+        }
+        protected void OnGameResumed(GlobalEventArgs message)
+        {
+            totalPausedTime += (Time.realtimeSinceStartup - pauseStartTime);
+            pauseStartTime = 0;
+            Debug.Log(totalPausedTime);
+        }
         #endregion
     }
 }

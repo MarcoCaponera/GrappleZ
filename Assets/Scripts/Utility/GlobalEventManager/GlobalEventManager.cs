@@ -99,6 +99,8 @@ public enum GlobalEventIndex {
     PlayerEnergyUpdated,
     ScoreIncreased,
     WaveStarted,
-    WaveEnded
+    WaveEnded,
+    GamePaused,
+    GameResumed,
 }
 
