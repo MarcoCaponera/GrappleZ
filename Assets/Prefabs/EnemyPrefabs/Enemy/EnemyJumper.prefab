@@ -8,6 +8,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2956495276786163056, guid: f0c0351bc2684b74eb7b33f0bb493632, type: 3}
+      propertyPath: m_Height
+      value: 2.9488788
+      objectReference: {fileID: 0}
+    - target: {fileID: -2956495276786163056, guid: f0c0351bc2684b74eb7b33f0bb493632, type: 3}
+      propertyPath: m_Radius
+      value: 0.7549397
+      objectReference: {fileID: 0}
+    - target: {fileID: -2956495276786163056, guid: f0c0351bc2684b74eb7b33f0bb493632, type: 3}
+      propertyPath: m_Center.x
+      value: -0.008576274
+      objectReference: {fileID: 0}
+    - target: {fileID: -2956495276786163056, guid: f0c0351bc2684b74eb7b33f0bb493632, type: 3}
+      propertyPath: m_Center.y
+      value: 1.4193926
+      objectReference: {fileID: 0}
+    - target: {fileID: -2956495276786163056, guid: f0c0351bc2684b74eb7b33f0bb493632, type: 3}
+      propertyPath: m_Center.z
+      value: 0.017477036
+      objectReference: {fileID: 0}
     - target: {fileID: 90984252992308006, guid: f0c0351bc2684b74eb7b33f0bb493632, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -146,8 +166,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9c466be7144f27345858aac16992f8cc, type: 3}
   - {fileID: 8300000, guid: ccf969e80e17ea14d9730ff22e834ce4, type: 3}
   deathSound: {fileID: 8300000, guid: 5ef6f3f127b61af40a8cbcd0ae20c3e0, type: 3}
-  hitEffectPositionSpawn: {x: 0, y: 10, z: 0}
-  hitEffect: {fileID: 3198374318725026878, guid: afa8f3a9c3597e74fb747a5586665b2e, type: 3}
+  hitSound: {fileID: 8300000, guid: 5ef6f3f127b61af40a8cbcd0ae20c3e0, type: 3}
   jumpForce: 10
   jumpDuration: 0.5
   damageRadius: 1

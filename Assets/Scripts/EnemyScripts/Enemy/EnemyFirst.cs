@@ -5,6 +5,7 @@ using GrappleZ_Player;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
 using System.Collections.Generic;
+using System.Collections;
 
 
 
@@ -53,8 +54,14 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
     private AudioClip[] attackClipList;
     [SerializeField]
     private AudioClip deathSound;
-    [SerializeField]
-    private GameObject hitEffect;
+    //[SerializeField]
+    //private GameObject hitEffect;
+    [SerializeField] 
+    private AudioClip hitSound;
+    [SerializeField] 
+    private float knockbackForce = 0.5f;
+    [SerializeField] 
+    private float knockbackDuration = 0.15f;
 
     private void Start()
     {
@@ -92,6 +99,17 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
         enemySpeed = 0;
         attackingRadius = 0;
         playerInAttackingRadius = false;
+        agent.enabled = false;
+        StartCoroutine(DieCoroutine());
+        //spawnController.DespawnToPool(gameObject);
+    }
+
+    private IEnumerator DieCoroutine()
+    {
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+
+        yield return null;
+
         spawnController.DespawnToPool(gameObject);
     }
 
@@ -184,7 +202,7 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
         
     }
 
-    private bool SetAgentDestination()
+    protected bool SetAgentDestination()
     {
         if (agent.isOnNavMesh)
         {
@@ -215,9 +233,56 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
 
     private void HitReaction()
     {
-        Vector3 hitOffset= new Vector3(0,2,0);
-        GameObject onHitEffect = Instantiate(hitEffect, transform.position + hitOffset, Quaternion.LookRotation(lookPoint.position));
-        Destroy(onHitEffect , 1.5f);
+        //Vector3 hitOffset= transform.up * 2f + transform.forward * 0.5f;
+        //GameObject onHitEffect = Instantiate(hitEffect, transform.position + hitOffset, Quaternion.LookRotation(-transform.forward));
+       // Destroy(onHitEffect , 0.5f);
+        StartCoroutine(FlashEnemy());
+
+        if (hitSound != null)
+        {
+            AudioSource.PlayClipAtPoint(hitSound, transform.position);
+        }
+        StartCoroutine(KnockbackCoroutine());
+    }
+
+    private IEnumerator FlashEnemy()
+    {
+        Renderer renderer = GetComponentInChildren<Renderer>();
+        if (renderer != null)
+        {
+            Color originalColor = renderer.material.color;
+            renderer.material.color = Color.red;
+            yield return new WaitForSeconds(0.1f);
+            renderer.material.color = originalColor;
+        }
+        else
+        {
+            Debug.LogWarning("No Renderer found on this enemy or its children");
+        }
+    }
+
+    private IEnumerator KnockbackCoroutine()
+    {
+        Vector3 knockbackDirection = (transform.position - player.position).normalized;
+        knockbackDirection.y = 0;
+
+        agent.enabled = false;
+
+        float elapsedTime = 0f;
+        Vector3 startPosition = transform.position;
+        Vector3 targetPosition = startPosition + knockbackDirection * knockbackForce;
+
+        while (elapsedTime < knockbackDuration)
+        {
+            transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / knockbackDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        agent.enabled = true;
+        agent.Warp(transform.position);
+
+        SetAgentDestination();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -230,6 +295,7 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
 
     public void TakeDamage(DamageContainer damage)
     {
+        Debug.Log($"Enemy took {damage.Damage} damage");
         HitReaction();
         InternalTakeDamage(damage.Damage);
     }
