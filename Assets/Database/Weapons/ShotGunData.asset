@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 1
   shootType: 0
-  magAmmo: 10
+  magAmmo: 8
   damage: 25
-  bulletTime: 0.5
+  bulletTime: 0.7
   bulletSpeed: 50
   shootDelay: 1
-  reloadTime: 5
-  recoilAmount: 0.1
+  reloadTime: 3
+  recoilAmount: 0.08
   bulletData: {fileID: 11400000, guid: 1d6e90bac76dbe146af954bf9bee2cf9, type: 2}
   shootMode: 1
   bulletsPerShot: 8
