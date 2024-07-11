@@ -6,7 +6,7 @@ using GrappleZ_Utility;
 using UnityEngine.InputSystem;
 using System.Runtime.CompilerServices;
 
-namespace Grapple_Player
+namespace GrappleZ_Player
 {
     public class PlayerHook : PlayerAbilityBase
     {
