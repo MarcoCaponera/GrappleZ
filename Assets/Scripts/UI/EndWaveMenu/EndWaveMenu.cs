@@ -21,12 +21,16 @@ namespace GrappleZ_UI
         #endregion
 
         #region PrivateAttributes
+        private const string RewardAffix = "You have unlocked : ";
+
         private Coroutine changeSceneCoroutine;
         private VisualElement menuRoot;
         private Button nextWaveButton;
         private Button mainMenuButton;
         private Label waveLabel;
+        private Label rewardLabel;
         private LeaderboardControl leaderboardTable;
+        private Dictionary<WaveEnum, string> rewards;
 
         #endregion
 
@@ -38,7 +42,11 @@ namespace GrappleZ_UI
             nextWaveButton = root.Q<Button>("NextWaveButton");
             mainMenuButton = root.Q<Button>("MainMenuButton");
             waveLabel = root.Q<Label>("WaveTextBox");
+            rewardLabel = root.Q<Label>("RewardText");
             leaderboardTable = root.Q<LeaderboardControl>("LeaderBoardTable");
+
+            rewards = new Dictionary<WaveEnum, string>();
+            rewards[WaveEnum.First] = "A Shotgun";
         }
 
         private void OnEnable()
@@ -102,6 +110,10 @@ namespace GrappleZ_UI
         {
             GlobalEventArgsFactory.WaveEndedParser(message, out WaveEnum currentWave);
             waveLabel.text = $"You have survived the {currentWave} Wave";
+
+
+            rewardLabel.text = rewards.ContainsKey(currentWave) ? RewardAffix + rewards[currentWave] : null;
+
             menuRoot.visible = true;
             InputManager.EnablePlayerMap(false);
             MouseCursor.SetVisibility(true);

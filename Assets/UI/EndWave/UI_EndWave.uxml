@@ -9,6 +9,7 @@
             </ui:VisualElement>
             <ui:VisualElement name="Menu-center" style="flex-grow: 1;">
                 <LeaderboardControl name="LeaderBoardTable" style="flex-grow: 1;" />
+                <ui:Label tabindex="-1" text="You have unlocked : Shotgun" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RewardText" enable-rich-text="false" class="Menu-Text" style="align-self: center;" />
             </ui:VisualElement>
             <ui:VisualElement name="Menu-bottom" style="flex-grow: 0; flex-basis: 15%; align-self: auto; align-items: auto; justify-content: space-around; flex-direction: row; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;">
                 <ui:Button text="Start next Wave" parse-escape-sequences="true" display-tooltip-when-elided="true" name="NextWaveButton" class="Menu-Button" style="align-self: auto; align-items: auto; justify-content: flex-start; display: flex;" />
