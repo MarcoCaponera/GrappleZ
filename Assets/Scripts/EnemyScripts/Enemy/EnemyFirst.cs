@@ -100,14 +100,25 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
         attackingRadius = 0;
         playerInAttackingRadius = false;
         agent.enabled = false;
+
+        audioSource.PlayOneShot(deathSound);
+
         StartCoroutine(DieCoroutine());
-        //spawnController.DespawnToPool(gameObject);
     }
+
+    //private static readonly int DeathState = Animator.StringToHash("Death");
 
     private IEnumerator DieCoroutine()
     {
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(0.1f);
 
+        //Debug.Log("Current animation state: " + anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
+        //Debug.Log("Is in Death state: " + anim.GetCurrentAnimatorStateInfo(0).IsName("Death"));
+
+        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1 && anim.GetCurrentAnimatorStateInfo(0).IsName("Death"))
+        {
+            yield return null;
+        }
         yield return null;
 
         spawnController.DespawnToPool(gameObject);
@@ -211,8 +222,14 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
         }
         else
         {
-            Debug.LogError("Agent is not on a NavMesh");
-            return false;
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(transform.position, out hit, 5f, NavMesh.AllAreas))
+            {
+                transform.position = hit.position;
+            }
+            //Debug.Log("Agent is not on a NavMesh");
+            //return false;
+            return true;
         }
     }
 
@@ -226,7 +243,7 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
             anim.SetBool("Idle", false);
             anim.SetBool("Attacking", false);
             anim.SetBool("Dead", true);
-            audioSource.PlayOneShot(deathSound);
+           // Debug.Log("Setting Dead to true");
             Die();
         }
     }
@@ -257,7 +274,7 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
         }
         else
         {
-            Debug.LogWarning("No Renderer found on this enemy or its children");
+            Debug.Log("No Renderer found");
         }
     }
 
