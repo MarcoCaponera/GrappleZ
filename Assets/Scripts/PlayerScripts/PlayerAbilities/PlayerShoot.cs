@@ -32,7 +32,8 @@ namespace GrappleZ_Player
         #region VisualControl
         private void StartShootAnimation()
         {
-            playerVisual.SetAnimatorParamerer("Shoot_b", true);
+            //playerVisual.SetAnimatorParamerer("Shoot_b", true);
+            playerVisual.SetAnimatorParameter("Fire");
         }
 
         private void StopShootAnimation()
