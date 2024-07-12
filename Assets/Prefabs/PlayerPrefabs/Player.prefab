@@ -290,7 +290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82014d3c7e09e094c9070735b890aa7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hookRange: 50
+  hookRange: 25
   hookLaunchSpeed: 100
   hookReturnSpeed: 150
   hookPullForce: 2
@@ -710,7 +710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da53a5ed70fc8a349a324fdecab51b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAerialSpeed: 30
+  maxAerialSpeed: 15
   maxGroundSpeed: 10
   eventSpeed: 0
 --- !u!1 &4105068442269567951
@@ -933,7 +933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762479e99b28e5b489d275e8a8497fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundSpeed: 3
+  groundSpeed: 5
   aerialAcceleration: 30
   frictionForce: 5
 --- !u!1001 &231559525032831591
