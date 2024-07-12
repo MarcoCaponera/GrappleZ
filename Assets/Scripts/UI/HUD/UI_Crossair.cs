@@ -30,11 +30,14 @@ namespace GrappleZ_UI
         private void OnOnWaveEnded(GlobalEventArgs message)
         {
             crossair.visible = false;
+            Debug.Log("Disable Crosshair");
         }
         
         private void OnWaveStarted(GlobalEventArgs message)
         {
             crossair.visible = true;
+            Debug.Log("Enable Crosshair");
         }
+    
     }
 }
