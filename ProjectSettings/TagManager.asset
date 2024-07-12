@@ -3,28 +3,22 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-<<<<<<< Updated upstream
-  tags: []
-=======
   tags:
   - Enemy
-  - Disable
-  - HUD
->>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Weapons
+  - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Ground
+  - Wall
+  - Bullet
+  - Props
+  - Interactable
   - 
   - 
   - 

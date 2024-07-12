@@ -1,0 +1,12 @@
+.Score {
+    align-self: center;
+    align-items: center;
+    flex-basis: auto;
+    font-size: 32px;
+    -unity-font: url('project://database/Library/unity%20default%20resources?fileID=10102&guid=0000000000000000e000000000000000&type=0#LegacyRuntime');
+    color: rgb(255, 255, 255);
+    margin-top: 15px;
+    margin-right: 15px;
+    margin-bottom: 5px;
+    margin-left: 15px;
+}

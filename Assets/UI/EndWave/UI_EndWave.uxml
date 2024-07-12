@@ -1,0 +1,20 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/EndWave/Resources/EndWaveMenu.uss?fileID=7433441132597879392&amp;guid=fe1bae7cccd5c7f41998b6f3abf18174&amp;type=3#EndWaveMenu" />
+    <Style src="project://database/Assets/UI/EndWave/Resources/LeaderBoardUSS.uss?fileID=7433441132597879392&amp;guid=300719c6a3c334842852df611027bd7f&amp;type=3#LeaderBoardUSS" />
+    <ui:VisualElement name="Container" style="flex-grow: 1; visibility: visible;">
+        <ui:VisualElement name="Menu" class="Menu-Background" style="flex-grow: 1; display: flex; visibility: hidden;">
+            <ui:VisualElement name="Menu-Top" style="flex-grow: 0; flex-basis: 15%; margin-top: 20px; margin-right: 20px; margin-bottom: 20px; margin-left: 20px;">
+                <ui:Label tabindex="-1" text="Congratulation!" parse-escape-sequences="true" display-tooltip-when-elided="true" class="Menu-Text" style="align-self: center;" />
+                <ui:Label tabindex="-1" text="You have survived the first Wave" parse-escape-sequences="true" display-tooltip-when-elided="true" name="WaveTextBox" class="Menu-Text" style="align-self: center;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Menu-center" style="flex-grow: 1;">
+                <LeaderboardControl name="LeaderBoardTable" style="flex-grow: 1;" />
+                <ui:Label tabindex="-1" text="You have unlocked : Shotgun" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RewardText" enable-rich-text="false" class="Menu-Text" style="align-self: center;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Menu-bottom" style="flex-grow: 0; flex-basis: 15%; align-self: auto; align-items: auto; justify-content: space-around; flex-direction: row; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;">
+                <ui:Button text="Start next Wave" parse-escape-sequences="true" display-tooltip-when-elided="true" name="NextWaveButton" class="Menu-Button" style="align-self: auto; align-items: auto; justify-content: flex-start; display: flex;" />
+                <ui:Button text="Return Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MainMenuButton" view-data-key="r" class="Menu-Button" style="align-self: auto; align-items: auto; justify-content: flex-start; top: 0; transform-origin: center;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

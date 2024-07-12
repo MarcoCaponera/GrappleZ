@@ -1,0 +1,169 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+namespace GrappleZ_Player
+{
+    public class Player : MonoBehaviour, IDamageble
+    {
+
+        #region SerializeFields
+        [SerializeField]
+        private Transform lookPointForEnemies;
+
+        #region References
+
+        [SerializeField]
+        private PlayerController playerController;
+
+        #endregion //References
+
+        #region Modules
+        [SerializeField]
+        private HealthModule healthModule;
+        #endregion //Modules
+
+        [SerializeField]
+        private float damageInvTime;
+
+        #endregion //SerializeFields
+
+        #region Getters
+
+        public Transform LookPointForEnemies
+        {
+            get { return lookPointForEnemies; }
+        }
+        #endregion  //getters
+
+        #region StaticMembers
+        //player instance
+        public static Player instance;
+
+        //returns instance if instance has already been assigned
+        public static Player Get()
+        {
+            if (instance != null) return instance;
+            //finds player and returns it if instance is null
+            instance = FindObjectOfType<Player>();
+            return instance;
+        }
+        #endregion
+
+        #region PrivateMembers
+        private Coroutine invCoroutine;
+        private Vector3 startPosition;
+        #endregion //PrivateMembers
+
+        #region Mono
+
+        private void Start()
+        {
+            PlayerSetup();
+            healthModule.OnDamageTaken += InternalOnDamageTaken;
+            healthModule.OnDeath += InternalOnDeath;
+            startPosition = transform.position;
+        }
+
+        private void Awake()
+        {
+            //singleton pattern, ensures that there will be only one instance of the player
+            //if a player already exists, the gameObject will destroy itself
+            if (instance != null && instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoad;
+        }
+
+
+        #endregion
+
+        #region PublicEvents
+        public Action<DamageContainer> onDamageTaken;
+        #endregion
+
+        #region HealthModule
+        public void ResetHealth()
+        {
+            healthModule.Reset();
+            NotifyHealthUpdatedGlobal();
+            playerController.IsDead = false;
+        }
+
+        public void TakeDamage(DamageContainer damage)
+        {
+            healthModule.TakeDamage(damage);
+        }
+
+        public void InternalOnDamageTaken(DamageContainer container)
+        {
+            //healthUpdate?.Invoke(MaxHP, CurrentHP);
+            NotifyHealthUpdatedGlobal();
+            onDamageTaken?.Invoke(container);
+            playerController.OnDamageTaken?.Invoke(container);
+            SetInvulnearble(damageInvTime);
+        }
+
+        public void InternalOnDeath()
+        {
+            playerController.IsDead = true;
+            playerController.OnDeath?.Invoke();
+
+            Debug.Log("DEAD");
+            GlobalEventManager.CastEvent(GlobalEventIndex.PlayerDeath, null);
+            //LEVEL RESET TO FIX
+            Debug.Log("Player Reset");
+            PlayerSetup();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+            Debug.Log("Scene Restarted");
+        }
+        #endregion //HealthModule
+
+        #region PrivateMethods
+        private void OnSceneLoad(Scene arg0, LoadSceneMode arg1)
+        {
+            PlayerSetup();
+        }
+
+        private void SetInvulnearble(float invTime)
+        {
+            if (invCoroutine != null)
+            {
+                StopCoroutine(invCoroutine);
+            }
+            invCoroutine = StartCoroutine(InvulnerabilityCoroutine(invTime));
+        }
+
+        private void NotifyHealthUpdatedGlobal()
+        {
+            //GlobalEventSystem.CastEvent(EventName.PlayerHealthUpdated,
+            //    EventArgsFactory.PlayerHealthUpdatedFactory((int)healthModule.MaxHP, (int)healthModule.CurrentHP));
+            GlobalEventManager.CastEvent(GlobalEventIndex.PlayerHealthUpdated,
+                GlobalEventArgsFactory.PlayerHealthUpdatedFactory(healthModule.MaxHP, healthModule.CurrentHP));
+        }
+
+
+        private void PlayerSetup()
+        {
+            ResetHealth();
+            transform.position = startPosition;
+        }
+        #endregion
+
+        #region Coroutine
+        private IEnumerator InvulnerabilityCoroutine(float invTime)
+        {
+            healthModule.SetInvulnerable(true);
+            yield return new WaitForSeconds(invTime);
+            healthModule.SetInvulnerable(false);
+        }
+        #endregion
+    }
+}

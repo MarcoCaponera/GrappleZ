@@ -1,0 +1,19 @@
+{
+    "name": "AIV_Metroid_Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:68a2cdd032371dc45a5119e9466a2769",
+        "GUID:45b8700d5fe4d444caaf2481499cd66b"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
