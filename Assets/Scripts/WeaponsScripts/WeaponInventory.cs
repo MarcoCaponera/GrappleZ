@@ -3,16 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using GrappleZ_ObjectPooling;
 using GrappleZ_Bullets;
+using System;
 
 namespace GrappleZ_Weapons
 {
     public class WeaponInventory : MonoBehaviour
     {
+        #region events
+
+        public Action OnReload;
+        #endregion
+
         #region SerializeField
 
         [SerializeField]
         private BulletPool bulletPool;
 
+        #endregion
+
+        #region Wrap
+        public bool IsRealoading
+        {
+            get { return weapons[activeWeapon].getIsReloading(); }
+        }
         #endregion
 
         #region PrivateAttributes
