@@ -1,3 +1,4 @@
+using GrappleZ_Weapons;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -118,11 +119,6 @@ namespace GrappleZ_Player
 
             Debug.Log("DEAD");
             GlobalEventManager.CastEvent(GlobalEventIndex.PlayerDeath, null);
-            //LEVEL RESET TO FIX
-            Debug.Log("Player Reset");
-            PlayerSetup();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
-            Debug.Log("Scene Restarted");
         }
         #endregion //HealthModule
 

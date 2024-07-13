@@ -46,6 +46,7 @@ namespace GrappleZ_Weapons
             }
             activeWeapon = 0;
             GlobalEventManager.AddListener(GlobalEventIndex.WaveEnded, OnWaveEnded);
+            GlobalEventManager.AddListener(GlobalEventIndex.PlayerDeath, OnPlayerDeath);
         }
 
         #endregion
@@ -54,7 +55,7 @@ namespace GrappleZ_Weapons
 
         public void AddWeapon(WeaponType type)
         {
-            foreach(WeaponComponent weapon in weapons)
+            foreach (WeaponComponent weapon in weapons)
             {
                 if (weapon.Type == type)
                 {
@@ -123,6 +124,21 @@ namespace GrappleZ_Weapons
                 {
                     AddWeapon(item.Type);
                     return;
+                }
+            }
+        }
+
+        private void OnPlayerDeath(GlobalEventArgs arg0)
+        {
+            foreach (WeaponComponent weapon in weapons)
+            {
+                if (weapon.Type != WeaponType.Pistol)
+                {
+                    weapon.enabled = false;
+                }
+                if (weapons[activeWeapon].enabled == false)
+                {
+                    ChangeWeapon();
                 }
             }
         }
