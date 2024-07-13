@@ -55,7 +55,7 @@ namespace GrappleZ_Bullets
 
         protected void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Enemy"))
+            if (other.CompareTag("Enemy") || other.CompareTag("Player"))
             {
                 IDamageble damageble = other.GetComponent<IDamageble>();
                 if (damageble != null)

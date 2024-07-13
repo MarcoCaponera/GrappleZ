@@ -241,7 +241,7 @@ namespace GrappleZ_Player
             set
             {
                 isDead = value;
-                playerVisual.SetAnimatorParamerer(isDeadAnimatorParameter, value);
+                //playerVisual.SetAnimatorParamerer(isDeadAnimatorParameter, value);
             }
         }
         #endregion

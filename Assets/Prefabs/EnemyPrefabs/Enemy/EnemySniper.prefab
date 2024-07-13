@@ -192,9 +192,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   AttackingRaycastArea: {fileID: 4552716591483716434}
-  lookPoint: {fileID: 0}
-  healt: 100
-  damage: 20
+  healt: 80
+  damage: 30
   timeBetweenAttack: 3
   enemySpeed: 7
   attackingRadius: 15
@@ -206,6 +205,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ccf969e80e17ea14d9730ff22e834ce4, type: 3}
   deathSound: {fileID: 8300000, guid: 5ef6f3f127b61af40a8cbcd0ae20c3e0, type: 3}
   hitSound: {fileID: 8300000, guid: 5ef6f3f127b61af40a8cbcd0ae20c3e0, type: 3}
+  knockbackForce: 0.5
+  knockbackDuration: 0.15
   bulletPrefab: {fileID: 4940230035889560811, guid: be593c2bca6a6694191ae7d4161c5e25, type: 3}
   firePoint: {fileID: 7936680978904619153}
   bulletSpeed: 20

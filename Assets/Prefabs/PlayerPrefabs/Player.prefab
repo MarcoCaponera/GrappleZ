@@ -52,6 +52,10 @@ MonoBehaviour:
     sphereRadius: 0.43
     offset: {x: 0, y: 0.3, z: 0}
     sphereColor: {r: 0, g: 1, b: 0, a: 1}
+  - pointPosition: 0
+    sphereRadius: 0.43
+    offset: {x: 0, y: 0.3, z: 0}
+    sphereColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!1 &141957384764588000
 GameObject:
   m_ObjectHideFlags: 0

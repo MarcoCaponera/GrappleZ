@@ -37,8 +37,12 @@ namespace GrappleZ_Player
         #region VisualControl
         private void StartShootAnimation()
         {
-            playerVisual.SetAnimatorParameter(startShootAnimatorString);
-            playerVisual.SetAnimatorParamerer(isShootingAnimatorString, true);
+            if (CanShoot())
+            {
+                playerVisual.SetAnimatorParameter(startShootAnimatorString);
+                playerVisual.SetAnimatorParamerer(isShootingAnimatorString, true);
+
+            }
 
         }
 
@@ -107,6 +111,7 @@ namespace GrappleZ_Player
         {
             if (!CanShoot()) return;
             weaponInventory.ReloadActiveWeapon();
+
             StartReloadAnimation();
         }
 

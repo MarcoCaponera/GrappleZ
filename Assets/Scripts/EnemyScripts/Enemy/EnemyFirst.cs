@@ -21,7 +21,6 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
     #region Protected members
     protected Animator anim;
     protected Transform player;
-    [SerializeField]
     protected Transform lookPoint;
     #endregion
 
@@ -54,8 +53,6 @@ public class EnemyFirst : MonoBehaviour, IDamager, IDamageble
     private AudioClip[] attackClipList;
     [SerializeField]
     private AudioClip deathSound;
-    //[SerializeField]
-    //private GameObject hitEffect;
     [SerializeField] 
     private AudioClip hitSound;
     [SerializeField] 

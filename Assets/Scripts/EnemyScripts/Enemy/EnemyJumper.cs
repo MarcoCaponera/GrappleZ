@@ -108,13 +108,13 @@ public class EnemyJumper : EnemyFirst
         if (agent != null)
         {
             NavMeshHit hit;
-            if (NavMesh.SamplePosition(transform.position, out hit, 5f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(transform.position, out hit, 10f, NavMesh.AllAreas))
             {
                 transform.position = hit.position;
             }
             else
             {
-                Debug.LogWarning("Unable to find NavMesh");
+                Debug.Log("Unable to find NavMesh");
             }
         }
     }
