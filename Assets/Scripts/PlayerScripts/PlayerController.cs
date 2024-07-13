@@ -7,6 +7,11 @@ namespace GrappleZ_Player
 {
     public class PlayerController : MonoBehaviour
     {
+        private const string horizontalFloatAnimatorParameter = "HorizontalVelocity";
+        private const string deathTriggerAnimatorParameter = "Death";
+        private const string isDeadAnimatorParameter = "PlayerDead";
+
+
         #region SerializeFields
 
         [SerializeField]
@@ -162,6 +167,12 @@ namespace GrappleZ_Player
             
         }
 
+        private void FixedUpdate()
+        {
+            playerVisual.SetAnimatorParameter(horizontalFloatAnimatorParameter,
+                Mathf.Abs(playerRigidBody.velocity.x));
+        }
+
         #endregion
 
         #region RigidBodyMethods
@@ -230,7 +241,7 @@ namespace GrappleZ_Player
             set
             {
                 isDead = value;
-                //playerVisual.SetAnimatorParameter(isDeadAnimatorParameter, value); TO ADD ANIMATIONS
+                playerVisual.SetAnimatorParamerer(isDeadAnimatorParameter, value);
             }
         }
         #endregion

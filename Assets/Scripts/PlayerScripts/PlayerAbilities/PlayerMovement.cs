@@ -123,12 +123,10 @@ namespace GrappleZ_Player
         {
             if (playerController.IsGrounded)
             {
-                playerVisual.SetAnimatorParamerer("IsWalking", true);
                 GroundMove();
             }
             else
             {
-                playerVisual.SetAnimatorParamerer("IsJumping", true);
                 AerialMove();
             }
         }
@@ -139,7 +137,6 @@ namespace GrappleZ_Player
             if (wasWalking && !isWalking) 
             {
                 playerController.OnWalkEnded?.Invoke();
-                playerVisual.SetAnimatorParamerer("IsWalking", false);
                 //playerVisual.SetAnimatorParamerer("Static_b", true);
                 //playerVisual.SetAnimatorParameter("Speed_f", 0f);
             }
