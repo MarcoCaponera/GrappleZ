@@ -20,7 +20,7 @@ namespace GrappleZ_Player
 
         private void Awake()
         {
-            playerAnimator = GetComponentInChildren<Animator>();
+            playerAnimator = GetComponent<Animator>();
         }
         #region AnimatorMethods
 
