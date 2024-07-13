@@ -64,7 +64,10 @@ namespace GrappleZ_Weapons
         #endregion
 
         #region PublicProperties
-
+        public bool getIsReloading()
+        {
+            return isReloading;
+        }
         public WeaponType Type
         {
             get { return weaponData.WeaponType; }
