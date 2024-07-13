@@ -34,6 +34,8 @@ namespace GrappleZ_Weapons
 
         #endregion
 
+       
+
         #region Mono
 
         protected void Awake()
@@ -162,7 +164,9 @@ namespace GrappleZ_Weapons
             leftAmmo--;
             if (leftAmmo <= 0)
             {
+                owner.OnReload?.Invoke();
                 Reload();
+                
             }
         }
 

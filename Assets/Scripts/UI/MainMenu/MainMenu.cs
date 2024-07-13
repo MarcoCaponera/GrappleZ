@@ -31,7 +31,14 @@ namespace GrappleZ_UI
         #region Mono
         private void Awake()
         {
-            Screen.SetResolution(SaveSystem.SettingsData.ScreenWidth, SaveSystem.SettingsData.ScreenHeight, true);
+            if (SaveSystem.SettingsData.ScreenHeight == 0 || SaveSystem.SettingsData.ScreenHeight == 0)
+            {
+                Screen.SetResolution(1920, 1080, true);
+            }
+            else
+            {
+                Screen.SetResolution(SaveSystem.SettingsData.ScreenWidth, SaveSystem.SettingsData.ScreenHeight, true);
+            }
             AudioListener.volume = SaveSystem.SettingsData.Volume;
         }
 

@@ -23,13 +23,14 @@ namespace GrappleZ_Player
             InputManager.ManageShootSubscription(OnShootInputPerformed, true);
             InputManager.ManageWeaponSwapSubscription(OnWeaponSwapInputPerformed, true);
             InputManager.ManageReloadSubscription(OnReloadInputPerformed, true);
+            weaponInventory.OnReload += OnWeaponReload;
         }
-
         protected void OnDisable()
         {
             InputManager.ManageShootSubscription(OnShootInputPerformed, false);
             InputManager.ManageWeaponSwapSubscription(OnWeaponSwapInputPerformed, false);
             InputManager.ManageReloadSubscription(OnReloadInputPerformed, false);
+            weaponInventory.OnReload -= OnWeaponReload;
         }
 
         #endregion
@@ -115,13 +116,18 @@ namespace GrappleZ_Player
             StartReloadAnimation();
         }
 
+        private void OnWeaponReload()
+        {
+            StartReloadAnimation();
+        }
+
         #endregion
 
         #region InternalMethods
 
         protected bool CanShoot()
         {
-            return !isPrevented;
+            return !isPrevented && !weaponInventory.IsRealoading;
         }
 
         #endregion
