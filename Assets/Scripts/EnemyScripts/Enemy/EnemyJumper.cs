@@ -2,125 +2,128 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 
-public class EnemyJumper : EnemyFirst
+namespace GrappleZ_Enemy
 {
-    [SerializeField] 
-    private float jumpForce = 10f;
-    [SerializeField] 
-    private float jumpDuration = 0.5f;
-    [SerializeField] 
-    private float damageRadius = 1f;
-
-    private bool isJumping = false;
-
-    protected override void Attack()
+    public class EnemyJumper : EnemyFirst
     {
-        transform.LookAt(lookPoint);
+        #region Serializables
+        [SerializeField]
+        private float jumpForce = 10f;
+        [SerializeField]
+        private float jumpDuration = 0.5f;
+        [SerializeField]
+        private float damageRadius = 1f;
 
-        if (!hasAttacked)
+        #endregion
+
+        private bool isJumping = false;
+
+        #region Override
+        protected override void Attack()
         {
-            float distanceToTarget = Vector3.Distance(transform.position, lookPoint.position);
+            transform.LookAt(lookPoint);
 
-            if (distanceToTarget <= attackingRadius && !isJumping)
+            if (!hasAttacked)
             {
-                StartJumpAttack();
-                hasAttacked = true;
-                Invoke(nameof(ResetAttack), timeBetweenAttack);
-            }
-        }
-    }
+                float distanceToTarget = Vector3.Distance(transform.position, lookPoint.position);
 
-    private void StartJumpAttack()
-    {
-        isJumping = true;
-
-        if (agent != null) agent.enabled = false;
-
-        anim.SetBool("Walking", false);
-        anim.SetBool("Idle", false);
-        anim.SetBool("Eating", true);
-        anim.SetBool("Dead", false);
-
-        StartCoroutine(PerformJump());
-    }
-
-    private IEnumerator PerformJump()
-    {
-        Vector3 startPos = transform.position;
-        Vector3 endPos = lookPoint.position;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < jumpDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            float t = elapsedTime / jumpDuration;
-
-            // Calculate jump 
-            Vector3 center = (startPos + endPos) * 0.5f;
-            center -= Vector3.up * jumpForce;
-            Vector3 relativeStart = startPos - center;
-            Vector3 relativeEnd = endPos - center;
-
-            transform.position = Vector3.Slerp(relativeStart, relativeEnd, t);
-            transform.position += center;
-
-            ApplyDamage();
-
-            yield return null;
-        }
-
-        LandingComplete();
-    }
-
-    private void ApplyDamage()
-    {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, damageRadius);
-        foreach (var hitCollider in hitColliders)
-        {
-            if (hitCollider.CompareTag("Player"))
-            {
-                IDamageble damageble = hitCollider.GetComponent<IDamageble>();
-                if (damageble != null)
+                if (distanceToTarget <= attackingRadius && !isJumping)
                 {
-                    DamageContainer damageContainer = new DamageContainer();
-                    damageContainer.Damage = damage;
-                    damageble.TakeDamage(damageContainer);
+                    StartJumpAttack();
+                    hasAttacked = true;
+                    Invoke(nameof(ResetAttack), timeBetweenAttack);
                 }
             }
         }
-    }
+        #endregion
 
-    private void LandingComplete()
-    {
-        // Place the enemy on the NavMesh
-        PlaceOnNavMesh();
-
-        isJumping = false;
-        if (agent != null) agent.enabled = true;
-
-        anim.SetBool("Eating", false);
-        transform.LookAt(lookPoint);
-
-    }
-
-    private void PlaceOnNavMesh()
-    {
-        if (agent != null)
+        #region Internal Methods
+        private void StartJumpAttack()
         {
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(transform.position, out hit, 10f, NavMesh.AllAreas))
+            isJumping = true;
+
+            if (Agent != null) Agent.enabled = false;
+            SetAnimatorParamerer("Eating", true);
+            StartCoroutine(PerformJump());
+        }
+        private void ApplyDamage()
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, damageRadius);
+            foreach (var hitCollider in hitColliders)
             {
-                transform.position = hit.position;
-            }
-            else
-            {
-                Debug.Log("Unable to find NavMesh");
+                if (hitCollider.CompareTag("Player"))
+                {
+                    IDamageble damageble = hitCollider.GetComponent<IDamageble>();
+                    if (damageble != null)
+                    {
+                        DamageContainer damageContainer = new DamageContainer();
+                        damageContainer.Damage = damage;
+                        damageble.TakeDamage(damageContainer);
+                    }
+                }
             }
         }
-    }
+        private void LandingComplete()
+        {
+            // Place the enemy on the NavMesh
+            PlaceOnNavMesh();
 
-    private void ResetAttack()
-    {
-        hasAttacked = false;
+            isJumping = false;
+            if (Agent != null) Agent.enabled = true;
+
+            animator.SetBool("Eating", false);
+            transform.LookAt(lookPoint);
+        }
+        private void PlaceOnNavMesh()
+        {
+            if (Agent != null)
+            {
+                NavMeshHit hit;
+                if (NavMesh.SamplePosition(transform.position, out hit, 5f, NavMesh.AllAreas))
+                {
+                    transform.position = hit.position;
+                }
+                else
+                {
+                    Debug.Log("Unable to find NavMesh");
+                }
+            }
+        }
+        private void ResetAttack()
+        {
+            hasAttacked = false;
+        }
+
+        #region JumpCoroutine
+        private IEnumerator PerformJump()
+        {
+            Vector3 startPos = transform.position;
+            Vector3 endPos = lookPoint.position;
+            float elapsedTime = 0f;
+
+            while (elapsedTime < jumpDuration)
+            {
+                elapsedTime += Time.deltaTime;
+                float t = elapsedTime / jumpDuration;
+
+                // Calculate jump 
+                Vector3 center = (startPos + endPos) * 0.5f;
+                center -= Vector3.up * jumpForce;
+                Vector3 relativeStart = startPos - center;
+                Vector3 relativeEnd = endPos - center;
+
+                transform.position = Vector3.Slerp(relativeStart, relativeEnd, t);
+                transform.position += center;
+
+                ApplyDamage();
+
+                yield return null;
+            }
+
+            LandingComplete();
+        }
+        #endregion
+
+        #endregion
     }
 }

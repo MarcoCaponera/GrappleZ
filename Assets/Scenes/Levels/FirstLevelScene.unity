@@ -12631,15 +12631,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6740107299060490096, guid: 3f31e03cf2b42824d9fe3d342eb19fa9, type: 3}
       propertyPath: Waves.Array.data[0].EnemyTypes.Array.data[0]
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6740107299060490096, guid: 3f31e03cf2b42824d9fe3d342eb19fa9, type: 3}
       propertyPath: Waves.Array.data[0].EnemyTypes.Array.data[1]
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6740107299060490096, guid: 3f31e03cf2b42824d9fe3d342eb19fa9, type: 3}
       propertyPath: Waves.Array.data[0].EnemyTypes.Array.data[2]
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6740107299060490096, guid: 3f31e03cf2b42824d9fe3d342eb19fa9, type: 3}
       propertyPath: Waves.Array.data[0].EnemyTypes.Array.data[3]

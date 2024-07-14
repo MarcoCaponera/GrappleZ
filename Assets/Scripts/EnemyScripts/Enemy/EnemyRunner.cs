@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Pool;
-
-public class EnemyRunner : EnemyFirst
+namespace GrappleZ_Enemy
 {
-    
+    public class EnemyRunner : EnemyFirst
+    {
+
+    }
 }
