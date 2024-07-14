@@ -3,16 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using GrappleZ_ObjectPooling;
 using GrappleZ_Bullets;
+using System;
 
 namespace GrappleZ_Weapons
 {
     public class WeaponInventory : MonoBehaviour
     {
+        #region events
+
+        public Action OnReload;
+        #endregion
+
         #region SerializeField
 
         [SerializeField]
         private BulletPool bulletPool;
 
+        #endregion
+
+        #region Wrap
+        public bool IsRealoading
+        {
+            get { return weapons[activeWeapon].getIsReloading(); }
+        }
         #endregion
 
         #region PrivateAttributes
@@ -32,19 +45,22 @@ namespace GrappleZ_Weapons
                 w.Init(this);
             }
             activeWeapon = 0;
+            GlobalEventManager.AddListener(GlobalEventIndex.WaveEnded, OnWaveEnded);
+            GlobalEventManager.AddListener(GlobalEventIndex.PlayerDeath, OnPlayerDeath);
+            GlobalEventManager.AddListener(GlobalEventIndex.GameEnded, OnGameEnded);
         }
 
         #endregion
 
         #region PublicMethods
 
-        public void AddWeapon(WeaponData data)
+        public void AddWeapon(WeaponType type)
         {
-            foreach(WeaponComponent weapon in weapons)
+            foreach (WeaponComponent weapon in weapons)
             {
-                if (weapon.Type == data.WeaponType)
+                if (weapon.Type == type)
                 {
-                    weapon.SetActive(true);
+                    weapon.enabled = true;
                     return;
                 }
             }
@@ -85,6 +101,25 @@ namespace GrappleZ_Weapons
 
         #endregion
 
+        #region PrivateMethods
+
+        private void ResetInventory()
+        {
+            foreach (WeaponComponent weapon in weapons)
+            {
+                if (weapon.Type != WeaponType.Pistol)
+                {
+                    weapon.enabled = false;
+                }
+                if (weapons[activeWeapon].enabled == false)
+                {
+                    ChangeWeapon();
+                }
+            }
+        }
+
+        #endregion
+
         #region WrapperMethods
 
         public GameObject[] GetBullets(BulletData data, int count)
@@ -95,6 +130,32 @@ namespace GrappleZ_Weapons
                 pool[i] = bulletPool.GetItem(data);
             }
             return pool;
+        }
+
+        #endregion
+
+        #region Callbacks
+
+        protected void OnWaveEnded(GlobalEventArgs args)
+        {
+            foreach(WeaponComponent item in weapons)
+            {
+                if(item.enabled == false)
+                {
+                    AddWeapon(item.Type);
+                    return;
+                }
+            }
+        }
+
+        private void OnPlayerDeath(GlobalEventArgs arg0)
+        {
+            ResetInventory();
+        }
+
+        private void OnGameEnded(GlobalEventArgs args)
+        {
+            ResetInventory();
         }
 
         #endregion

@@ -4,9 +4,10 @@ VisualElement {
 .HealthBar {
     margin-right: 0;
     left: auto;
-    top: 20%;
+    top: auto;
     margin-top: 10px;
     margin-left: 20px;
+    flex-grow: 1;
 }
 
 .HealthBar .unity-progress-bar__container {

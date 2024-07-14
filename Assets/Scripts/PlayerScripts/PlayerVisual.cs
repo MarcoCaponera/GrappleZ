@@ -8,15 +8,20 @@ namespace GrappleZ_Player
     {
         #region References
 
+        //[SerializeField]
+        //protected MeshFilter playerMeshFilter;
         [SerializeField]
-        protected MeshFilter playerMeshFilter;
-        [SerializeField]
-        protected MeshRenderer playerMainRenderer;
+        protected SkinnedMeshRenderer playerMainRenderer;
         [SerializeField]
         protected Animator playerAnimator;
 
         #endregion
 
+
+        private void Awake()
+        {
+            playerAnimator = GetComponent<Animator>();
+        }
         #region AnimatorMethods
 
         //centralize animator management
@@ -47,7 +52,7 @@ namespace GrappleZ_Player
 
         public void SetMesh(Mesh mesh)
         {
-            playerMeshFilter.mesh = mesh;
+            //playerMeshFilter.mesh = mesh;
         }
 
         #endregion

@@ -11,6 +11,11 @@ namespace GrappleZ_Player
 
     public class PlayerShoot : PlayerAbilityBase
     {
+        private const string isShootingAnimatorString = "IsAttacking";
+        private const string startShootAnimatorString = "Attack";        
+        private const string isReloadingAnimatorString = "IsReloading";
+        private const string startReloadAnimatorString = "Reload";
+
         #region Mono
 
         protected void OnEnable()
@@ -18,15 +23,48 @@ namespace GrappleZ_Player
             InputManager.ManageShootSubscription(OnShootInputPerformed, true);
             InputManager.ManageWeaponSwapSubscription(OnWeaponSwapInputPerformed, true);
             InputManager.ManageReloadSubscription(OnReloadInputPerformed, true);
+            weaponInventory.OnReload += OnWeaponReload;
         }
-
         protected void OnDisable()
         {
             InputManager.ManageShootSubscription(OnShootInputPerformed, false);
             InputManager.ManageWeaponSwapSubscription(OnWeaponSwapInputPerformed, false);
             InputManager.ManageReloadSubscription(OnReloadInputPerformed, false);
+            weaponInventory.OnReload -= OnWeaponReload;
         }
 
+        #endregion
+
+        #region VisualControl
+        private void StartShootAnimation()
+        {
+            if (CanShoot())
+            {
+                playerVisual.SetAnimatorParameter(startShootAnimatorString);
+                playerVisual.SetAnimatorParamerer(isShootingAnimatorString, true);
+
+            }
+
+        }
+
+        private void StartReloadAnimation()
+        {
+            playerVisual.SetAnimatorParameter(startReloadAnimatorString);
+            playerVisual.SetAnimatorParamerer(isReloadingAnimatorString, true);
+
+        }
+
+        private void StopShootAnimation()
+        {
+            playerVisual.SetAnimatorParamerer(isShootingAnimatorString, false);
+
+        }
+
+        private void StopReloadAnimation()
+        {
+            playerVisual.SetAnimatorParamerer(isReloadingAnimatorString, false);
+
+        }
         #endregion
 
         #region SerializeField
@@ -40,6 +78,7 @@ namespace GrappleZ_Player
         public override void OnInputDisabled()
         {
             isPrevented = true;
+            StopAbility();
         }
 
         public override void OnInputEnabled()
@@ -49,7 +88,7 @@ namespace GrappleZ_Player
 
         public override void StopAbility()
         {
-            
+            StopShootAnimation();
         }
         #endregion
 
@@ -59,6 +98,8 @@ namespace GrappleZ_Player
         {
             if (!CanShoot()) return;
             playerController.AddRigidBodyForce(weaponInventory.ShootActiveWeapon(), ForceMode.Impulse);
+
+            StartShootAnimation();
         }
 
         private void OnWeaponSwapInputPerformed(InputAction.CallbackContext action)
@@ -71,6 +112,13 @@ namespace GrappleZ_Player
         {
             if (!CanShoot()) return;
             weaponInventory.ReloadActiveWeapon();
+
+            StartReloadAnimation();
+        }
+
+        private void OnWeaponReload()
+        {
+            StartReloadAnimation();
         }
 
         #endregion
@@ -79,7 +127,7 @@ namespace GrappleZ_Player
 
         protected bool CanShoot()
         {
-            return !isPrevented;
+            return !isPrevented && !weaponInventory.IsRealoading;
         }
 
         #endregion

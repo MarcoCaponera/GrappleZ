@@ -96,6 +96,12 @@ public enum GlobalEventIndex {
     StartDialogue,
     DialoguePerformed,
     ShakeCamera,
-    PlayerEnergyUpdated
+    PlayerEnergyUpdated,
+    ScoreIncreased,
+    WaveStarted,
+    WaveEnded,
+    GamePaused,
+    GameResumed,
+    GameEnded
 }
 

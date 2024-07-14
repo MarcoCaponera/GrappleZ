@@ -1,29 +1,32 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class UI_Health : MonoBehaviour
+namespace GrappleZ_UI
 {
-    private ProgressBar healthBar;
-
-    private void Awake()
+    public class UI_Health : MonoBehaviour
     {
-        healthBar = GetComponent<UIDocument>().rootVisualElement.Q<ProgressBar>("HealthBar");
-    }
+        private ProgressBar healthBar;
 
-    private void OnEnable()
-    {
-        GlobalEventManager.AddListener(GlobalEventIndex.PlayerHealthUpdated, OnPlayerHealthUpdated);
+        private void Awake()
+        {
+            healthBar = GetComponent<UIDocument>().rootVisualElement.Q<ProgressBar>("HealthBar");
+        }
 
-    }
+        private void OnEnable()
+        {
+            GlobalEventManager.AddListener(GlobalEventIndex.PlayerHealthUpdated, OnPlayerHealthUpdated);
 
-    private void OnDisable()
-    {
-        GlobalEventManager.RemoveListener(GlobalEventIndex.PlayerHealthUpdated, OnPlayerHealthUpdated);
-    }
+        }
 
-    private void OnPlayerHealthUpdated(GlobalEventArgs message)
-    {
-        GlobalEventArgsFactory.PlayerHealthUpdatedParser(message, out float maxHp, out float currentHp);
-        healthBar.value = currentHp / maxHp;
+        private void OnDisable()
+        {
+            GlobalEventManager.RemoveListener(GlobalEventIndex.PlayerHealthUpdated, OnPlayerHealthUpdated);
+        }
+
+        private void OnPlayerHealthUpdated(GlobalEventArgs message)
+        {
+            GlobalEventArgsFactory.PlayerHealthUpdatedParser(message, out float maxHp, out float currentHp);
+            healthBar.value = currentHp / maxHp;
+        }
     }
 }

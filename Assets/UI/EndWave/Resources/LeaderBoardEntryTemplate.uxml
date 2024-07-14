@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/EndWave/Resources/LeaderBoardUSS.uss?fileID=7433441132597879392&amp;guid=300719c6a3c334842852df611027bd7f&amp;type=3#LeaderBoardUSS" />
+    <ui:VisualElement name="EntryContainer" style="flex-grow: 1; flex-direction: row;">
+        <ui:Label tabindex="-1" text="postion" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PositionLabel" class="Leaderboard-entry Position-Container" style="flex-basis: auto;" />
+        <ui:Label tabindex="-1" text="Score" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ScoreLabel" class="Leaderboard-entry Score-Container" style="flex-grow: 1; flex-shrink: 1;" />
+        <ui:Label tabindex="-1" text="Time" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TimeLabel" class="Leaderboard-entry Time-Container" style="flex-grow: 1; flex-shrink: 1;" />
+    </ui:VisualElement>
+</ui:UXML>

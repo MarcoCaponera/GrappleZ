@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using GrappleZ_Utility;
+using UnityEngine.SocialPlatforms.Impl;
 
 
 public static class GlobalEventArgsFactory {
@@ -18,6 +20,12 @@ public static class GlobalEventArgsFactory {
         methodDebugString.Add(GlobalEventIndex.DialoguePerformed, new EventDebug(DialoguePerformedDebug));
         methodDebugString.Add(GlobalEventIndex.ShakeCamera, new EventDebug(ShakeCameraDebug));
         methodDebugString.Add(GlobalEventIndex.PlayerEnergyUpdated, new EventDebug(PlayerEnergyUpdatedDebug));
+        methodDebugString.Add(GlobalEventIndex.WaveStarted, new EventDebug(WaveStartedDebug));
+        methodDebugString.Add(GlobalEventIndex.WaveEnded, new EventDebug(WaveEndedDebug));
+        methodDebugString.Add(GlobalEventIndex.ScoreIncreased, new EventDebug(ScoreIncreaseDebug));
+        methodDebugString.Add(GlobalEventIndex.GamePaused, new EventDebug(GamePausedDebug));
+        methodDebugString.Add(GlobalEventIndex.GameResumed, new EventDebug(GameResumedDebug));
+        methodDebugString.Add(GlobalEventIndex.GameEnded, new EventDebug(GameEndedDebug));
     }
 
     public static string GetDebugString(GlobalEventIndex eventType, GlobalEventArgs message) {
@@ -38,28 +46,28 @@ public static class GlobalEventArgsFactory {
         lockValue = (bool)message.args[0].GetValue();
     }
 
-    public static string LockPlayerDebug (GlobalEventArgs message) {
+    public static string LockPlayerDebug(GlobalEventArgs message) {
         return " lock value: " + (bool)message.args[0].GetValue();
     }
     #endregion
 
     #region PlayerDeath
-    public static GlobalEventArgs PlayerDeathFactory () {
+    public static GlobalEventArgs PlayerDeathFactory() {
         GlobalEventArgs message = new GlobalEventArgs();
         return message;
     }
 
-    public static void PlayerDeathParser (GlobalEventArgs message) {
+    public static void PlayerDeathParser(GlobalEventArgs message) {
 
     }
 
-    public static string PlayerDeathDebug (GlobalEventArgs message) {
+    public static string PlayerDeathDebug(GlobalEventArgs message) {
         return string.Empty;
     }
     #endregion
 
     #region PlayerHealthUpdated
-    public static GlobalEventArgs PlayerHealthUpdatedFactory (float maxHP, float currentHP) {
+    public static GlobalEventArgs PlayerHealthUpdatedFactory(float maxHP, float currentHP) {
         GlobalEventArgs message = new GlobalEventArgs();
         message.args = new ExtendedVariable[2];
         message.args[0] = new ExtendedVariable("MaxHP", ExtendedVariableType.Float, maxHP);
@@ -67,30 +75,30 @@ public static class GlobalEventArgsFactory {
         return message;
     }
 
-    public static void PlayerHealthUpdatedParser (GlobalEventArgs message, out float maxHP, out float currentHP) {
+    public static void PlayerHealthUpdatedParser(GlobalEventArgs message, out float maxHP, out float currentHP) {
         maxHP = (float)message.args[0].GetValue();
         currentHP = (float)message.args[1].GetValue();
     }
 
-    public static string PlayerHealthUpdatedDebug (GlobalEventArgs message) {
-        return " maxHP: " + message.args[0].GetValue().ToString() + " currentHP: " + 
+    public static string PlayerHealthUpdatedDebug(GlobalEventArgs message) {
+        return " maxHP: " + message.args[0].GetValue().ToString() + " currentHP: " +
             message.args[1].GetValue().ToString();
     }
     #endregion
 
     #region StartDialogue
-    public static GlobalEventArgs StartDialogueFactory (uint dialogueID) {
+    public static GlobalEventArgs StartDialogueFactory(uint dialogueID) {
         GlobalEventArgs message = new GlobalEventArgs();
         message.args = new ExtendedVariable[1];
         message.args[0] = new ExtendedVariable("DialogueID", ExtendedVariableType.UInt, dialogueID);
         return message;
     }
 
-    public static void StartDialogueParser (GlobalEventArgs message, out uint dialogueID) {
+    public static void StartDialogueParser(GlobalEventArgs message, out uint dialogueID) {
         dialogueID = (uint)message.args[0].GetValue();
     }
 
-    public static string StartDialogueDebug (GlobalEventArgs message) {
+    public static string StartDialogueDebug(GlobalEventArgs message) {
         return " with dialogueID: " + message.args[0].GetValue().ToString();
     }
 
@@ -115,7 +123,7 @@ public static class GlobalEventArgsFactory {
     #endregion
 
     #region ShakeCamera
-    public static GlobalEventArgs ShakeCameraFactory(float amplitude, float frequency, 
+    public static GlobalEventArgs ShakeCameraFactory(float amplitude, float frequency,
         float duration) {
         GlobalEventArgs message = new GlobalEventArgs();
         message.args = new ExtendedVariable[3];
@@ -125,7 +133,7 @@ public static class GlobalEventArgsFactory {
         return message;
     }
 
-    public static void ShakeCameraParser(GlobalEventArgs message, out float amplitude, 
+    public static void ShakeCameraParser(GlobalEventArgs message, out float amplitude,
         out float frequency, out float duration) {
         amplitude = (float)message.args[0].GetValue();
         frequency = (float)message.args[1].GetValue();
@@ -159,4 +167,124 @@ public static class GlobalEventArgsFactory {
     }
     #endregion
 
+    #region WaveStarted
+
+    public static GlobalEventArgs WaveStartedFactory()
+    {
+        GlobalEventArgs message = new GlobalEventArgs();
+        return message;
+    }
+
+    public static void WaveStartedParser(GlobalEventArgs message)
+    {
+    }
+
+    public static string WaveStartedDebug(GlobalEventArgs message)
+    {
+        return "wave started";
+    }
+
+    #endregion
+
+    #region WaveEnded
+
+    public static GlobalEventArgs WaveEndedFactory(WaveEnum EndedWave)
+    {
+        GlobalEventArgs message = new GlobalEventArgs();
+        message.args = new ExtendedVariable[1];
+        message.args[0] = new ExtendedVariable("EndedWave", ExtendedVariableType.Int, (int)EndedWave);
+        return message;
+    }
+
+    public static void WaveEndedParser(GlobalEventArgs message, out WaveEnum EndedWave)
+    {
+        EndedWave = (WaveEnum)message.args[0].GetValue();
+    }
+
+    public static string WaveEndedDebug(GlobalEventArgs message)
+    {
+        return "wave ended";
+    }
+
+    #endregion
+
+    #region ScoreIncrease
+
+    public static GlobalEventArgs ScoreIncreaseFactory(float score)
+    {
+        GlobalEventArgs message = new GlobalEventArgs();
+        message.args = new ExtendedVariable[1];
+        message.args[0] = new ExtendedVariable("Score", ExtendedVariableType.Float, score);
+        return message;
+    }
+
+    public static void ScoreIncreaseParser(GlobalEventArgs message, out float score)
+    {
+        score = (float)message.args[0].GetValue();
+    }
+
+    public static string ScoreIncreaseDebug(GlobalEventArgs message)
+    {
+        return "Score increased with: " + message.args[0].GetValue().ToString();
+    }
+
+    #endregion
+
+    #region GamePaused
+
+    public static GlobalEventArgs GamePausedFactory()
+    {
+        GlobalEventArgs message = new GlobalEventArgs();
+        return message;
+    }
+
+    public static void GamePausedParser(GlobalEventArgs message)
+    {
+    }
+
+    public static string GamePausedDebug(GlobalEventArgs message)
+    {
+        return "Game Paused ";
+    }
+
+    #endregion
+
+    #region GameResumed
+
+    public static GlobalEventArgs GameResumedFactory()
+    {
+        GlobalEventArgs message = new GlobalEventArgs();
+        return message;
+    }
+
+    public static void GameResumedParser(GlobalEventArgs message)
+    {
+    }
+
+    public static string GameResumedDebug(GlobalEventArgs message)
+    {
+        return "Game Resumed ";
+    }
+
+    #endregion
+
+    #region GameEnded
+
+    public static GlobalEventArgs GameEndedFactory()
+    {
+        GlobalEventArgs message = new GlobalEventArgs();
+        return message;
+    }
+
+    public static void GameEndedParser(GlobalEventArgs message)
+    {
+
+    }
+
+    public static string GameEndedDebug(GlobalEventArgs message)
+    {
+        return "Game Ended";
+    }
+
+    #endregion
 }

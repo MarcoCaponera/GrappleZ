@@ -1,0 +1,87 @@
+.Leaderboard-header {
+    align-self: auto;
+    font-size: 10px;
+    border-left-color: rgb(56, 56, 56);
+    border-right-color: rgba(56, 56, 56, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgb(56, 56, 56);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    justify-content: flex-start;
+    align-items: auto;
+    -unity-text-align: middle-left;
+    -unity-font-style: bold-and-italic;
+}
+
+.Leaderboard-entry {
+    align-self: auto;
+    font-size: 10px;
+    border-left-color: rgb(56, 56, 56);
+    border-right-color: rgba(56, 56, 56, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgb(56, 56, 56);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    justify-content: flex-start;
+    align-items: auto;
+    -unity-text-align: middle-left;
+    -unity-font-style: normal;
+}
+
+.Time-Container {
+    flex-basis: 45%;
+    flex-grow: 1;
+    margin-top: 4px;
+    margin-right: 4px;
+    margin-bottom: 2px;
+    margin-left: 2px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    width: 45px;
+}
+
+.Score-Container {
+    flex-basis: 45%;
+    flex-grow: 1;
+    margin-top: 4px;
+    margin-right: 4px;
+    margin-bottom: 2px;
+    margin-left: 2px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    width: 45%;
+}
+
+.Position-Container {
+    flex-basis: 10%;
+    flex-grow: 1;
+    margin-top: 4px;
+    margin-right: 4px;
+    margin-bottom: 2px;
+    margin-left: 2px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    max-width: none;
+    width: 10%;
+    height: auto;
+}

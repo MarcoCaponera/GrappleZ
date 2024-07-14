@@ -7,6 +7,11 @@ namespace GrappleZ_Player
 {
     public class PlayerController : MonoBehaviour
     {
+        private const string horizontalFloatAnimatorParameter = "HorizontalVelocity";
+        private const string deathTriggerAnimatorParameter = "Death";
+        private const string isDeadAnimatorParameter = "PlayerDead";
+
+
         #region SerializeFields
 
         [SerializeField]
@@ -19,6 +24,7 @@ namespace GrappleZ_Player
         protected Transform cameraTransform;
         [SerializeField]
         protected PlayerVisual playerVisual;
+
 
         #endregion
 
@@ -137,11 +143,15 @@ namespace GrappleZ_Player
 
         #endregion
 
+
+
         #region Mono
 
         private void Awake()
         {
+
             abilities = GetComponentsInChildren<PlayerAbilityBase>();
+
             foreach(var ability in abilities)
             {
                 ability.Init(this, playerVisual);
@@ -150,6 +160,17 @@ namespace GrappleZ_Player
 #if DEBUG
             InitDebugEvents();
 #endif
+        }
+
+        private void Start()
+        {
+            
+        }
+
+        private void FixedUpdate()
+        {
+            playerVisual.SetAnimatorParameter(horizontalFloatAnimatorParameter,
+                Mathf.Abs(playerRigidBody.velocity.x));
         }
 
         #endregion
@@ -220,21 +241,24 @@ namespace GrappleZ_Player
             set
             {
                 isDead = value;
-                //playerVisual.SetAnimatorParameter(isDeadAnimatorParameter, value); TO ADD ANIMATIONS
+                //playerVisual.SetAnimatorParamerer(isDeadAnimatorParameter, value);
             }
         }
         #endregion
+
+
 
         #region DebugMethods
 
         //to implement
         private void InitDebugEvents()
         {
-            OnGroundLanded += () => { Debug.Log("OnGroundLanded"); };
-            OnGroundReleased += () => { Debug.Log("OnGroundReleased"); };
-            OnWalkStarted += () => { Debug.Log("OnWalkStarted"); };
-            OnWalkEnded += () => { Debug.Log("OnWalkEnded"); };
-            OnCameraRotated += () => { Debug.Log("OnCameraRotated (X " + HorizontalRotation + ": Y " + VerticalCameraRotation); };
+
+            //OnGroundLanded += () => { Debug.Log("OnGroundLanded"); };
+            //OnGroundReleased += () => { Debug.Log("OnGroundReleased"); };
+            //OnWalkStarted += () => { Debug.Log("OnWalkStarted"); };
+            //OnWalkEnded += () => { Debug.Log("OnWalkEnded"); };
+            //OnCameraRotated += () => { Debug.Log("OnCameraRotated (X " + HorizontalRotation + ": Y " + VerticalCameraRotation); };
         }
 
         #endregion

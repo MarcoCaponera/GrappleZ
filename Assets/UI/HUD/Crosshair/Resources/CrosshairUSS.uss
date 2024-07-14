@@ -2,15 +2,18 @@
     background-image: resource('6444840');
     background-color: rgba(0, 0, 0, 0);
     scale: 1 1;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
     flex-grow: 1;
-    left: auto;
+    left: 50%;
     transform-origin: center;
-    top: auto;
+    top: 50%;
     bottom: auto;
     width: 1919px;
     height: 777px;
+    align-self: auto;
+    align-items: auto;
+    justify-content: center;
 }

@@ -6,10 +6,12 @@ using GrappleZ_Utility;
 using UnityEngine.InputSystem;
 using System.Runtime.CompilerServices;
 
-namespace Grapple_Player
+namespace GrappleZ_Player
 {
     public class PlayerHook : PlayerAbilityBase
     {
+        private const string isHookingAnimatorString = "IsJumping";
+        private const string startHookAnimatorString = "Jump";
         private const float angleThreshold = 90;
 
         #region SerializeFields
@@ -77,6 +79,9 @@ namespace Grapple_Player
             playerController.OnHookReleased?.Invoke();
             playerController.IsHooking = false;
             hookState = HookState.None;
+
+            playerVisual.SetAnimatorParamerer(isHookingAnimatorString, false);
+
         }
 
         public override void Init(PlayerController playerController, PlayerVisual playerVisual)
@@ -114,6 +119,8 @@ namespace Grapple_Player
         protected void StartHook()
         {
             hookCoroutine = StartCoroutine(HookCoroutine());
+            playerVisual.SetAnimatorParameter(startHookAnimatorString);
+            playerVisual.SetAnimatorParamerer(isHookingAnimatorString, true);
         }
 
         protected void CalculateNewVelocity(Vector3 pullPoint)

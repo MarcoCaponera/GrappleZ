@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6491927502540759779}
   - component: {fileID: 7138731234858623477}
   - component: {fileID: 3250194419233670048}
+  - component: {fileID: 7218126364089288669}
+  - component: {fileID: 6857367147193792324}
   m_Layer: 0
   m_Name: HUD
   m_TagString: Untagged
@@ -48,7 +50,7 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: 37a646d670a4e724081021cee5cd0dc7, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 693d855fafdfcd54ebe7688715e556e9, type: 3}
-  m_SortingOrder: 0
+  m_SortingOrder: 1
 --- !u!114 &3250194419233670048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,5 +61,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba4cba19a19818946b7e91db0d269f7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7218126364089288669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4506848878041403524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e16f3294bde8f5841a32462cb389aef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6857367147193792324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4506848878041403524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a2abc6c32c61aa43b66d67c5dcb7f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

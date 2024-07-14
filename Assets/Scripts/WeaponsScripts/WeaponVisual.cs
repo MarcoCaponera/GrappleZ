@@ -17,6 +17,16 @@ namespace GrappleZ_Weapons
         [SerializeField]
         private Animator animator;
 
+        [SerializeField]
+        private MeshRenderer muzzleFlashRenderer;
+
+        #endregion
+
+        #region PrivateAtt
+
+        private float muzzleFlashDuration = 0.1f;
+        private Coroutine muzzleFlashCoroutine;
+
         #endregion
 
         #region AnimatorMethods
@@ -48,6 +58,23 @@ namespace GrappleZ_Weapons
         public void SetRendererActive(bool value)
         {
             meshRenderer.enabled = value;
+        }
+
+        public void SetMuzzleFlashActive(bool value)
+        {
+            muzzleFlashRenderer.enabled = value;
+            StartCoroutine(MuzzleFlashCoroutine());
+        }
+
+        #endregion
+
+        #region Coroutine
+
+        protected IEnumerator MuzzleFlashCoroutine()
+        {
+            yield return new WaitForSeconds(muzzleFlashDuration);
+            SetMuzzleFlashActive(false);
+            StopCoroutine(MuzzleFlashCoroutine());
         }
 
         #endregion

@@ -1,20 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Pool;
-
-public class EnemyWalker : EnemyFirst
+namespace GrappleZ_Enemy
 {
-    ///ENEMY-POOL///
-    private IObjectPool<EnemyWalker> enemyPool;
+    public class EnemyWalker : EnemyFirst
+    {
 
-    public void SetPool(IObjectPool<EnemyWalker> enemyPool)
-    {
-        this.enemyPool = enemyPool;
-    }
-    protected override void Die()
-    {
-        base.Die();
-        enemyPool.Release(this);
     }
 }
