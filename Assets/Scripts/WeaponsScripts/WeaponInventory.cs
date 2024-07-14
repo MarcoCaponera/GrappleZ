@@ -47,6 +47,7 @@ namespace GrappleZ_Weapons
             activeWeapon = 0;
             GlobalEventManager.AddListener(GlobalEventIndex.WaveEnded, OnWaveEnded);
             GlobalEventManager.AddListener(GlobalEventIndex.PlayerDeath, OnPlayerDeath);
+            GlobalEventManager.AddListener(GlobalEventIndex.GameEnded, OnGameEnded);
         }
 
         #endregion
@@ -100,6 +101,25 @@ namespace GrappleZ_Weapons
 
         #endregion
 
+        #region PrivateMethods
+
+        private void ResetInventory()
+        {
+            foreach (WeaponComponent weapon in weapons)
+            {
+                if (weapon.Type != WeaponType.Pistol)
+                {
+                    weapon.enabled = false;
+                }
+                if (weapons[activeWeapon].enabled == false)
+                {
+                    ChangeWeapon();
+                }
+            }
+        }
+
+        #endregion
+
         #region WrapperMethods
 
         public GameObject[] GetBullets(BulletData data, int count)
@@ -130,17 +150,12 @@ namespace GrappleZ_Weapons
 
         private void OnPlayerDeath(GlobalEventArgs arg0)
         {
-            foreach (WeaponComponent weapon in weapons)
-            {
-                if (weapon.Type != WeaponType.Pistol)
-                {
-                    weapon.enabled = false;
-                }
-                if (weapons[activeWeapon].enabled == false)
-                {
-                    ChangeWeapon();
-                }
-            }
+            ResetInventory();
+        }
+
+        private void OnGameEnded(GlobalEventArgs args)
+        {
+            ResetInventory();
         }
 
         #endregion

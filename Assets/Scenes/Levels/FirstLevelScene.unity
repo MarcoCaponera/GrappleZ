@@ -12607,11 +12607,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6740107299060490096, guid: 3f31e03cf2b42824d9fe3d342eb19fa9, type: 3}
       propertyPath: Waves.Array.data[0].SpawnInterval
-      value: 3
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6740107299060490096, guid: 3f31e03cf2b42824d9fe3d342eb19fa9, type: 3}
       propertyPath: Waves.Array.data[1].SpawnInterval
-      value: 3
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6740107299060490096, guid: 3f31e03cf2b42824d9fe3d342eb19fa9, type: 3}
       propertyPath: Waves.Array.data[0].TotalEnemiesInWave
