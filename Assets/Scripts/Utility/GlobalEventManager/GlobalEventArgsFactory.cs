@@ -25,6 +25,7 @@ public static class GlobalEventArgsFactory {
         methodDebugString.Add(GlobalEventIndex.ScoreIncreased, new EventDebug(ScoreIncreaseDebug));
         methodDebugString.Add(GlobalEventIndex.GamePaused, new EventDebug(GamePausedDebug));
         methodDebugString.Add(GlobalEventIndex.GameResumed, new EventDebug(GameResumedDebug));
+        methodDebugString.Add(GlobalEventIndex.GameEnded, new EventDebug(GameEndedDebug));
     }
 
     public static string GetDebugString(GlobalEventIndex eventType, GlobalEventArgs message) {
@@ -45,28 +46,28 @@ public static class GlobalEventArgsFactory {
         lockValue = (bool)message.args[0].GetValue();
     }
 
-    public static string LockPlayerDebug (GlobalEventArgs message) {
+    public static string LockPlayerDebug(GlobalEventArgs message) {
         return " lock value: " + (bool)message.args[0].GetValue();
     }
     #endregion
 
     #region PlayerDeath
-    public static GlobalEventArgs PlayerDeathFactory () {
+    public static GlobalEventArgs PlayerDeathFactory() {
         GlobalEventArgs message = new GlobalEventArgs();
         return message;
     }
 
-    public static void PlayerDeathParser (GlobalEventArgs message) {
+    public static void PlayerDeathParser(GlobalEventArgs message) {
 
     }
 
-    public static string PlayerDeathDebug (GlobalEventArgs message) {
+    public static string PlayerDeathDebug(GlobalEventArgs message) {
         return string.Empty;
     }
     #endregion
 
     #region PlayerHealthUpdated
-    public static GlobalEventArgs PlayerHealthUpdatedFactory (float maxHP, float currentHP) {
+    public static GlobalEventArgs PlayerHealthUpdatedFactory(float maxHP, float currentHP) {
         GlobalEventArgs message = new GlobalEventArgs();
         message.args = new ExtendedVariable[2];
         message.args[0] = new ExtendedVariable("MaxHP", ExtendedVariableType.Float, maxHP);
@@ -74,30 +75,30 @@ public static class GlobalEventArgsFactory {
         return message;
     }
 
-    public static void PlayerHealthUpdatedParser (GlobalEventArgs message, out float maxHP, out float currentHP) {
+    public static void PlayerHealthUpdatedParser(GlobalEventArgs message, out float maxHP, out float currentHP) {
         maxHP = (float)message.args[0].GetValue();
         currentHP = (float)message.args[1].GetValue();
     }
 
-    public static string PlayerHealthUpdatedDebug (GlobalEventArgs message) {
-        return " maxHP: " + message.args[0].GetValue().ToString() + " currentHP: " + 
+    public static string PlayerHealthUpdatedDebug(GlobalEventArgs message) {
+        return " maxHP: " + message.args[0].GetValue().ToString() + " currentHP: " +
             message.args[1].GetValue().ToString();
     }
     #endregion
 
     #region StartDialogue
-    public static GlobalEventArgs StartDialogueFactory (uint dialogueID) {
+    public static GlobalEventArgs StartDialogueFactory(uint dialogueID) {
         GlobalEventArgs message = new GlobalEventArgs();
         message.args = new ExtendedVariable[1];
         message.args[0] = new ExtendedVariable("DialogueID", ExtendedVariableType.UInt, dialogueID);
         return message;
     }
 
-    public static void StartDialogueParser (GlobalEventArgs message, out uint dialogueID) {
+    public static void StartDialogueParser(GlobalEventArgs message, out uint dialogueID) {
         dialogueID = (uint)message.args[0].GetValue();
     }
 
-    public static string StartDialogueDebug (GlobalEventArgs message) {
+    public static string StartDialogueDebug(GlobalEventArgs message) {
         return " with dialogueID: " + message.args[0].GetValue().ToString();
     }
 
@@ -122,7 +123,7 @@ public static class GlobalEventArgsFactory {
     #endregion
 
     #region ShakeCamera
-    public static GlobalEventArgs ShakeCameraFactory(float amplitude, float frequency, 
+    public static GlobalEventArgs ShakeCameraFactory(float amplitude, float frequency,
         float duration) {
         GlobalEventArgs message = new GlobalEventArgs();
         message.args = new ExtendedVariable[3];
@@ -132,7 +133,7 @@ public static class GlobalEventArgsFactory {
         return message;
     }
 
-    public static void ShakeCameraParser(GlobalEventArgs message, out float amplitude, 
+    public static void ShakeCameraParser(GlobalEventArgs message, out float amplitude,
         out float frequency, out float duration) {
         amplitude = (float)message.args[0].GetValue();
         frequency = (float)message.args[1].GetValue();
@@ -195,7 +196,7 @@ public static class GlobalEventArgsFactory {
         return message;
     }
 
-    public static void WaveEndedParser(GlobalEventArgs message,out WaveEnum EndedWave)
+    public static void WaveEndedParser(GlobalEventArgs message, out WaveEnum EndedWave)
     {
         EndedWave = (WaveEnum)message.args[0].GetValue();
     }
@@ -263,6 +264,26 @@ public static class GlobalEventArgsFactory {
     public static string GameResumedDebug(GlobalEventArgs message)
     {
         return "Game Resumed ";
+    }
+
+    #endregion
+
+    #region GameEnded
+
+    public static GlobalEventArgs GameEndedFactory()
+    {
+        GlobalEventArgs message = new GlobalEventArgs();
+        return message;
+    }
+
+    public static void GameEndedParser(GlobalEventArgs message)
+    {
+
+    }
+
+    public static string GameEndedDebug(GlobalEventArgs message)
+    {
+        return "Game Ended";
     }
 
     #endregion

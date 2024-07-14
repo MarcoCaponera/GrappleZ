@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Root" style="flex-grow: 1; display: flex; visibility: hidden; -unity-background-image-tint-color: rgb(176, 176, 176); background-color: rgb(173, 173, 173);">
+        <ui:VisualElement name="Top" style="flex-grow: 1; align-self: auto; justify-content: center; flex-shrink: 0;">
+            <ui:Label tabindex="-1" text="Congratulations!&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-grow: 1; justify-content: space-around; align-items: stretch; align-self: center; flex-direction: column; position: absolute; font-size: 60px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Bot" style="flex-grow: 1; flex-shrink: 0; align-self: stretch; position: relative; justify-content: center; align-items: auto;">
+            <ui:Button text="Back To Menu&#10;" parse-escape-sequences="true" display-tooltip-when-elided="false" name="MenuButton" style="align-self: center; top: auto;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

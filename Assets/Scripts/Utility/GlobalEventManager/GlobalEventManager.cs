@@ -102,5 +102,6 @@ public enum GlobalEventIndex {
     WaveEnded,
     GamePaused,
     GameResumed,
+    GameEnded
 }
 

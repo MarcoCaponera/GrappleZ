@@ -145,7 +145,7 @@ namespace GrappleZ_Enemy
             }
             else
             {
-                Debug.Log("All waves completed");
+                GlobalEventManager.CastEvent(GlobalEventIndex.GameEnded, GlobalEventArgsFactory.GameEndedFactory());
             }
         }
         private void CheckForWaveEnded()

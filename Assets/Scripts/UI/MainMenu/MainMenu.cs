@@ -1,4 +1,5 @@
 using GrappleZ_SaveSystem;
+using GrappleZ_Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -77,6 +78,7 @@ namespace GrappleZ_UI
         private void StartClickedCallback()
         {
             if (changeSceneCoroutine != null) return;
+            InputManager.EnablePlayerMap(true);
             changeSceneCoroutine = StartCoroutine(ChangeSceneCoroutine());
         }
 
