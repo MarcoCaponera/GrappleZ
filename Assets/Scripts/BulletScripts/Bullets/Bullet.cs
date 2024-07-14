@@ -5,8 +5,6 @@ using UnityEngine.Pool;
 
 public class Bullet : MonoBehaviour
 {
-    //Bullet Script to move
-
      private float damage;
      private IObjectPool<GameObject> pool;
 
@@ -16,23 +14,20 @@ public class Bullet : MonoBehaviour
          pool = objectPool;
      }
 
-     private void OnCollisionEnter(Collision collision)
-     {
-         //if (collision.collider.CompareTag("Player"))
-         //{
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            IDamageble damageble = other.GetComponent<IDamageble>();
 
-             IDamageble damageble = collision.gameObject.GetComponent<IDamageble>();
+            if (damageble != null)
+            {
+                DamageContainer damageContainer = new DamageContainer();
+                damageContainer.Damage = damage;
+                damageble.TakeDamage(damageContainer);
+            }
 
-             if (damageble != null)
-             {
-                 DamageContainer damageContainer = new DamageContainer();
-                 damageContainer.Damage = damage;
-                 damageble.TakeDamage(damageContainer);
-             }
-
-             //Return the projectile to the pool instead of destroying it
-             pool.Release(gameObject);
-        // }
-     }
-    
+            pool.Release(gameObject);
+        }
+    }    
 }
